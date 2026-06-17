@@ -1,188 +1,153 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl" data-theme="light">
+<html lang="fa" dir="rtl" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Internet Access Hub — داشبورد وضعیت کانفیگ‌های اینترنت">
-  <meta name="theme-color" content="#6366f1">
-  <title>Internet Access Hub — داشبورد کانفیگ‌ها</title>
+  <meta name="description" content="ایران پروکسی — کانفیگ‌های رایگان V2Ray، پروکسی تلگرام و VPN">
+  <meta name="theme-color" content="#1a1a2e">
+  <title>ایران پروکسی | IranProxy</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- ═══ هدر ═══ -->
+  <!-- هدر -->
   <header class="header">
-    <div class="container">
-      <div class="header-content">
-        <div class="header-brand">
-          <div class="logo">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-            </svg>
-          </div>
-          <div>
-            <h1>Internet Access Hub</h1>
-            <p class="subtitle">داشبورد زنده وضعیت کانفیگ‌های اینترنت</p>
-          </div>
+    <div class="glass-panel header-inner">
+      <div class="header-brand">
+        <div class="logo">
+          <svg viewBox="0 0 40 40" fill="none">
+            <rect width="40" height="40" rx="10" fill="url(#lg)"/>
+            <defs><linearGradient id="lg" x1="0" y1="0" x2="40" y2="40">
+              <stop offset="0%" stop-color="#60a5fa"/>
+              <stop offset="100%" stop-color="#a78bfa"/>
+            </linearGradient></defs>
+            <text x="20" y="27" text-anchor="middle" fill="white" font-size="16" font-weight="900" font-family="Arial">IP</text>
+          </svg>
         </div>
-        <div class="header-actions">
-          <span class="status-pill" id="liveStatus">
-            <span class="pulse"></span>
-            <span id="liveText">زنده</span>
-          </span>
-          <span class="update-info" id="updateInfo">—</span>
-          <button class="btn-icon" id="themeToggle" title="تغییر تم" aria-label="تغییر تم">
-            <span id="themeIcon">🌙</span>
-          </button>
+        <div>
+          <h1>ایران پروکسی</h1>
+          <p class="tagline">کانفیگ رایگان · بروزرسانی خودکار هر ۳۰ دقیقه</p>
         </div>
+      </div>
+      <div class="header-actions">
+        <div class="live-dot">
+          <span class="dot-ping"></span>
+          <span class="dot-core"></span>
+        </div>
+        <span class="update-time" id="updateTime">—</span>
+        <button class="theme-btn glass-btn" id="themeBtn" title="تغییر تم">
+          <span id="themeIcon">☀️</span>
+        </button>
       </div>
     </div>
   </header>
 
-  <!-- ═══ محتوای اصلی ═══ -->
-  <main class="container main">
+  <main class="container">
 
-    <!-- بارگذاری -->
-    <div class="loading" id="loading">
-      <div class="spinner"></div>
-      <p>در حال بارگذاری داده‌ها...</p>
+    <!-- لودینگ -->
+    <div id="loading" class="loading">
+      <div class="loader"></div>
+      <p>در حال بارگذاری...</p>
     </div>
 
     <!-- خطا -->
-    <div class="error-state hidden" id="errorState">
-      <div class="error-icon">⚠️</div>
-      <h2>خطا در بارگذاری</h2>
-      <p id="errorMessage">—</p>
-      <button class="btn btn-primary" onclick="location.reload()">تلاش مجدد</button>
+    <div id="errorBox" class="error-box hidden">
+      <p>⚠️ <span id="errorMsg">خطا</span></p>
+      <button onclick="location.reload()" class="glass-btn">تلاش مجدد</button>
     </div>
 
     <!-- داشبورد -->
-    <div id="dashboard" class="hidden">
+    <div id="app" class="hidden">
 
-      <!-- کارت‌های آماری -->
-      <section class="stats-grid">
-        <div class="stat-card" data-type="total">
-          <div class="stat-icon">📊</div>
-          <div class="stat-value" id="statTotal">—</div>
-          <div class="stat-label">کل کانفیگ‌ها</div>
+      <!-- آمار -->
+      <section class="stats-row">
+        <div class="stat glass-card">
+          <span class="stat-num" id="sTotal">—</span>
+          <span class="stat-lbl">کل کانفیگ</span>
         </div>
-        <div class="stat-card" data-type="online">
-          <div class="stat-icon">🟢</div>
-          <div class="stat-value" id="statOnline">—</div>
-          <div class="stat-label">آنلاین</div>
+        <div class="stat glass-card">
+          <span class="stat-num green" id="sOnline">—</span>
+          <span class="stat-lbl">آنلاین</span>
         </div>
-        <div class="stat-card" data-type="latency">
-          <div class="stat-icon">⚡</div>
-          <div class="stat-value" id="statLatency">—</div>
-          <div class="stat-label">میانگین تأخیر (ms)</div>
+        <div class="stat glass-card">
+          <span class="stat-num blue" id="sLatency">—</span>
+          <span class="stat-lbl">تأخیر (ms)</span>
         </div>
-        <div class="stat-card" data-type="score">
-          <div class="stat-icon">⭐</div>
-          <div class="stat-value" id="statScore">—</div>
-          <div class="stat-label">میانگین امتیاز</div>
+        <div class="stat glass-card">
+          <span class="stat-num purple" id="sScore">—</span>
+          <span class="stat-lbl">میانگین امتیاز</span>
         </div>
       </section>
 
-      <!-- نمودار و توزیع -->
+      <!-- نمودار -->
       <section class="charts-row">
-        <div class="card">
-          <h3 class="card-title">📈 توزیع پروتکل‌ها</h3>
-          <canvas id="protocolChart" width="400" height="220"></canvas>
+        <div class="glass-card chart-card">
+          <h3>توزیع پروتکل‌ها</h3>
+          <canvas id="protoChart"></canvas>
         </div>
-        <div class="card">
-          <h3 class="card-title">🎯 توزیع امتیازها</h3>
-          <canvas id="scoreChart" width="400" height="220"></canvas>
+        <div class="glass-card chart-card">
+          <h3>وضعیت کانفیگ‌ها</h3>
+          <canvas id="statusChart"></canvas>
         </div>
       </section>
 
-      <!-- فیلتر و جستجو -->
-      <section class="filter-bar">
-        <div class="search-box">
-          <span class="search-icon">🔍</span>
-          <input type="text" id="searchInput" placeholder="جستجو در نام، هاست، یا پروتکل...">
+      <!-- فیلتر -->
+      <section class="filter-row glass-card">
+        <div class="search-wrap">
+          <span>🔍</span>
+          <input id="search" type="text" placeholder="جستجو...">
         </div>
-        <div class="filter-group">
-          <label>پروتکل:</label>
-          <select id="protocolFilter" class="select">
-            <option value="all">همه</option>
-          </select>
-        </div>
-        <div class="filter-group">
-          <label>وضعیت:</label>
-          <select id="statusFilter" class="select">
-            <option value="all">همه</option>
-            <option value="excellent">عالی</option>
-            <option value="good">خوب</option>
-            <option value="fair">متوسط</option>
-            <option value="offline">آفلاین</option>
-          </select>
-        </div>
-        <div class="filter-group">
-          <label>مرتب‌سازی:</label>
-          <select id="sortBy" class="select">
-            <option value="rank">رتبه</option>
-            <option value="score-desc">بالاترین امتیاز</option>
-            <option value="score-asc">پایین‌ترین امتیاز</option>
-            <option value="latency-asc">سریع‌ترین</option>
-            <option value="latency-desc">کندترین</option>
-            <option value="name-asc">نام (ا-ی)</option>
-          </select>
-        </div>
-        <button class="btn-icon" id="resetFilters" title="بازنشانی فیلترها">↻</button>
+        <select id="filterProto" class="glass-select">
+          <option value="all">همه پروتکل‌ها</option>
+        </select>
+        <select id="filterStatus" class="glass-select">
+          <option value="all">همه وضعیت‌ها</option>
+          <option value="online">آنلاین</option>
+          <option value="offline">آفلاین</option>
+        </select>
+        <select id="sortBy" class="glass-select">
+          <option value="score">امتیاز</option>
+          <option value="latency">سرعت</option>
+          <option value="protocol">پروتکل</option>
+        </select>
+        <button id="resetBtn" class="glass-btn" title="بازنشانی">↻</button>
       </section>
 
-      <!-- شمارنده نتایج -->
-      <div class="results-info">
-        <span>نمایش <strong id="visibleCount">۰</strong> از <strong id="totalCount">۰</strong></span>
+      <!-- تعداد نتایج -->
+      <div class="results-bar">
+        <span>نمایش <b id="showCount">۰</b> از <b id="allCount">۰</b> کانفیگ</span>
       </div>
 
-      <!-- جدول کانفیگ‌ها -->
-      <section class="card table-card">
-        <div class="table-wrapper">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th class="col-rank">#</th>
-                <th>پروتکل</th>
-                <th>نام / هاست</th>
-                <th class="col-num">امتیاز</th>
-                <th class="col-num">تأخیر</th>
-                <th>وضعیت</th>
-                <th>منبع</th>
-                <th class="col-actions">عملیات</th>
-              </tr>
-            </thead>
-            <tbody id="tableBody"></tbody>
-          </table>
-        </div>
-        <div class="empty-state hidden" id="emptyState">
-          <div class="empty-icon">🔍</div>
-          <p>هیچ کانفیگی با فیلتر فعلی یافت نشد</p>
-        </div>
-      </section>
+      <!-- لیست کانفیگ‌ها -->
+      <section id="configList" class="config-list"></section>
+
+      <!-- وضعیت خالی -->
+      <div id="emptyBox" class="empty-box hidden">
+        <p>🔍 کانفیگی با این فیلتر یافت نشد</p>
+      </div>
 
     </div>
-
   </main>
 
-  <!-- ═══ فوتر ═══ -->
-  <footer class="footer">
-    <div class="container">
-      <p>ساخته شده برای نمایش <strong>داده‌های عمومی</strong> · متن‌باز · بدون API اختصاصی</p>
-    </div>
+  <!-- فوتر -->
+  <footer class="footer glass-panel">
+    <p>ایران پروکسی — کانفیگ‌های <strong>عمومی و رایگان</strong> · بروزرسانی خودکار</p>
+    <p class="footer-small">فقط از داده‌های عمومی استفاده می‌شود · <a href="https://github.com/mayt3n/IranProxy" target="_blank">GitHub</a></p>
   </footer>
 
-  <!-- ═══ مودال جزئیات ═══ -->
-  <div class="modal" id="detailModal" aria-hidden="true">
-    <div class="modal-overlay" data-close="true"></div>
-    <div class="modal-content">
-      <button class="modal-close" data-close="true" aria-label="بستن">×</button>
+  <!-- مودال جزئیات -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal glass-card">
+      <button class="modal-close" id="modalClose">✕</button>
       <h2 id="modalTitle">—</h2>
-      <div class="modal-body" id="modalBody"></div>
+      <div id="modalBody"></div>
     </div>
   </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">کپی شد ✓</div>
 
   <script src="app.js"></script>
 </body>

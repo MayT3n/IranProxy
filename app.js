@@ -1,547 +1,517 @@
-/**
- * Internet Access Hub — Frontend Logic
- * Vanilla JS, بدون فریم‌ورک
- */
+(function(){
+'use strict';
+var $=function(s){return document.querySelector(s)};
+var $$=function(s){return document.querySelectorAll(s)};
 
-(function () {
-  'use strict';
+var dom={
+loading:$('#loading'),
+errorBox:$('#errorBox'),
+errorMsg:$('#errorMsg'),
+app:$('#app'),
+updateTime:$('#updateTime'),
+themeBtn:$('#themeBtn'),
+themeIcon:$('#themeIcon'),
+sTotal:$('#sTotal'),
+sOnline:$('#sOnline'),
+sLatency:$('#sLatency'),
+sScore:$('#sScore'),
+search:$('#search'),
+filterProto:$('#filterProto'),
+filterStatus:$('#filterStatus'),
+sortBy:$('#sortBy'),
+resetBtn:$('#resetBtn'),
+showCount:$('#showCount'),
+allCount:$('#allCount'),
+configList:$('#configList'),
+emptyBox:$('#emptyBox'),
+modal:$('#modal'),
+modalTitle:$('#modalTitle'),
+modalBody:$('#modalBody'),
+modalClose:$('#modalClose'),
+toast:$('#toast'),
+protoChart:$('#protoChart'),
+statusChart:$('#statusChart')
+};
 
-  // ═══ DOM ═══
-  const $ = (s) => document.querySelector(s);
-  const $$ = (s) => document.querySelectorAll(s);
+var data=null;
+var filtered=[];
 
-  const dom = {
-    loading: $('#loading'),
-    errorState: $('#errorState'),
-    errorMessage: $('#errorMessage'),
-    dashboard: $('#dashboard'),
-    themeToggle: $('#themeToggle'),
-    themeIcon: $('#themeIcon'),
-    updateInfo: $('#updateInfo'),
-    liveText: $('#liveText'),
+var PROTO={
+vmess:'VMess',vless:'VLESS',trojan:'Trojan',
+shadowsocks:'SS',hysteria2:'HY2',wireguard:'WG',mtproto:'MTP'
+};
 
-    statTotal: $('#statTotal'),
-    statOnline: $('#statOnline'),
-    statLatency: $('#statLatency'),
-    statScore: $('#statScore'),
+var STATUS_LABELS={
+excellent:'عالی',good:'خوب',fair:'متوسط',
+poor:'ضعیف',offline:'آفلاین'
+};
 
-    searchInput: $('#searchInput'),
-    protocolFilter: $('#protocolFilter'),
-    statusFilter: $('#statusFilter'),
-    sortBy: $('#sortBy'),
-    resetFilters: $('#resetFilters'),
+var PROTO_COLORS={
+vmess:'#a78bfa',vless:'#22d3ee',trojan:'#fbbf24',
+shadowsocks:'#f472b6',hysteria2:'#34d399',wireguard:'#f87171',mtproto:'#60a5fa'
+};
 
-    tableBody: $('#tableBody'),
-    emptyState: $('#emptyState'),
-    visibleCount: $('#visibleCount'),
-    totalCount: $('#totalCount'),
+function initTheme(){
+var saved=localStorage.getItem('ip-theme');
+setTheme(saved||'dark');
+}
 
-    detailModal: $('#detailModal'),
-    modalTitle: $('#modalTitle'),
-    modalBody: $('#modalBody'),
+function setTheme(t){
+document.documentElement.setAttribute('data-theme',t);
+dom.themeIcon.textContent=t==='dark'?'☀️':'🌙';
+localStorage.setItem('ip-theme',t);
+if(data)drawCharts();
+}
 
-    protocolChart: $('#protocolChart'),
-    scoreChart: $('#scoreChart'),
-  };
+function toggleTheme(){
+var cur=document.documentElement.getAttribute('data-theme');
+setTheme(cur==='dark'?'light':'dark');
+}
 
-  // ═══ State ═══
-  let appData = null;
-  let filtered = [];
+async function loadData(){
+try{
+var r=await fetch('data.json?_='+Date.now());
+if(!r.ok)throw new Error('HTTP '+r.status);
+data=await r.json();
+initApp();
+}catch(e){
+dom.loading.classList.add('hidden');
+dom.errorBox.classList.remove('hidden');
+dom.errorMsg.textContent=e.message;
+}
+}
 
-  const PROTOCOL_LABELS = {
-    vmess: 'VMess',
-    vless: 'VLESS',
-    trojan: 'Trojan',
-    shadowsocks: 'Shadowsocks',
-    hysteria2: 'Hysteria2',
-    wireguard: 'WireGuard',
-    mtproto: 'MTProto',
-    shadowsocksr: 'ShadowsocksR',
-    tuic: 'TUIC',
-    unknown: 'نامشخص',
-  };
+function initApp(){
+dom.loading.classList.add('hidden');
+dom.app.classList.remove('hidden');
+renderStats();
+populateFilters();
+renderTime();
+drawCharts();
+applyFilters();
+}
 
-  const STATUS_LABELS = {
-    excellent: 'عالی',
-    good: 'خوب',
-    fair: 'متوسط',
-    poor: 'ضعیف',
-    offline: 'آفلاین',
-  };
+function renderStats(){
+var s=data.stats||{};
+dom.sTotal.textContent=fa(s.total_configs||0);
+dom.sOnline.textContent=fa(s.online||0);
+dom.sLatency.textContent=s.avg_latency_ms?fa(s.avg_latency_ms):'—';
+dom.sScore.textContent=fa(s.avg_score||0);
+dom.allCount.textContent=fa(s.total_configs||0);
+}
 
-  const PROTO_COLORS = {
-    vmess: '#8b5cf6',
-    vless: '#06b6d4',
-    trojan: '#f59e0b',
-    shadowsocks: '#ec4899',
-    hysteria2: '#10b981',
-    wireguard: '#f43f5e',
-    mtproto: '#3b82f6',
-  };
+function renderTime(){
+if(!data.generated_at)return;
+var d=new Date(data.generated_at);
+try{
+dom.updateTime.textContent=new Intl.DateTimeFormat('fa-IR',{
+hour:'2-digit',minute:'2-digit',month:'2-digit',day:'2-digit'
+}).format(d);
+}catch(e){
+dom.updateTime.textContent=d.toLocaleString();
+}
+}
 
-  // ═══ تم ═══
-  function initTheme() {
-    const saved = localStorage.getItem('iah-theme');
-    const sys = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const theme = saved || (sys ? 'dark' : 'light');
-    setTheme(theme);
-  }
+function populateFilters(){
+var protos={};
+(data.configs||[]).forEach(function(c){protos[c.protocol]=1});
+var html='<option value="all">همه پروتکل‌ها</option>';
+Object.keys(protos).sort().forEach(function(p){
+html+='<option value="'+p+'">'+(PROTO[p]||p)+'</option>';
+});
+dom.filterProto.innerHTML=html;
+}
 
-  function setTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    dom.themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
-    localStorage.setItem('iah-theme', theme);
-  }
+function applyFilters(){
+var q=dom.search.value.trim().toLowerCase();
+var proto=dom.filterProto.value;
+var status=dom.filterStatus.value;
+var sort=dom.sortBy.value;
 
-  function toggleTheme() {
-    const cur = document.documentElement.getAttribute('data-theme');
-    setTheme(cur === 'dark' ? 'light' : 'dark');
-    // باز رسم نمودارها با رنگ‌های جدید
-    if (appData) drawCharts();
-  }
+var list=(data.configs||[]).slice();
 
-  // ═══ بارگذاری داده ═══
-  async function loadData() {
-    try {
-      const res = await fetch(`data.json?_=${Date.now()}`);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      appData = await res.json();
-      initDashboard();
-    } catch (err) {
-      showError(err.message);
-    }
-  }
+if(q){
+list=list.filter(function(c){
+var hay=[c.name,c.host,c.protocol,PROTO[c.protocol],c.source_label].filter(Boolean).join(' ').toLowerCase();
+return hay.indexOf(q)!==-1;
+});
+}
 
-  function showError(msg) {
-    dom.loading.classList.add('hidden');
-    dom.errorState.classList.remove('hidden');
-    dom.errorMessage.textContent = msg;
-  }
+if(proto!=='all')list=list.filter(function(c){return c.protocol===proto});
 
-  function initDashboard() {
-    dom.loading.classList.add('hidden');
-    dom.dashboard.classList.remove('hidden');
-    populateFilters();
-    renderStats();
-    renderUpdateInfo();
-    drawCharts();
-    applyFilters();
-  }
+if(status==='online')list=list.filter(function(c){return c.health&&c.health.status==='online'});
+else if(status==='offline')list=list.filter(function(c){return !c.health||c.health.status!=='online'});
 
-  // ═══ فیلترها ═══
-  function populateFilters() {
-    const protos = new Set();
-    (appData.configs || []).forEach((c) => protos.add(c.protocol));
-    const sorted = [...protos].sort();
-    dom.protocolFilter.innerHTML = '<option value="all">همه</option>' +
-      sorted.map((p) => `<option value="${p}">${PROTOCOL_LABELS[p] || p}</option>`).join('');
-  }
+list.sort(function(a,b){
+if(sort==='score')return(b.score||0)-(a.score||0);
+if(sort==='latency')return getL(a)-getL(b);
+if(sort==='protocol')return(a.protocol||'').localeCompare(b.protocol||'');
+return 0;
+});
 
-  // ═══ آمار ═══
-  function renderStats() {
-    const s = appData.stats || {};
-    dom.statTotal.textContent = faNum(s.total_configs || 0);
-    dom.statOnline.textContent = faNum(s.online || 0);
-    dom.statLatency.textContent = s.avg_latency_ms ? faNum(s.avg_latency_ms) : '—';
-    dom.statScore.textContent = faNum(s.avg_score || 0);
-    dom.totalCount.textContent = faNum(s.total_configs || 0);
-  }
+filtered=list;
+renderList();
+dom.showCount.textContent=fa(list.length);
+}
 
-  function renderUpdateInfo() {
-    const dt = appData.generated_at;
-    if (!dt) {
-      dom.updateInfo.textContent = '';
-      return;
-    }
-    const date = new Date(dt);
-    dom.updateInfo.textContent = formatDate(date);
-    dom.updateInfo.title = date.toISOString();
-  }
+function getL(c){
+return c.health&&c.health.latency_ms!=null?c.health.latency_ms:99999;
+}
 
-  // ═══ فیلتر و مرتب‌سازی ═══
-  function applyFilters() {
-    const search = dom.searchInput.value.trim().toLowerCase();
-    const proto = dom.protocolFilter.value;
-    const status = dom.statusFilter.value;
-    const sort = dom.sortBy.value;
+function renderList(){
+if(filtered.length===0){
+dom.configList.innerHTML='';
+dom.emptyBox.classList.remove('hidden');
+return;
+}
+dom.emptyBox.classList.add('hidden');
 
-    let list = (appData.configs || []).slice();
+var html='';
+for(var i=0;i<filtered.length;i++){
+var c=filtered[i];
+var h=c.health||{};
+var online=h.status==='online';
+var lat=h.latency_ms;
+var score=Math.round(c.score||0);
+var proto=c.protocol||'unknown';
+var rank=c.rank||i+1;
+var isMTP=proto==='mtproto';
+var delay=Math.min(i*25,400);
 
-    // فیلتر
-    if (search) {
-      list = list.filter((c) => {
-        const hay = [
-          c.name, c.host, c.protocol,
-          PROTOCOL_LABELS[c.protocol], c.source_label,
-        ].filter(Boolean).join(' ').toLowerCase();
-        return hay.includes(search);
-      });
-    }
-    if (proto !== 'all') list = list.filter((c) => c.protocol === proto);
-    if (status !== 'all') list = list.filter((c) => c.status === status);
+html+='<div class="config-item glass-card fade-up" style="animation-delay:'+delay+'ms">';
 
-    // مرتب‌سازی
-    list.sort((a, b) => {
-      switch (sort) {
-        case 'rank': return (a.rank || 999) - (b.rank || 999);
-        case 'score-desc': return (b.score || 0) - (a.score || 0);
-        case 'score-asc': return (a.score || 0) - (b.score || 0);
-        case 'latency-asc': return getLat(a) - getLat(b);
-        case 'latency-desc': return getLat(b) - getLat(a);
-        case 'name-asc': return (a.name || '').localeCompare(b.name || '', 'fa');
-        default: return 0;
-      }
-    });
+html+='<div class="cfg-left">';
+html+='<span class="cfg-rank '+(rank<=3?'top-'+rank:'')+'">'+fa(rank)+'</span>';
+html+='<span class="proto-tag proto-'+proto+'">'+(PROTO[proto]||proto)+'</span>';
+html+='</div>';
 
-    filtered = list;
-    renderTable();
-    dom.visibleCount.textContent = faNum(list.length);
-  }
+html+='<div class="cfg-info">';
+html+='<span class="cfg-name">'+esc(c.name||'بدون نام')+'</span>';
+html+='<span class="cfg-host">'+esc(c.host||'')+':'+(c.port||'')+'</span>';
+html+='<div class="cfg-meta">';
+html+='<span><span class="status-dot '+(online?'online':h.status==='timeout'?'timeout':'offline')+'"></span>'+(online?'آنلاین':'آفلاین')+'</span>';
+if(lat!=null)html+='<span>⚡ '+fa(lat)+' ms</span>';
+html+='<span>📡 '+esc(c.source_label||'')+'</span>';
+html+='</div></div>';
 
-  function getLat(c) {
-    const l = c.health && c.health.latency_ms;
-    return l == null ? Infinity : l;
-  }
+html+='<div class="cfg-right">';
+html+='<span class="cfg-score" style="color:'+scoreClr(score)+'">'+fa(score)+'</span>';
+html+='<div class="cfg-actions">';
+html+='<button class="action-btn" title="کپی لینک" onclick="IP.copy('+i+')">📋</button>';
+if(isMTP)html+='<button class="action-btn tg-btn" title="اتصال تلگرام" onclick="IP.openTG('+i+')">✈️</button>';
+html+='<button class="action-btn" title="جزئیات" onclick="IP.detail('+i+')">👁</button>';
+html+='</div></div></div>';
+}
 
-  // ═══ جدول ═══
-  function renderTable() {
-    if (filtered.length === 0) {
-      dom.tableBody.innerHTML = '';
-      dom.emptyState.classList.remove('hidden');
-      return;
-    }
-    dom.emptyState.classList.add('hidden');
+dom.configList.innerHTML=html;
+}
 
-    const html = filtered.map((c) => {
-      const rank = c.rank || '—';
-      const proto = c.protocol || 'unknown';
-      const status = c.status || 'offline';
-      const score = Math.round(c.score || 0);
-      const health = c.health || {};
-      const lat = health.latency_ms;
+function copyConfig(idx){
+var c=filtered[idx];
+if(!c){showToast('خطا');return}
 
-      return `
-        <tr class="fade-in">
-          <td class="col-rank">
-            <span class="rank-badge ${rankClass(rank)}">${faNum(rank)}</span>
-          </td>
-          <td>
-            <span class="proto-badge proto-${proto}">
-              ${protoIcon(proto)} ${PROTOCOL_LABELS[proto] || proto}
-            </span>
-          </td>
-          <td>
-            <div class="cfg-name">${esc(c.name || 'بدون نام')}</div>
-            <div class="cfg-host">${esc(c.host || '')}:${c.port || ''}</div>
-          </td>
-          <td class="col-num">
-            <div class="score-cell">
-              <span class="score-value" style="color:${scoreColor(score)}">${faNum(score)}</span>
-              <div class="score-bar">
-                <div class="score-bar-fill" style="width:${score}%;background:${scoreColor(score)}"></div>
-              </div>
-            </div>
-          </td>
-          <td class="col-num">
-            <span class="latency-value ${latClass(lat)}">${lat != null ? faNum(lat) + ' ms' : '—'}</span>
-          </td>
-          <td>
-            <span class="status-badge status-${status}">
-              <span class="status-dot"></span>
-              ${STATUS_LABELS[status] || status}
-            </span>
-          </td>
-          <td><span class="source-tag">${esc(c.source_label || c.source_channel || '—')}</span></td>
-          <td class="col-actions">
-            <button class="action-btn" title="جزئیات" onclick="IAH.showDetail(${c.rank})">👁</button>
-          </td>
-        </tr>
-      `;
-    }).join('');
+var uri=c.original_uri||'';
+if(!uri){
+if(c.protocol==='mtproto'){
+uri='tg://proxy?server='+c.host+'&port='+c.port+'&secret='+(c.secret||'');
+}else{
+showToast('لینک موجود نیست');
+return;
+}
+}
 
-    dom.tableBody.innerHTML = html;
-  }
+if(navigator.clipboard&&navigator.clipboard.writeText){
+navigator.clipboard.writeText(uri).then(function(){
+showToast('کپی شد ✓');
+}).catch(function(){
+fallbackCopy(uri);
+});
+}else{
+fallbackCopy(uri);
+}
+}
 
-  // ═══ مودال ═══
-  function showDetail(rank) {
-    const cfg = (appData.configs || []).find((c) => c.rank === rank);
-    if (!cfg) return;
-    dom.modalTitle.textContent = `${PROTOCOL_LABELS[cfg.protocol] || cfg.protocol} — ${cfg.name || cfg.host}`;
-    const h = cfg.health || {};
-    const b = cfg.score_breakdown || {};
-    const segs = [
-      { l: 'سلامت', v: b.health, c: '#10b981' },
-      { l: 'پروتکل', v: b.protocol, c: '#3b82f6' },
-      { l: 'منبع', v: b.source, c: '#f59e0b' },
-      { l: 'امنیت', v: b.fingerprint, c: '#8b5cf6' },
-      { l: 'یکتایی', v: b.uniqueness, c: '#ec4899' },
-      { l: 'تازگی', v: b.freshness, c: '#06b6d4' },
-    ];
-    dom.modalBody.innerHTML = `
-      <div class="detail-row"><span class="detail-label">هاست</span><span class="detail-value">${esc(cfg.host || '')}:${cfg.port || ''}</span></div>
-      <div class="detail-row"><span class="detail-label">وضعیت</span><span class="detail-value">${STATUS_LABELS[cfg.status] || cfg.status}</span></div>
-      <div class="detail-row"><span class="detail-label">تأخیر</span><span class="detail-value">${h.latency_ms != null ? faNum(h.latency_ms) + ' ms' : '—'}</span></div>
-      <div class="detail-row"><span class="detail-label">IP</span><span class="detail-value">${esc(h.ip || '—')}</span></div>
-      <div class="detail-row"><span class="detail-label">منبع</span><span class="detail-value">${esc(cfg.source_label || cfg.source_channel || '—')}</span></div>
-      <h3 style="margin:1rem 0 0.5rem;font-size:0.9rem">جزئیات امتیاز</h3>
-      <div class="score-bar-large">
-        ${segs.map((s) => `<div class="score-bar-segment" style="width:${(s.v || 0)}%;background:${s.c}" title="${s.l}: ${s.v || 0}"></div>`).join('')}
-      </div>
-      ${segs.map((s) => `
-        <div class="detail-row">
-          <span class="detail-label">${s.l}</span>
-          <span class="detail-value">${faNum(s.v || 0)}</span>
-        </div>
-      `).join('')}
-      <div class="detail-row" style="font-weight:700;border-top:1px solid var(--c-border);padding-top:0.75rem;margin-top:0.5rem">
-        <span class="detail-label">مجموع</span>
-        <span class="detail-value">${faNum(cfg.score || 0)} / ۱۰۰</span>
-      </div>
-    `;
-    dom.detailModal.classList.add('active');
-    dom.detailModal.setAttribute('aria-hidden', 'false');
-  }
+function fallbackCopy(text){
+var ta=document.createElement('textarea');
+ta.value=text;
+ta.style.position='fixed';
+ta.style.left='-9999px';
+document.body.appendChild(ta);
+ta.select();
+try{
+document.execCommand('copy');
+showToast('کپی شد ✓');
+}catch(e){
+showToast('خطا در کپی');
+}
+document.body.removeChild(ta);
+}
 
-  function closeModal() {
-    dom.detailModal.classList.remove('active');
-    dom.detailModal.setAttribute('aria-hidden', 'true');
-  }
+function openTelegram(idx){
+var c=filtered[idx];
+if(!c)return;
+if(c.protocol==='mtproto'){
+var link='tg://proxy?server='+c.host+'&port='+c.port+'&secret='+(c.secret||'');
+window.open(link,'_blank');
+}
+}
 
-  // ═══ نمودارها (Canvas خام) ═══
-  function drawCharts() {
-    drawProtocolChart();
-    drawScoreChart();
-  }
+function showDetail(idx){
+var c=filtered[idx];
+if(!c)return;
+var h=c.health||{};
+var b=c.score_breakdown||{};
+var isMTP=c.protocol==='mtproto';
 
-  function drawProtocolChart() {
-    const cvs = dom.protocolChart;
-    const ctx = cvs.getContext('2d');
-    const data = appData.stats.by_protocol || {};
-    const entries = Object.entries(data).sort((a, b) => b[1] - a[1]);
-    if (entries.length === 0) return;
+dom.modalTitle.textContent=(PROTO[c.protocol]||c.protocol)+' — '+(c.name||c.host);
 
-    // DPI
-    const dpr = window.devicePixelRatio || 1;
-    const W = cvs.clientWidth, H = 220;
-    cvs.width = W * dpr;
-    cvs.height = H * dpr;
-    ctx.scale(dpr, dpr);
-    ctx.clearRect(0, 0, W, H);
+var uri=c.original_uri||'';
+if(!uri&&isMTP){
+uri='tg://proxy?server='+c.host+'&port='+c.port+'&secret='+(c.secret||'');
+}
 
-    const padX = 110, barH = 22, gap = 8, startY = 12;
-    const max = Math.max(...entries.map(e => e[1]));
-    const chartW = W - padX - 20;
+var bodyHtml='';
+bodyHtml+='<div class="detail-row"><span class="detail-label">پروتکل</span><span class="detail-value">'+(PROTO[c.protocol]||c.protocol)+'</span></div>';
+bodyHtml+='<div class="detail-row"><span class="detail-label">هاست</span><span class="detail-value">'+esc(c.host)+':'+(c.port||'')+'</span></div>';
+bodyHtml+='<div class="detail-row"><span class="detail-label">وضعیت</span><span class="detail-value">'+(h.status==='online'?'🟢 آنلاین':'🔴 آفلاین')+'</span></div>';
+bodyHtml+='<div class="detail-row"><span class="detail-label">تأخیر</span><span class="detail-value">'+(h.latency_ms!=null?fa(h.latency_ms)+' ms':'—')+'</span></div>';
+bodyHtml+='<div class="detail-row"><span class="detail-label">IP</span><span class="detail-value">'+esc(h.ip||'—')+'</span></div>';
+bodyHtml+='<div class="detail-row"><span class="detail-label">منبع</span><span class="detail-value">'+esc(c.source_label||'—')+'</span></div>';
+bodyHtml+='<div class="detail-row"><span class="detail-label">امتیاز</span><span class="detail-value" style="color:'+scoreClr(c.score)+'">'+fa(c.score||0)+' / ۱۰۰</span></div>';
 
-    ctx.font = '600 12px Vazirmatn, sans-serif';
-    entries.forEach(([proto, count], i) => {
-      const y = startY + i * (barH + gap);
-      const w = (count / max) * chartW;
-      const color = PROTO_COLORS[proto] || '#94a3b8';
+bodyHtml+='<h4 style="margin:1rem 0 0.5rem;font-size:0.82rem;color:var(--text-2)">جزئیات امتیاز</h4>';
+bodyHtml+='<div class="detail-row"><span class="detail-label">سلامت</span><span class="detail-value">'+fa(b.health||0)+'</span></div>';
+bodyHtml+='<div class="detail-row"><span class="detail-label">پروتکل</span><span class="detail-value">'+fa(b.protocol||0)+'</span></div>';
+bodyHtml+='<div class="detail-row"><span class="detail-label">منبع</span><span class="detail-value">'+fa(b.source||0)+'</span></div>';
+bodyHtml+='<div class="detail-row"><span class="detail-label">امنیت</span><span class="detail-value">'+fa(b.fingerprint||0)+'</span></div>';
+bodyHtml+='<div class="detail-row"><span class="detail-label">یکتایی</span><span class="detail-value">'+fa(b.uniqueness||0)+'</span></div>';
 
-      // نام
-      ctx.fillStyle = getCssVar('--c-text');
-      ctx.textAlign = 'left';
-      ctx.fillText(PROTOCOL_LABELS[proto] || proto, 5, y + barH / 2 + 4);
+if(uri){
+bodyHtml+='<div class="config-uri-box">';
+bodyHtml+='<h4>📎 لینک کانفیگ</h4>';
+bodyHtml+='<div class="config-uri">'+esc(uri)+'</div>';
+bodyHtml+='<button class="copy-full-btn" onclick="IP.copyURI('+idx+')">📋 کپی لینک کانفیگ</button>';
+bodyHtml+='</div>';
+}
 
-      // میله
-      ctx.fillStyle = color;
-      roundRect(ctx, padX, y, w, barH, 4);
-      ctx.fill();
+if(isMTP){
+var tgLink='tg://proxy?server='+c.host+'&port='+c.port+'&secret='+(c.secret||'');
+bodyHtml+='<a href="'+tgLink+'" class="copy-full-btn" style="display:block;text-align:center;margin-top:0.5rem;background:#0088cc;text-decoration:none;color:white">✈️ اتصال مستقیم به تلگرام</a>';
+}
 
-      // عدد
-      ctx.fillStyle = count > max * 0.15 ? 'white' : getCssVar('--c-text');
-      ctx.textAlign = 'left';
-      ctx.fillText(faNum(count), padX + 8, y + barH / 2 + 4);
-    });
-  }
+dom.modalBody.innerHTML=bodyHtml;
+dom.modal.classList.add('active');
+}
 
-  function drawScoreChart() {
-    const cvs = dom.scoreChart;
-    const ctx = cvs.getContext('2d');
-    const data = appData.stats.by_status || {};
-    const order = ['excellent', 'good', 'fair', 'poor', 'offline'];
-    const labels = { excellent: 'عالی', good: 'خوب', fair: 'متوسط', poor: 'ضعیف', offline: 'آفلاین' };
-    const colors = {
-      excellent: '#10b981', good: '#3b82f6',
-      fair: '#f59e0b', poor: '#ef4444', offline: '#94a3b8',
-    };
-    const entries = order.filter(k => data[k]).map(k => [k, data[k]]);
-    if (entries.length === 0) return;
+function copyURI(idx){
+var c=filtered[idx];
+if(!c)return;
+var uri=c.original_uri||'';
+if(!uri&&c.protocol==='mtproto'){
+uri='tg://proxy?server='+c.host+'&port='+c.port+'&secret='+(c.secret||'');
+}
+if(!uri){showToast('لینک موجود نیست');return}
+if(navigator.clipboard&&navigator.clipboard.writeText){
+navigator.clipboard.writeText(uri).then(function(){showToast('کپی شد ✓')}).catch(function(){fallbackCopy(uri)});
+}else{
+fallbackCopy(uri);
+}
+}
 
-    const dpr = window.devicePixelRatio || 1;
-    const W = cvs.clientWidth, H = 220;
-    cvs.width = W * dpr;
-    cvs.height = H * dpr;
-    ctx.scale(dpr, dpr);
-    ctx.clearRect(0, 0, W, H);
+function closeModal(){
+dom.modal.classList.remove('active');
+}
 
-    const cx = W / 2, cy = H / 2 - 5;
-    const radius = Math.min(W, H) / 2 - 30;
-    const total = entries.reduce((s, [, v]) => s + v, 0);
-    let startA = -Math.PI / 2;
+function showToast(msg){
+dom.toast.textContent=msg;
+dom.toast.classList.add('show');
+setTimeout(function(){dom.toast.classList.remove('show')},2000);
+}
 
-    entries.forEach(([k, v]) => {
-      const slice = (v / total) * Math.PI * 2;
-      ctx.beginPath();
-      ctx.moveTo(cx, cy);
-      ctx.arc(cx, cy, radius, startA, startA + slice);
-      ctx.closePath();
-      ctx.fillStyle = colors[k];
-      ctx.fill();
-      startA += slice;
-    });
+function drawCharts(){
+drawProtoChart();
+drawStatusChart();
+}
 
-    // دایره مرکزی (donut)
-    ctx.beginPath();
-    ctx.arc(cx, cy, radius * 0.55, 0, Math.PI * 2);
-    ctx.fillStyle = getCssVar('--c-bg-card');
-    ctx.fill();
+function drawProtoChart(){
+var cvs=dom.protoChart;
+if(!cvs)return;
+var ctx=cvs.getContext('2d');
+var d=data.stats.by_protocol||{};
+var entries=Object.entries(d).sort(function(a,b){return b[1]-a[1]});
+if(!entries.length)return;
 
-    // عدد کل
-    ctx.fillStyle = getCssVar('--c-text');
-    ctx.font = '800 22px Vazirmatn';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(faNum(total), cx, cy - 5);
-    ctx.font = '11px Vazirmatn';
-    ctx.fillStyle = getCssVar('--c-text-muted');
-    ctx.fillText('کل کانفیگ', cx, cy + 15);
+var dpr=window.devicePixelRatio||1;
+var W=cvs.clientWidth;
+var H=200;
+cvs.width=W*dpr;
+cvs.height=H*dpr;
+ctx.scale(dpr,dpr);
+ctx.clearRect(0,0,W,H);
 
-    // راهنما
-    const legX = 10, legYstart = 10;
-    ctx.font = '11px Vazirmatn';
-    ctx.textAlign = 'left';
-    entries.forEach(([k, v], i) => {
-      const y = legYstart + i * 18;
-      ctx.fillStyle = colors[k];
-      ctx.fillRect(legX, y, 10, 10);
-      ctx.fillStyle = getCssVar('--c-text');
-      ctx.fillText(`${labels[k]}: ${faNum(v)}`, legX + 16, y + 9);
-    });
-  }
+var padR=90,barH=20,gap=6,startY=8;
+var max=Math.max.apply(null,entries.map(function(e){return e[1]}));
+var chartW=W-padR-25;
 
-  function roundRect(ctx, x, y, w, h, r) {
-    ctx.beginPath();
-    ctx.moveTo(x + r, y);
-    ctx.lineTo(x + w - r, y);
-    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
-    ctx.lineTo(x + w, y + h - r);
-    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-    ctx.lineTo(x + r, y + h);
-    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
-    ctx.lineTo(x, y + r);
-    ctx.quadraticCurveTo(x, y, x + r, y);
-    ctx.closePath();
-  }
+ctx.font='600 11px Vazirmatn, sans-serif';
+entries.forEach(function(entry,i){
+var p=entry[0],count=entry[1];
+var y=startY+i*(barH+gap);
+var w=Math.max(2,(count/max)*chartW);
+var color=PROTO_COLORS[p]||'#94a3b8';
 
-  // ═══ ابزارها ═══
-  function faNum(n) {
-    return String(n).replace(/\d/g, (d) => '۰۱۲۳۴۵۶۷۸۹'[d]);
-  }
+ctx.fillStyle=getCSS('--text-2');
+ctx.textAlign='left';
+ctx.fillText(PROTO[p]||p,5,y+barH/2+4);
 
-  function esc(s) {
-    return String(s || '').replace(/[&<>"']/g, (c) => ({
-      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
-    }[c]));
-  }
+ctx.fillStyle=color;
+ctx.beginPath();
+ctx.moveTo(padR+4,y);
+ctx.lineTo(padR+w-4,y);
+ctx.quadraticCurveTo(padR+w,y,padR+w,y+4);
+ctx.lineTo(padR+w,y+barH-4);
+ctx.quadraticCurveTo(padR+w,y+barH,padR+w-4,y+barH);
+ctx.lineTo(padR+4,y+barH);
+ctx.quadraticCurveTo(padR,y+barH,padR,y+barH-4);
+ctx.lineTo(padR,y+4);
+ctx.quadraticCurveTo(padR,y,padR+4,y);
+ctx.closePath();
+ctx.fill();
 
-  function formatDate(d) {
-    try {
-      return new Intl.DateTimeFormat('fa-IR', {
-        year: 'numeric', month: '2-digit', day: '2-digit',
-        hour: '2-digit', minute: '2-digit',
-      }).format(d);
-    } catch {
-      return d.toISOString().slice(0, 16).replace('T', ' ');
-    }
-  }
+ctx.fillStyle='rgba(255,255,255,0.85)';
+ctx.textAlign='left';
+ctx.fillText(String(count),padR+6,y+barH/2+4);
+});
+}
 
-  function scoreColor(s) {
-    if (s >= 80) return '#10b981';
-    if (s >= 65) return '#3b82f6';
-    if (s >= 45) return '#f59e0b';
-    if (s > 0) return '#ef4444';
-    return '#94a3b8';
-  }
+function drawStatusChart(){
+var cvs=dom.statusChart;
+if(!cvs)return;
+var ctx=cvs.getContext('2d');
+var d=data.stats.by_status||{};
+var order=['excellent','good','fair','poor','offline'];
+var labels={excellent:'عالی',good:'خوب',fair:'متوسط',poor:'ضعیف',offline:'آفلاین'};
+var colors={excellent:'#34d399',good:'#60a5fa',fair:'#fbbf24',poor:'#f87171',offline:'#64748b'};
+var entries=order.filter(function(k){return d[k]}).map(function(k){return[k,d[k]]});
+if(!entries.length)return;
 
-  function rankClass(r) {
-    if (r === 1) return 'rank-1';
-    if (r === 2) return 'rank-2';
-    if (r === 3) return 'rank-3';
-    return '';
-  }
+var dpr=window.devicePixelRatio||1;
+var W=cvs.clientWidth;
+var H=200;
+cvs.width=W*dpr;
+cvs.height=H*dpr;
+ctx.scale(dpr,dpr);
+ctx.clearRect(0,0,W,H);
 
-  function latClass(l) {
-    if (l == null) return '';
-    if (l < 100) return 'latency-fast';
-    if (l < 300) return 'latency-medium';
-    return 'latency-slow';
-  }
+var cx=W/2,cy=H/2-5;
+var radius=Math.min(W,H)/2-28;
+var total=entries.reduce(function(s,e){return s+e[1]},0);
+var startA=-Math.PI/2;
 
-  function protoIcon(p) {
-    const icons = {
-      vmess: '⚡', vless: '🚀', trojan: '🛡',
-      shadowsocks: '🌫', hysteria2: '💨', wireguard: '🔒', mtproto: '✈',
-    };
-    return icons[p] || '•';
-  }
+entries.forEach(function(entry){
+var k=entry[0],v=entry[1];
+var slice=(v/total)*Math.PI*2;
+ctx.beginPath();
+ctx.moveTo(cx,cy);
+ctx.arc(cx,cy,radius,startA,startA+slice);
+ctx.closePath();
+ctx.fillStyle=colors[k];
+ctx.fill();
+startA+=slice;
+});
 
-  function getCssVar(name) {
-    return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || '#000';
-  }
+ctx.beginPath();
+ctx.arc(cx,cy,radius*0.55,0,Math.PI*2);
+ctx.fillStyle=getCSS('--bg-body');
+ctx.fill();
 
-  function debounce(fn, ms) {
-    let t;
-    return function (...args) {
-      clearTimeout(t);
-      t = setTimeout(() => fn.apply(this, args), ms);
-    };
-  }
+ctx.fillStyle=getCSS('--text-1');
+ctx.font='800 20px Vazirmatn';
+ctx.textAlign='center';
+ctx.textBaseline='middle';
+ctx.fillText(fa(total),cx,cy-4);
+ctx.font='10px Vazirmatn';
+ctx.fillStyle=getCSS('--text-3');
+ctx.fillText('کل',cx,cy+14);
 
-  // ═══ رویدادها ═══
-  function bindEvents() {
-    dom.themeToggle.addEventListener('click', toggleTheme);
-    dom.searchInput.addEventListener('input', debounce(applyFilters, 200));
-    dom.protocolFilter.addEventListener('change', applyFilters);
-    dom.statusFilter.addEventListener('change', applyFilters);
-    dom.sortBy.addEventListener('change', applyFilters);
-    dom.resetFilters.addEventListener('click', () => {
-      dom.searchInput.value = '';
-      dom.protocolFilter.value = 'all';
-      dom.statusFilter.value = 'all';
-      dom.sortBy.value = 'rank';
-      applyFilters();
-    });
-    // بستن مودال
-    dom.detailModal.querySelectorAll('[data-close]').forEach((el) => {
-      el.addEventListener('click', closeModal);
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeModal();
-      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-        e.preventDefault();
-        dom.searchInput.focus();
-      }
-    });
-    // باز رسم نمودار در تغییر سایز
-    window.addEventListener('resize', debounce(() => {
-      if (appData) drawCharts();
-    }, 250));
-  }
+var lx=8,ly=8;
+ctx.font='10px Vazirmatn';
+ctx.textAlign='left';
+entries.forEach(function(entry,i){
+var k=entry[0],v=entry[1];
+var y=ly+i*17;
+ctx.fillStyle=colors[k];
+ctx.fillRect(lx,y,9,9);
+ctx.fillStyle=getCSS('--text-2');
+ctx.fillText(labels[k]+': '+fa(v),lx+14,y+8);
+});
+}
 
-  // ═══ API عمومی ═══
-  window.IAH = { showDetail, closeModal };
+function fa(n){
+return String(n).replace(/\d/g,function(d){return'۰۱۲۳۴۵۶۷۸۹'[parseInt(d)]});
+}
 
-  // ═══ شروع ═══
-  function init() {
-    initTheme();
-    bindEvents();
-    loadData();
-  }
+function esc(s){
+if(!s)return'';
+var div=document.createElement('div');
+div.textContent=String(s);
+return div.innerHTML;
+}
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
+function scoreClr(s){
+if(s>=80)return'#34d399';
+if(s>=65)return'#60a5fa';
+if(s>=45)return'#fbbf24';
+if(s>0)return'#f87171';
+return'#64748b';
+}
+
+function getCSS(name){
+return getComputedStyle(document.documentElement).getPropertyValue(name).trim()||'#888';
+}
+
+function debounce(fn,ms){
+var t;
+return function(){
+var args=arguments;
+var self=this;
+clearTimeout(t);
+t=setTimeout(function(){fn.apply(self,args)},ms);
+};
+}
+
+function bindEvents(){
+dom.themeBtn.addEventListener('click',toggleTheme);
+dom.search.addEventListener('input',debounce(applyFilters,200));
+dom.filterProto.addEventListener('change',applyFilters);
+dom.filterStatus.addEventListener('change',applyFilters);
+dom.sortBy.addEventListener('change',applyFilters);
+dom.resetBtn.addEventListener('click',function(){
+dom.search.value='';
+dom.filterProto.value='all';
+dom.filterStatus.value='all';
+dom.sortBy.value='score';
+applyFilters();
+});
+dom.modalClose.addEventListener('click',closeModal);
+dom.modal.addEventListener('click',function(e){
+if(e.target===dom.modal)closeModal();
+});
+document.addEventListener('keydown',function(e){
+if(e.key==='Escape')closeModal();
+if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();dom.search.focus();}
+});
+window.addEventListener('resize',debounce(function(){if(data)drawCharts()},250));
+}
+
+window.IP={
+copy:copyConfig,
+openTG:openTelegram,
+detail:showDetail,
+copyURI:copyURI
+};
+
+initTheme();
+bindEvents();
+loadData();
 })();
