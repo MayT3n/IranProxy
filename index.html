@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Internet Hub Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-content">
+      <div class="header-right">
+        <div class="logo">📡</div>
+        <div class="header-title">
+          <h1>داشبورد اینترنت هاب</h1>
+          <p>رتبه‌بندی پروکسی‌های عمومی</p>
+        </div>
+      </div>
+      <div class="header-left">
+        <span class="update-badge" id="lastUpdate">—</span>
+        <button class="theme-toggle" id="themeToggle">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content" id="mainContent">
+    <!-- loading -->
+    <div class="loading" id="loadingState">
+      <div class="spinner"></div>
+      <p>در حال بارگذاری...</p>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-grid" id="statsGrid" style="display:none;">
+      <div class="stat-card">
+        <div class="stat-icon">🟢</div>
+        <div class="stat-value" id="statOnline">—</div>
+        <div class="stat-label">آنلاین</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🔴</div>
+        <div class="stat-value" id="statOffline">—</div>
+        <div class="stat-label">آفلاین</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⏱️</div>
+        <div class="stat-value" id="statLatency">—</div>
+        <div class="stat-label">میانگین تأخیر</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⭐</div>
+        <div class="stat-value" id="statAvgScore">—</div>
+        <div class="stat-label">میانگین امتیاز</div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filter-bar" id="filterBar" style="display:none;">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="جستجو (هاست، پروتکل، توضیحات)...">
+      </div>
+      <select class="filter-select" id="protocolFilter">
+        <option value="all">همه پروتکل‌ها</option>
+      </select>
+      <select class="filter-select" id="statusFilter">
+        <option value="all">همه وضعیت‌ها</option>
+        <option value="online">آنلاین</option>
+        <option value="offline">آفلاین</option>
+      </select>
+      <select class="filter-select" id="sortSelect">
+        <option value="rank">رتبه</option>
+        <option value="score-desc">بیشترین امتیاز</option>
+        <option value="latency-asc">کمترین تأخیر</option>
+        <option value="host-asc">هاست (الفبا)</option>
+      </select>
+    </div>
+
+    <!-- Table -->
+    <div class="ranking-section" id="rankingSection" style="display:none;">
+      <div class="section-header">
+        <span class="section-title">🏆 رتبه‌بندی کانفیگ‌ها</span>
+        <span class="config-count" id="filteredCount">—</span>
+      </div>
+      <div class="table-wrapper">
+        <table class="ranking-table">
+          <thead>
+            <tr>
+              <th>رتبه</th>
+              <th>پروتکل</th>
+              <th>هاست:پورت</th>
+              <th>وضعیت</th>
+              <th>تأخیر</th>
+              <th>امتیاز</th>
+              <th class="hide-mobile">آخرین بازدید</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+  <footer class="footer">
+    <p>Internet Hub Dashboard — داده‌ها از منابع عمومی جمع‌آوری شده‌اند.</p>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>
