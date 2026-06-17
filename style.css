@@ -1,0 +1,907 @@
+/* ═══════════════════════════════════════════════════════════
+TeleRank — استایل داشبورد
+فارسی · RTL · واکنش‌گرا · حالت تیره/روشن · مناسب پرینت
+═══════════════════════════════════════════════════════════ */
+
+/* ── فونت Vazirmatn ─────────────────────────────────────── */
+@import url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css');
+
+/* ── متغیرهای CSS ────────────────────────────────────────── */
+:root {
+/* رنگ‌های اصلی */
+--primary: #667eea;
+--primary-dark: #5a6fd6;
+--primary-light: #8b9cf7;
+--accent: #764ba2;
+--gradient: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+
+/* حالت روشن */
+--bg-primary: #f0f2f5;
+--bg-secondary: #ffffff;
+--bg-card: #ffffff;
+--bg-hover: #f8f9fb;
+--text-primary: #1a1a2e;
+--text-secondary: #6b7280;
+--text-muted: #9ca3af;
+--border: #e5e7eb;
+--border-light: #f3f4f6;
+--shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+--shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+--shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+--shadow-xl: 0 20px 50px rgba(0, 0, 0, 0.12);
+
+/* وضعیت‌ها */
+--excellent: #10b981;
+--excellent-bg: #ecfdf5;
+--good: #3b82f6;
+--good-bg: #eff6ff;
+--moderate: #f59e0b;
+--moderate-bg: #fffbeb;
+--weak: #ef4444;
+--weak-bg: #fef2f2;
+--error: #6b7280;
+--error-bg: #f9fafb;
+--inactive: #9ca3af;
+--inactive-bg: #f3f4f6;
+
+/* ابعاد */
+--radius-sm: 8px;
+--radius-md: 12px;
+--radius-lg: 16px;
+--radius-xl: 20px;
+--max-width: 1200px;
+
+/* انتقال */
+--transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── حالت تیره ───────────────────────────────────────────── */
+[data-theme="dark"] {
+--bg-primary: #0f172a;
+--bg-secondary: #1e293b;
+--bg-card: #1e293b;
+--bg-hover: #273549;
+--text-primary: #f1f5f9;
+--text-secondary: #94a3b8;
+--text-muted: #64748b;
+--border: #334155;
+--border-light: #1e293b;
+--shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+--shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+--shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
+--shadow-xl: 0 20px 50px rgba(0, 0, 0, 0.6);
+
+--excellent-bg: #064e3b;
+--good-bg: #1e3a5f;
+--moderate-bg: #78350f;
+--weak-bg: #7f1d1d;
+--error-bg: #374151;
+--inactive-bg: #1f2937;
+}
+
+/* ── ریست و پایه ─────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+html {
+font-size: 16px;
+scroll-behavior: smooth;
+}
+
+body {
+font-family: 'Vazirmatn', 'Segoe UI', Tahoma, Arial, sans-serif;
+background: var(--bg-primary);
+color: var(--text-primary);
+direction: rtl;
+line-height: 1.7;
+min-height: 100vh;
+transition: var(--transition);
+}
+
+/* ── هدر ──────────────────────────────────────────────────── */
+.header {
+background: var(--gradient);
+color: white;
+padding: 2rem 1.5rem;
+position: relative;
+overflow: hidden;
+}
+
+.header::before {
+content: '';
+position: absolute;
+top: -50%;
+left: -50%;
+width: 200%;
+height: 200%;
+background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+animation: headerGlow 15s ease-in-out infinite;
+}
+
+@keyframes headerGlow {
+0%, 100% { transform: translate(0, 0); }
+50% { transform: translate(-20%, -20%); }
+}
+
+.header-content {
+max-width: var(--max-width);
+margin: 0 auto;
+position: relative;
+z-index: 1;
+display: flex;
+justify-content: space-between;
+align-items: center;
+flex-wrap: wrap;
+gap: 1rem;
+}
+
+.header-right {
+display: flex;
+align-items: center;
+gap: 1rem;
+}
+
+.logo {
+width: 48px;
+height: 48px;
+background: rgba(255,255,255,0.2);
+border-radius: var(--radius-md);
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1.5rem;
+font-weight: 900;
+backdrop-filter: blur(10px);
+}
+
+.header-title h1 {
+font-size: 1.6rem;
+font-weight: 800;
+letter-spacing: -0.5px;
+}
+
+.header-title p {
+font-size: 0.85rem;
+opacity: 0.85;
+margin-top: 0.15rem;
+}
+
+.header-left {
+display: flex;
+align-items: center;
+gap: 0.75rem;
+}
+
+/* ── دکمه تم ─────────────────────────────────────────────── */
+.theme-toggle {
+background: rgba(255,255,255,0.15);
+border: 1px solid rgba(255,255,255,0.25);
+color: white;
+width: 42px;
+height: 42px;
+border-radius: var(--radius-sm);
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1.2rem;
+transition: var(--transition);
+backdrop-filter: blur(10px);
+}
+
+.theme-toggle:hover {
+background: rgba(255,255,255,0.25);
+transform: scale(1.05);
+}
+
+.update-badge {
+background: rgba(255,255,255,0.15);
+border: 1px solid rgba(255,255,255,0.25);
+color: white;
+padding: 0.4rem 0.8rem;
+border-radius: var(--radius-sm);
+font-size: 0.75rem;
+backdrop-filter: blur(10px);
+direction: ltr;
+}
+
+/* ── محتوای اصلی ─────────────────────────────────────────── */
+.main-content {
+max-width: var(--max-width);
+margin: 0 auto;
+padding: 1.5rem;
+}
+
+/* ── کارت‌های آماری ───────────────────────────────────────── */
+.stats-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: 1rem;
+margin-bottom: 1.5rem;
+}
+
+.stat-card {
+background: var(--bg-card);
+border: 1px solid var(--border);
+border-radius: var(--radius-lg);
+padding: 1.25rem;
+transition: var(--transition);
+position: relative;
+overflow: hidden;
+}
+
+.stat-card:hover {
+transform: translateY(-2px);
+box-shadow: var(--shadow-md);
+}
+
+.stat-card::before {
+content: '';
+position: absolute;
+top: 0;
+right: 0;
+width: 4px;
+height: 100%;
+background: var(--gradient);
+border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+}
+
+.stat-icon {
+font-size: 1.5rem;
+margin-bottom: 0.5rem;
+}
+
+.stat-value {
+font-size: 1.8rem;
+font-weight: 800;
+color: var(--text-primary);
+line-height: 1.2;
+}
+
+.stat-label {
+font-size: 0.8rem;
+color: var(--text-secondary);
+margin-top: 0.2rem;
+}
+
+/* ── نوار فیلتر ──────────────────────────────────────────── */
+.filter-bar {
+background: var(--bg-card);
+border: 1px solid var(--border);
+border-radius: var(--radius-lg);
+padding: 1rem 1.25rem;
+margin-bottom: 1.5rem;
+display: flex;
+flex-wrap: wrap;
+gap: 0.75rem;
+align-items: center;
+}
+
+.search-box {
+flex: 1;
+min-width: 200px;
+position: relative;
+}
+
+.search-box input {
+width: 100%;
+padding: 0.6rem 1rem 0.6rem 2.5rem;
+border: 1px solid var(--border);
+border-radius: var(--radius-sm);
+background: var(--bg-primary);
+color: var(--text-primary);
+font-family: inherit;
+font-size: 0.85rem;
+transition: var(--transition);
+direction: rtl;
+}
+
+.search-box input:focus {
+outline: none;
+border-color: var(--primary);
+box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+}
+
+.search-box input::placeholder {
+color: var(--text-muted);
+}
+
+.search-box .search-icon {
+position: absolute;
+left: 0.75rem;
+top: 50%;
+transform: translateY(-50%);
+color: var(--text-muted);
+font-size: 0.9rem;
+pointer-events: none;
+}
+
+.filter-select {
+padding: 0.6rem 0.9rem;
+border: 1px solid var(--border);
+border-radius: var(--radius-sm);
+background: var(--bg-primary);
+color: var(--text-primary);
+font-family: inherit;
+font-size: 0.82rem;
+cursor: pointer;
+transition: var(--transition);
+direction: rtl;
+}
+
+.filter-select:focus {
+outline: none;
+border-color: var(--primary);
+box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+}
+
+/* ── جدول رتبه‌بندی ───────────────────────────────────────── */
+.ranking-section {
+background: var(--bg-card);
+border: 1px solid var(--border);
+border-radius: var(--radius-lg);
+overflow: hidden;
+}
+
+.section-header {
+padding: 1rem 1.25rem;
+border-bottom: 1px solid var(--border);
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.section-title {
+font-size: 1rem;
+font-weight: 700;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+}
+
+.channel-count {
+background: var(--bg-primary);
+color: var(--text-secondary);
+padding: 0.2rem 0.6rem;
+border-radius: 999px;
+font-size: 0.75rem;
+font-weight: 600;
+}
+
+/* جدول */
+.table-wrapper {
+overflow-x: auto;
+-webkit-overflow-scrolling: touch;
+}
+
+.ranking-table {
+width: 100%;
+border-collapse: collapse;
+font-size: 0.85rem;
+}
+
+.ranking-table thead {
+background: var(--bg-primary);
+}
+
+.ranking-table th {
+padding: 0.75rem 1rem;
+text-align: right;
+font-weight: 700;
+color: var(--text-secondary);
+font-size: 0.78rem;
+white-space: nowrap;
+cursor: pointer;
+user-select: none;
+transition: var(--transition);
+border-bottom: 2px solid var(--border);
+}
+
+.ranking-table th:hover {
+color: var(--primary);
+}
+
+.ranking-table th .sort-icon {
+margin-right: 0.3rem;
+font-size: 0.65rem;
+opacity: 0.4;
+}
+
+.ranking-table th.sorted .sort-icon {
+opacity: 1;
+color: var(--primary);
+}
+
+.ranking-table td {
+padding: 0.85rem 1rem;
+border-bottom: 1px solid var(--border-light);
+vertical-align: middle;
+}
+
+.ranking-table tbody tr {
+transition: var(--transition);
+}
+
+.ranking-table tbody tr:hover {
+background: var(--bg-hover);
+}
+
+.ranking-table tbody tr:last-child td {
+border-bottom: none;
+}
+
+/* سلول رتبه */
+.rank-cell {
+font-weight: 800;
+text-align: center;
+width: 50px;
+}
+
+.rank-badge {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+width: 32px;
+height: 32px;
+border-radius: 50%;
+font-size: 0.85rem;
+}
+
+.rank-1 { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #92400e; }
+.rank-2 { background: linear-gradient(135deg, #d1d5db, #9ca3af); color: #374151; }
+.rank-3 { background: linear-gradient(135deg, #f97316, #ea580c); color: #fff; }
+.rank-default { background: var(--bg-primary); color: var(--text-secondary); }
+
+/* سلول نام کانال */
+.channel-cell {
+display: flex;
+align-items: center;
+gap: 0.75rem;
+}
+
+.channel-avatar {
+width: 38px;
+height: 38px;
+border-radius: var(--radius-sm);
+display: flex;
+align-items: center;
+justify-content: center;
+font-weight: 800;
+font-size: 0.9rem;
+color: white;
+flex-shrink: 0;
+}
+
+.channel-info {
+display: flex;
+flex-direction: column;
+}
+
+.channel-name {
+font-weight: 700;
+font-size: 0.88rem;
+color: var(--text-primary);
+}
+
+.channel-username {
+font-size: 0.72rem;
+color: var(--text-muted);
+direction: ltr;
+text-align: right;
+}
+
+.channel-username a {
+color: inherit;
+text-decoration: none;
+transition: var(--transition);
+}
+
+.channel-username a:hover {
+color: var(--primary);
+}
+
+/* امتیاز */
+.score-cell {
+text-align: center;
+}
+
+.score-bar-wrapper {
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 0.3rem;
+}
+
+.score-value {
+font-weight: 800;
+font-size: 1rem;
+}
+
+.score-bar {
+width: 60px;
+height: 5px;
+background: var(--border);
+border-radius: 999px;
+overflow: hidden;
+}
+
+.score-bar-fill {
+height: 100%;
+border-radius: 999px;
+transition: width 1s ease;
+}
+
+/* وضعیت */
+.status-badge {
+display: inline-flex;
+align-items: center;
+gap: 0.3rem;
+padding: 0.25rem 0.65rem;
+border-radius: 999px;
+font-size: 0.72rem;
+font-weight: 600;
+white-space: nowrap;
+}
+
+.status-excellent { background: var(--excellent-bg); color: var(--excellent); }
+.status-good { background: var(--good-bg); color: var(--good); }
+.status-moderate { background: var(--moderate-bg); color: var(--moderate); }
+.status-weak { background: var(--weak-bg); color: var(--weak); }
+.status-error { background: var(--error-bg); color: var(--error); }
+.status-inactive { background: var(--inactive-bg); color: var(--inactive); }
+
+.status-dot {
+width: 6px;
+height: 6px;
+border-radius: 50%;
+background: currentColor;
+}
+
+/* انواع پروکسی */
+.type-tags {
+display: flex;
+flex-wrap: wrap;
+gap: 0.3rem;
+}
+
+.type-tag {
+display: inline-block;
+padding: 0.15rem 0.45rem;
+border-radius: var(--radius-sm);
+font-size: 0.68rem;
+font-weight: 600;
+background: var(--bg-primary);
+color: var(--text-secondary);
+border: 1px solid var(--border);
+white-space: nowrap;
+}
+
+/* زمان */
+.time-cell {
+font-size: 0.78rem;
+color: var(--text-secondary);
+white-space: nowrap;
+direction: ltr;
+text-align: right;
+}
+
+.time-relative {
+display: block;
+color: var(--text-muted);
+font-size: 0.7rem;
+}
+
+/* تعداد آیتم */
+.count-cell {
+text-align: center;
+font-weight: 700;
+}
+
+/* ── انواع پروکسی بخش آمار ───────────────────────────────── */
+.proxy-types-bar {
+margin-top: 1.5rem;
+background: var(--bg-card);
+border: 1px solid var(--border);
+border-radius: var(--radius-lg);
+padding: 1.25rem;
+}
+
+.proxy-types-title {
+font-size: 0.9rem;
+font-weight: 700;
+margin-bottom: 1rem;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+}
+
+.proxy-types-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+gap: 0.6rem;
+}
+
+.proxy-type-item {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 0.5rem 0.75rem;
+background: var(--bg-primary);
+border-radius: var(--radius-sm);
+font-size: 0.8rem;
+}
+
+.proxy-type-name {
+font-weight: 600;
+color: var(--text-primary);
+}
+
+.proxy-type-count {
+font-weight: 800;
+color: var(--primary);
+font-size: 0.9rem;
+}
+
+/* ── جزئیات امتیاز (tooltip) ─────────────────────────────── */
+.score-details-popup {
+position: absolute;
+background: var(--bg-card);
+border: 1px solid var(--border);
+border-radius: var(--radius-md);
+padding: 1rem;
+box-shadow: var(--shadow-xl);
+z-index: 100;
+min-width: 220px;
+font-size: 0.78rem;
+display: none;
+direction: rtl;
+}
+
+.score-details-popup.visible {
+display: block;
+}
+
+.score-detail-row {
+display: flex;
+justify-content: space-between;
+padding: 0.3rem 0;
+border-bottom: 1px dashed var(--border-light);
+}
+
+.score-detail-row:last-child {
+border-bottom: none;
+font-weight: 700;
+padding-top: 0.5rem;
+margin-top: 0.3rem;
+border-top: 1px solid var(--border);
+}
+
+/* ── فوتر ─────────────────────────────────────────────────── */
+.footer {
+text-align: center;
+padding: 2rem 1.5rem;
+color: var(--text-muted);
+font-size: 0.78rem;
+border-top: 1px solid var(--border);
+margin-top: 2rem;
+}
+
+.footer a {
+color: var(--primary);
+text-decoration: none;
+}
+
+.footer a:hover {
+text-decoration: underline;
+}
+
+/* ── وضعیت خالی ──────────────────────────────────────────── */
+.empty-state {
+text-align: center;
+padding: 3rem 1.5rem;
+color: var(--text-muted);
+}
+
+.empty-state .icon {
+font-size: 3rem;
+margin-bottom: 1rem;
+}
+
+.empty-state p {
+font-size: 0.9rem;
+}
+
+/* ── بارگذاری ─────────────────────────────────────────────── */
+.loading {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: 4rem 2rem;
+color: var(--text-muted);
+gap: 1rem;
+}
+
+.spinner {
+width: 36px;
+height: 36px;
+border: 3px solid var(--border);
+border-top-color: var(--primary);
+border-radius: 50%;
+animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+to { transform: rotate(360deg); }
+}
+
+/* ── واکنش‌گرا ────────────────────────────────────────────── */
+@media (max-width: 768px) {
+.header {
+padding: 1.5rem 1rem;
+}
+
+.header-content {
+flex-direction: column;
+text-align: center;
+}
+
+.header-right {
+flex-direction: column;
+}
+
+.header-left {
+width: 100%;
+justify-content: center;
+}
+
+.header-title h1 {
+font-size: 1.3rem;
+}
+
+.main-content {
+padding: 1rem;
+}
+
+.stats-grid {
+grid-template-columns: repeat(2, 1fr);
+gap: 0.75rem;
+}
+
+.stat-card {
+padding: 1rem;
+}
+
+.stat-value {
+font-size: 1.4rem;
+}
+
+.filter-bar {
+flex-direction: column;
+}
+
+.search-box {
+width: 100%;
+}
+
+.filter-select {
+width: 100%;
+}
+
+.ranking-table {
+font-size: 0.78rem;
+}
+
+.ranking-table th,
+.ranking-table td {
+padding: 0.6rem 0.5rem;
+}
+
+.channel-avatar {
+width: 32px;
+height: 32px;
+font-size: 0.75rem;
+}
+
+.channel-name {
+font-size: 0.8rem;
+}
+
+/* مخفی کردن ستون‌های کم‌اهمیت در موبایل */
+.hide-mobile {
+display: none;
+}
+}
+
+@media (max-width: 480px) {
+.stats-grid {
+grid-template-columns: 1fr 1fr;
+}
+
+.proxy-types-grid {
+grid-template-columns: 1fr 1fr;
+}
+}
+
+/* ── پرینت ────────────────────────────────────────────────── */
+@media print {
+body {
+background: white;
+color: black;
+}
+
+.header {
+background: #333;
+-webkit-print-color-adjust: exact;
+print-color-adjust: exact;
+}
+
+.theme-toggle,
+.filter-bar,
+.update-badge {
+display: none !important;
+}
+
+.ranking-section {
+box-shadow: none;
+border: 1px solid #ddd;
+}
+
+.stat-card {
+box-shadow: none;
+border: 1px solid #ddd;
+}
+
+.ranking-table tbody tr:hover {
+background: transparent;
+}
+
+.score-details-popup {
+display: none !important;
+}
+}
+
+/* ── اسکرول‌بار سفارشی ───────────────────────────────────── */
+::-webkit-scrollbar {
+width: 8px;
+height: 8px;
+}
+
+::-webkit-scrollbar-track {
+background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+background: var(--border);
+border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+background: var(--text-muted);
+}
+
+/* ── انیمیشن ورود ────────────────────────────────────────── */
+@keyframes fadeInUp {
+from {
+opacity: 0;
+transform: translateY(15px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+.animate-in {
+animation: fadeInUp 0.5s ease forwards;
+}
+
+.delay-1 { animation-delay: 0.05s; }
+.delay-2 { animation-delay: 0.1s; }
+.delay-3 { animation-delay: 0.15s; }
+.delay-4 { animation-delay: 0.2s; }
