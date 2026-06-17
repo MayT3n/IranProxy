@@ -1,9 +1,9 @@
 name: Update IranProxy
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '*/5 * * * *'
-  workflow_dispatch:
 
 permissions:
   contents: write
@@ -21,7 +21,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
       - name: Setup Python
@@ -29,34 +28,46 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Show files
+      - name: Write heartbeat
         run: |
-          pwd
-          ls -la
-          ls -la scripts || true
+          python - << 'PY'
+          import json, datetime
+          now = datetime.datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
+          with open("heartbeat.json", "w", encoding="utf-8") as f:
+              json.dump({"last_run": now}, f, ensure_ascii=False, indent=2)
+          print("heartbeat:", now)
+          PY
 
       - name: Run pipeline
-        run: |
-          python run.py
-          python - << 'PY'
-          import json, pathlib
-          p = pathlib.Path("data.json")
-          if not p.exists():
-              raise SystemExit("data.json ساخته نشد")
-          d = json.loads(p.read_text(encoding="utf-8"))
-          print("generated_at:", d.get("generated_at"))
-          print("total_configs:", d.get("stats", {}).get("total_configs"))
-          print("online:", d.get("stats", {}).get("online"))
-          PY
+        run: python run.py
         env:
           PYTHONUNBUFFERED: "1"
+
+      - name: Debug outputs
+        run: |
+          ls -la
+          python - << 'PY'
+          import json, os
+
+          for p in ["heartbeat.json", "data.json", "stats.json"]:
+              print("----", p, "----")
+              print("exists:", os.path.exists(p))
+              if os.path.exists(p):
+                  try:
+                      with open(p, "r", encoding="utf-8") as f:
+                          d = json.load(f)
+                      print("generated:", d.get("generated_at") or d.get("last_run"))
+                  except Exception as e:
+                      print("read error:", e)
+          PY
+          git status
 
       - name: Commit changes
         run: |
           git config user.name "IranProxy Bot"
           git config user.email "bot@users.noreply.github.com"
 
-          git add data.json stats.json
+          git add data.json stats.json heartbeat.json
           git status
 
           if git diff --staged --quiet; then
