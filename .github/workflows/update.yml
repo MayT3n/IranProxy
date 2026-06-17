@@ -1,16 +1,40 @@
-- name: 📤 Commit changes
-  run: |
-    git config user.name "IranProxy Bot"
-    git config user.email "bot@iranproxy.github.io"
+name: Update IranProxy
 
-    # مهم‌ترین تغییر اینجاست
-    git add -A
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
 
-    if git diff --staged --quiet; then
-      echo "No changes"
-      exit 0
-    fi
+permissions:
+  contents: write
 
-    TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M UTC")
-    git commit -m "🔄 update ${TIMESTAMP}"
-    git push
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run pipeline
+        run: python run.py
+        env:
+          PYTHONUNBUFFERED: "1"
+
+      - name: Commit changes
+        run: |
+          git config user.name "IranProxy Bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data.json stats.json
+          if git diff --staged --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Update $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push origin main
+          fi
