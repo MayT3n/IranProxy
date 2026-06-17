@@ -1,78 +1,45 @@
-name: Update IranProxy
+name: Update IranProxy Data
 
 on:
-  workflow_dispatch:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+  push:
+    paths:
+      - 'config.json'
+      - 'scripts/**'
 
 permissions:
   contents: write
 
-concurrency:
-  group: iranproxy-update
-  cancel-in-progress: true
-
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
 
     steps:
-      - name: Checkout
+      - name: 📥 Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Setup Python
+      - name: 🐍 Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Write heartbeat
-        run: |
-          python - << 'PY'
-          import json, datetime
-          now = datetime.datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
-          with open("heartbeat.json", "w", encoding="utf-8") as f:
-              json.dump({"last_run": now}, f, ensure_ascii=False, indent=2)
-          print("heartbeat:", now)
-          PY
-
-      - name: Run pipeline
+      - name: 🚀 Run pipeline
         run: python run.py
         env:
           PYTHONUNBUFFERED: "1"
 
-      - name: Debug outputs
-        run: |
-          ls -la
-          python - << 'PY'
-          import json, os
-
-          for p in ["heartbeat.json", "data.json", "stats.json"]:
-              print("----", p, "----")
-              print("exists:", os.path.exists(p))
-              if os.path.exists(p):
-                  try:
-                      with open(p, "r", encoding="utf-8") as f:
-                          d = json.load(f)
-                      print("generated:", d.get("generated_at") or d.get("last_run"))
-                  except Exception as e:
-                      print("read error:", e)
-          PY
-          git status
-
-      - name: Commit changes
+      - name: 📤 Commit
         run: |
           git config user.name "IranProxy Bot"
-          git config user.email "bot@users.noreply.github.com"
-
-          git add data.json stats.json heartbeat.json
-          git status
-
+          git config user.email "bot@iranproxy.github.io"
+          git add data.json stats.json
           if git diff --staged --quiet; then
-            echo "No changes to commit"
+            echo "بدون تغییر"
           else
-            git commit -m "Update $(date -u +'%Y-%m-%d %H:%M UTC')"
-            git push origin main
+            TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M UTC")
+            git commit -m "🔄 بروزرسانی ${TIMESTAMP}"
+            git push
           fi
