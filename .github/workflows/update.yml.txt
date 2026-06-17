@@ -1,0 +1,91 @@
+# ═══════════════════════════════════════════════════════════
+# Internet Access Hub — بروزرسانی خودکار
+# اجرا هر ۴ ساعت
+# ═══════════════════════════════════════════════════════════
+
+name: Update Dashboard Data
+
+on:
+  schedule:
+    # هر ۴ ساعت
+    - cron: '0 */4 * * *'
+  # اجرای دستی
+  workflow_dispatch:
+  # هنگام تغییر config.json
+  push:
+    paths:
+      - 'config.json'
+      - 'scripts/**'
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 📦 Install dependencies
+        run: |
+          pip install --upgrade pip
+
+      - name: 🚀 Run pipeline
+        run: |
+          python scripts/main.py
+        env:
+          PYTHONUNBUFFERED: "1"
+
+      - name: 📊 Generate summary
+        if: always()
+        run: |
+          echo "## 📊 Internet Access Hub Update" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ -f data.json ]; then
+            python3 << 'EOF' >> $GITHUB_STEP_SUMMARY
+            import json
+            with open("data.json") as f:
+                d = json.load(f)
+            s = d.get("stats", {})
+            print(f"| معیار | مقدار |")
+            print(f"|------|-------|")
+            print(f"| کل کانفیگ‌ها | {s.get('total_configs', 0)} |")
+            print(f"| آنلاین | {s.get('online', 0)} |")
+            print(f"| آفلاین | {s.get('offline', 0)} |")
+            print(f"| میانگین تأخیر | {s.get('avg_latency_ms', '—')} ms |")
+            print(f"| میانگین امتیاز | {s.get('avg_score', 0)} |")
+            print()
+            print("### توزیع پروتکل‌ها")
+            for p, c in s.get("by_protocol", {}).items():
+                print(f"- **{p}**: {c}")
+            EOF
+          else
+            echo "⚠️ فایل data.json ساخته نشد" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: 📤 Commit changes
+        if: success()
+        run: |
+          git config user.name "IAH Bot"
+          git config user.email "iah-bot@users.noreply.github.com"
+
+          # فقط فایل‌های خروجی اصلی
+          git add data.json stats.json
+
+          if git diff --staged --quiet; then
+            echo "بدون تغییر"
+          else
+            TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M UTC")
+            git commit -m "🔄 Update: ${TIMESTAMP}"
+            git push
+          fi

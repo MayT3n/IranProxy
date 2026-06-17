@@ -3,106 +3,187 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Internet Hub Dashboard</title>
+  <meta name="description" content="Internet Access Hub — داشبورد وضعیت کانفیگ‌های اینترنت">
+  <meta name="theme-color" content="#6366f1">
+  <title>Internet Access Hub — داشبورد کانفیگ‌ها</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+  <!-- ═══ هدر ═══ -->
   <header class="header">
-    <div class="header-content">
-      <div class="header-right">
-        <div class="logo">📡</div>
-        <div class="header-title">
-          <h1>داشبورد اینترنت هاب</h1>
-          <p>رتبه‌بندی پروکسی‌های عمومی</p>
+    <div class="container">
+      <div class="header-content">
+        <div class="header-brand">
+          <div class="logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </div>
+          <div>
+            <h1>Internet Access Hub</h1>
+            <p class="subtitle">داشبورد زنده وضعیت کانفیگ‌های اینترنت</p>
+          </div>
         </div>
-      </div>
-      <div class="header-left">
-        <span class="update-badge" id="lastUpdate">—</span>
-        <button class="theme-toggle" id="themeToggle">🌙</button>
+        <div class="header-actions">
+          <span class="status-pill" id="liveStatus">
+            <span class="pulse"></span>
+            <span id="liveText">زنده</span>
+          </span>
+          <span class="update-info" id="updateInfo">—</span>
+          <button class="btn-icon" id="themeToggle" title="تغییر تم" aria-label="تغییر تم">
+            <span id="themeIcon">🌙</span>
+          </button>
+        </div>
       </div>
     </div>
   </header>
 
-  <main class="main-content" id="mainContent">
-    <!-- loading -->
-    <div class="loading" id="loadingState">
+  <!-- ═══ محتوای اصلی ═══ -->
+  <main class="container main">
+
+    <!-- بارگذاری -->
+    <div class="loading" id="loading">
       <div class="spinner"></div>
-      <p>در حال بارگذاری...</p>
+      <p>در حال بارگذاری داده‌ها...</p>
     </div>
 
-    <!-- Stats -->
-    <div class="stats-grid" id="statsGrid" style="display:none;">
-      <div class="stat-card">
-        <div class="stat-icon">🟢</div>
-        <div class="stat-value" id="statOnline">—</div>
-        <div class="stat-label">آنلاین</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">🔴</div>
-        <div class="stat-value" id="statOffline">—</div>
-        <div class="stat-label">آفلاین</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">⏱️</div>
-        <div class="stat-value" id="statLatency">—</div>
-        <div class="stat-label">میانگین تأخیر</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">⭐</div>
-        <div class="stat-value" id="statAvgScore">—</div>
-        <div class="stat-label">میانگین امتیاز</div>
-      </div>
+    <!-- خطا -->
+    <div class="error-state hidden" id="errorState">
+      <div class="error-icon">⚠️</div>
+      <h2>خطا در بارگذاری</h2>
+      <p id="errorMessage">—</p>
+      <button class="btn btn-primary" onclick="location.reload()">تلاش مجدد</button>
     </div>
 
-    <!-- Filters -->
-    <div class="filter-bar" id="filterBar" style="display:none;">
-      <div class="search-box">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="searchInput" placeholder="جستجو (هاست، پروتکل، توضیحات)...">
+    <!-- داشبورد -->
+    <div id="dashboard" class="hidden">
+
+      <!-- کارت‌های آماری -->
+      <section class="stats-grid">
+        <div class="stat-card" data-type="total">
+          <div class="stat-icon">📊</div>
+          <div class="stat-value" id="statTotal">—</div>
+          <div class="stat-label">کل کانفیگ‌ها</div>
+        </div>
+        <div class="stat-card" data-type="online">
+          <div class="stat-icon">🟢</div>
+          <div class="stat-value" id="statOnline">—</div>
+          <div class="stat-label">آنلاین</div>
+        </div>
+        <div class="stat-card" data-type="latency">
+          <div class="stat-icon">⚡</div>
+          <div class="stat-value" id="statLatency">—</div>
+          <div class="stat-label">میانگین تأخیر (ms)</div>
+        </div>
+        <div class="stat-card" data-type="score">
+          <div class="stat-icon">⭐</div>
+          <div class="stat-value" id="statScore">—</div>
+          <div class="stat-label">میانگین امتیاز</div>
+        </div>
+      </section>
+
+      <!-- نمودار و توزیع -->
+      <section class="charts-row">
+        <div class="card">
+          <h3 class="card-title">📈 توزیع پروتکل‌ها</h3>
+          <canvas id="protocolChart" width="400" height="220"></canvas>
+        </div>
+        <div class="card">
+          <h3 class="card-title">🎯 توزیع امتیازها</h3>
+          <canvas id="scoreChart" width="400" height="220"></canvas>
+        </div>
+      </section>
+
+      <!-- فیلتر و جستجو -->
+      <section class="filter-bar">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="searchInput" placeholder="جستجو در نام، هاست، یا پروتکل...">
+        </div>
+        <div class="filter-group">
+          <label>پروتکل:</label>
+          <select id="protocolFilter" class="select">
+            <option value="all">همه</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>وضعیت:</label>
+          <select id="statusFilter" class="select">
+            <option value="all">همه</option>
+            <option value="excellent">عالی</option>
+            <option value="good">خوب</option>
+            <option value="fair">متوسط</option>
+            <option value="offline">آفلاین</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>مرتب‌سازی:</label>
+          <select id="sortBy" class="select">
+            <option value="rank">رتبه</option>
+            <option value="score-desc">بالاترین امتیاز</option>
+            <option value="score-asc">پایین‌ترین امتیاز</option>
+            <option value="latency-asc">سریع‌ترین</option>
+            <option value="latency-desc">کندترین</option>
+            <option value="name-asc">نام (ا-ی)</option>
+          </select>
+        </div>
+        <button class="btn-icon" id="resetFilters" title="بازنشانی فیلترها">↻</button>
+      </section>
+
+      <!-- شمارنده نتایج -->
+      <div class="results-info">
+        <span>نمایش <strong id="visibleCount">۰</strong> از <strong id="totalCount">۰</strong></span>
       </div>
-      <select class="filter-select" id="protocolFilter">
-        <option value="all">همه پروتکل‌ها</option>
-      </select>
-      <select class="filter-select" id="statusFilter">
-        <option value="all">همه وضعیت‌ها</option>
-        <option value="online">آنلاین</option>
-        <option value="offline">آفلاین</option>
-      </select>
-      <select class="filter-select" id="sortSelect">
-        <option value="rank">رتبه</option>
-        <option value="score-desc">بیشترین امتیاز</option>
-        <option value="latency-asc">کمترین تأخیر</option>
-        <option value="host-asc">هاست (الفبا)</option>
-      </select>
+
+      <!-- جدول کانفیگ‌ها -->
+      <section class="card table-card">
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th class="col-rank">#</th>
+                <th>پروتکل</th>
+                <th>نام / هاست</th>
+                <th class="col-num">امتیاز</th>
+                <th class="col-num">تأخیر</th>
+                <th>وضعیت</th>
+                <th>منبع</th>
+                <th class="col-actions">عملیات</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+        </div>
+        <div class="empty-state hidden" id="emptyState">
+          <div class="empty-icon">🔍</div>
+          <p>هیچ کانفیگی با فیلتر فعلی یافت نشد</p>
+        </div>
+      </section>
+
     </div>
 
-    <!-- Table -->
-    <div class="ranking-section" id="rankingSection" style="display:none;">
-      <div class="section-header">
-        <span class="section-title">🏆 رتبه‌بندی کانفیگ‌ها</span>
-        <span class="config-count" id="filteredCount">—</span>
-      </div>
-      <div class="table-wrapper">
-        <table class="ranking-table">
-          <thead>
-            <tr>
-              <th>رتبه</th>
-              <th>پروتکل</th>
-              <th>هاست:پورت</th>
-              <th>وضعیت</th>
-              <th>تأخیر</th>
-              <th>امتیاز</th>
-              <th class="hide-mobile">آخرین بازدید</th>
-            </tr>
-          </thead>
-          <tbody id="tableBody"></tbody>
-        </table>
-      </div>
-    </div>
   </main>
+
+  <!-- ═══ فوتر ═══ -->
   <footer class="footer">
-    <p>Internet Hub Dashboard — داده‌ها از منابع عمومی جمع‌آوری شده‌اند.</p>
+    <div class="container">
+      <p>ساخته شده برای نمایش <strong>داده‌های عمومی</strong> · متن‌باز · بدون API اختصاصی</p>
+    </div>
   </footer>
+
+  <!-- ═══ مودال جزئیات ═══ -->
+  <div class="modal" id="detailModal" aria-hidden="true">
+    <div class="modal-overlay" data-close="true"></div>
+    <div class="modal-content">
+      <button class="modal-close" data-close="true" aria-label="بستن">×</button>
+      <h2 id="modalTitle">—</h2>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
   <script src="app.js"></script>
 </body>
 </html>

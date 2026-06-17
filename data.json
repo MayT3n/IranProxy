@@ -1,45 +1,271 @@
 {
-  "generated_at": "2025-02-10T15:00:00+00:00",
+  "generated_at": "2025-01-15T12:00:00+00:00",
+  "started_at": "2025-01-15T11:55:00+00:00",
+  "finished_at": "2025-01-15T12:00:00+00:00",
   "stats": {
-    "total_configs": 43,
-    "online_configs": 28,
-    "offline_configs": 15,
-    "avg_latency_ms": 187.3,
-    "avg_score": 64.2,
-    "protocol_distribution": {
-      "vmess": 12,
-      "vless": 8,
-      "trojan": 7,
-      "shadowsocks": 6,
+    "total_configs": 87,
+    "online": 62,
+    "offline": 25,
+    "avg_latency_ms": 185.3,
+    "avg_score": 68.4,
+    "by_protocol": {
+      "vmess": 25,
+      "vless": 20,
+      "trojan": 15,
+      "shadowsocks": 12,
+      "hysteria2": 8,
       "mtproto": 5,
-      "hysteria": 3,
-      "hysteria2": 2,
-      "wireguard": 0
+      "wireguard": 2
+    },
+    "by_status": {
+      "excellent": 18,
+      "good": 28,
+      "fair": 16,
+      "poor": 0,
+      "offline": 25
     }
+  },
+  "dedup": {
+    "total_input": 142,
+    "unique": 87,
+    "duplicates": 55,
+    "dedup_rate": 38.7
   },
   "configs": [
     {
-      "protocol": "vmess",
-      "host": "104.26.0.1",
+      "rank": 1,
+      "score": 92.5,
+      "status": "excellent",
+      "protocol": "vless",
+      "host": "cdn.example.com",
       "port": 443,
-      "uuid": "b0b2c0f6-...",
-      "remarks": "🇩🇪 Germany",
-      "online": true,
-      "latency_ms": 95.0,
-      "last_seen": "2025-02-10T14:00:00+00:00",
-      "score": 78.5,
-      "rank": 1
+      "uuid": "f4a8b9c1-1234-5678-90ab-cdef12345678",
+      "network": "tcp",
+      "security": "reality",
+      "sni": "www.google.com",
+      "name": "VLESS-Reality-US",
+      "source_channel": "vpaborjam",
+      "source_label": "VPA برجام",
+      "tags": ["vless", "trojan"],
+      "hash": "a1b2c3d4e5f6g7h8",
+      "health": {
+        "status": "online",
+        "latency_ms": 42.1,
+        "ip": "104.21.xx.xx",
+        "error": null
+      },
+      "score_breakdown": {
+        "health": 100,
+        "protocol": 95,
+        "source": 85,
+        "fingerprint": 95,
+        "uniqueness": 100,
+        "freshness": 70
+      }
     },
     {
-      "protocol": "vless",
-      "host": "proxy.example.com",
+      "rank": 2,
+      "score": 88.3,
+      "status": "excellent",
+      "protocol": "hysteria2",
+      "host": "hy.example.org",
+      "port": 443,
+      "password": "********",
+      "sni": "www.microsoft.com",
+      "name": "HY2-DE",
+      "source_channel": "v2rayng_config",
+      "source_label": "کانفیگ V2Ray",
+      "tags": ["v2ray", "vmess", "vless"],
+      "hash": "z9y8x7w6v5u4t3s2",
+      "health": {
+        "status": "online",
+        "latency_ms": 68.5,
+        "ip": "138.199.xx.xx",
+        "error": null
+      },
+      "score_breakdown": {
+        "health": 92.2,
+        "protocol": 95,
+        "source": 90,
+        "fingerprint": 75,
+        "uniqueness": 100,
+        "freshness": 70
+      }
+    },
+    {
+      "rank": 3,
+      "score": 84.1,
+      "status": "excellent",
+      "protocol": "trojan",
+      "host": "tr.example.net",
+      "port": 443,
+      "password": "********",
+      "sni": "www.cloudflare.com",
+      "name": "Trojan-FR",
+      "source_channel": "vpaborjam",
+      "source_label": "VPA برجام",
+      "tags": ["vless", "trojan"],
+      "hash": "m1n2o3p4q5r6s7t8",
+      "health": {
+        "status": "online",
+        "latency_ms": 89.2,
+        "ip": "51.158.xx.xx",
+        "error": null
+      },
+      "score_breakdown": {
+        "health": 88.4,
+        "protocol": 90,
+        "source": 85,
+        "fingerprint": 80,
+        "uniqueness": 80,
+        "freshness": 70
+      }
+    },
+    {
+      "rank": 4,
+      "score": 76.8,
+      "status": "good",
+      "protocol": "vmess",
+      "host": "vm.example.io",
       "port": 8443,
-      "remarks": "🇫🇷 France",
-      "online": true,
-      "latency_ms": 210.0,
-      "last_seen": "2025-02-10T13:30:00+00:00",
-      "score": 72.1,
-      "rank": 2
+      "uuid": "abcd1234-5678-90ef-ghij-klmnopqrstuv",
+      "alter_id": 0,
+      "security": "auto",
+      "network": "ws",
+      "tls": true,
+      "sni": "cdn.example.io",
+      "path": "/ray",
+      "name": "VMess-WS-TLS",
+      "source_channel": "v2rayng_config",
+      "source_label": "کانفیگ V2Ray",
+      "tags": ["v2ray", "vmess", "vless"],
+      "hash": "k1l2m3n4o5p6q7r8",
+      "health": {
+        "status": "online",
+        "latency_ms": 145.7,
+        "ip": "188.114.xx.xx",
+        "error": null
+      },
+      "score_breakdown": {
+        "health": 83.4,
+        "protocol": 75,
+        "source": 90,
+        "fingerprint": 90,
+        "uniqueness": 60,
+        "freshness": 70
+      }
+    },
+    {
+      "rank": 5,
+      "score": 72.5,
+      "status": "good",
+      "protocol": "shadowsocks",
+      "host": "ss.example.com",
+      "port": 8388,
+      "method": "chacha20-ietf-poly1305",
+      "password": "********",
+      "name": "SS-JP",
+      "source_channel": "free_v2rayyy",
+      "source_label": "V2Ray رایگان",
+      "tags": ["vmess", "trojan"],
+      "hash": "h1g2f3e4d5c6b7a8",
+      "health": {
+        "status": "online",
+        "latency_ms": 198.3,
+        "ip": "45.32.xx.xx",
+        "error": null
+      },
+      "score_breakdown": {
+        "health": 70.6,
+        "protocol": 80,
+        "source": 60,
+        "fingerprint": 50,
+        "uniqueness": 80,
+        "freshness": 70
+      }
+    },
+    {
+      "rank": 6,
+      "score": 58.2,
+      "status": "fair",
+      "protocol": "mtproto",
+      "host": "149.154.xx.xx",
+      "port": 443,
+      "secret": "ee**********",
+      "name": "MTProto-149.154",
+      "source_channel": "ProxyMTProto",
+      "source_label": "پروکسی‌های MTProto",
+      "tags": ["mtproto", "free"],
+      "hash": "w1v2u3t4s5r6q7p8",
+      "health": {
+        "status": "online",
+        "latency_ms": 312.5,
+        "ip": "149.154.xx.xx",
+        "error": null
+      },
+      "score_breakdown": {
+        "health": 56.3,
+        "protocol": 60,
+        "source": 75,
+        "fingerprint": 50,
+        "uniqueness": 40,
+        "freshness": 70
+      }
+    },
+    {
+      "rank": 7,
+      "score": 45.8,
+      "status": "fair",
+      "protocol": "wireguard",
+      "host": "wg.example.com",
+      "port": 51820,
+      "private_key": "***********************************************",
+      "name": "WG-FI",
+      "source_channel": "v2rayng_config",
+      "source_label": "کانفیگ V2Ray",
+      "tags": ["v2ray", "vmess", "vless"],
+      "hash": "f1e2d3c4b5a6z7y8",
+      "health": {
+        "status": "online",
+        "latency_ms": 458.2,
+        "ip": "95.179.xx.xx",
+        "error": null
+      },
+      "score_breakdown": {
+        "health": 41.1,
+        "protocol": 85,
+        "source": 90,
+        "fingerprint": 50,
+        "uniqueness": 20,
+        "freshness": 70
+      }
+    },
+    {
+      "rank": 8,
+      "score": 0,
+      "status": "offline",
+      "protocol": "vmess",
+      "host": "dead.example.com",
+      "port": 443,
+      "name": "VMess-OFFLINE",
+      "source_channel": "free_v2rayyy",
+      "source_label": "V2Ray رایگان",
+      "tags": ["vmess", "trojan"],
+      "hash": "o1f2f3d4e5r6t7y8",
+      "health": {
+        "status": "offline",
+        "latency_ms": null,
+        "ip": null,
+        "error": "Connection refused"
+      },
+      "score_breakdown": {
+        "health": 0,
+        "protocol": 75,
+        "source": 60,
+        "fingerprint": 50,
+        "uniqueness": 100,
+        "freshness": 70
+      }
     }
   ]
 }
