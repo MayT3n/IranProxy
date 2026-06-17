@@ -1,97 +1,108 @@
-# ═══════════════════════════════════════════════════════════
-# TeleRank — بروزرسانی خودکار داده‌ها
-# هر ۶ ساعت اسکریپت پایتون اجرا می‌شود و data.json بروز می‌شود
-# ═══════════════════════════════════════════════════════════
+#!/usr/bin/env python3
+"""
+dedupe.py
+حذف لینک‌های تکراری در داده‌های جمع‌آوری شده.
+هم درون هر کانال و هم بین کانال‌ها.
+"""
 
-name: Update Data
+import json
+import logging
+from pathlib import Path
 
-on:
-# اجرای دوره‌ای: هر ۶ ساعت
-schedule:
-- cron: '0 */1 * * *'
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s"
+)
+logger = logging.getLogger(__name__)
 
-# اجرای دستی
-workflow_dispatch:
 
-# اجرا هنگام تغییر فایل channels.json
-push:
-paths:
-- 'channels.json'
+def normalize_url(url: str) -> str:
+    """نرمال‌سازی URL برای مقایسه"""
+    url = url.strip().rstrip("/")
+    # Remove trailing fragments
+    if "#" in url:
+        url = url.split("#")[0]
+    return url
 
-# مجوزها
-permissions:
-contents: write
 
-jobs:
-update:
-runs-on: ubuntu-latest
-timeout-minutes: 15
+def dedupe_channel_items(items: list[dict]) -> list[dict]:
+    """حذف تکراری‌ها درون یک کانال"""
+    seen = set()
+    unique = []
+    for item in items:
+        norm = normalize_url(item.get("url", ""))
+        if norm and norm not in seen:
+            seen.add(norm)
+            unique.append(item)
+    return unique
 
-steps:
-# 1. Checkout repo
-- name: 📥 Checkout repository
-uses: actions/checkout@v4
-with:
-token: ${{ secrets.GITHUB_TOKEN }}
 
-# 2. Setup Python
-- name: 🐍 Setup Python
-uses: actions/setup-python@v5
-with:
-python-version: '3.11'
+def dedupe_data(input_file: str = "data_raw.json", output_file: str = "data_deduped.json"):
+    """حذف تکراری‌ها از کل داده"""
+    path = Path(input_file)
+    if not path.exists():
+        logger.error(f"فایل {input_file} یافت نشد!")
+        return
 
-# 3. اجرای اسکریپت اصلی
-- name: 🚀 Run data collection
-run: |
-cd ${{ github.workspace }}
-python scripts/main.py
-env:
-PYTHONUNBUFFERED: "1"
+    with open(path, "r", encoding="utf-8") as f:
+        data = json.load(f)
 
-# 4. بررسی تغییرات
-- name: 🔍 Check for changes
-id: check
-run: |
-if git diff --quiet data.json 2>/dev/null; then
-echo "changed=false" >> $GITHUB_OUTPUT
-echo "📭 بدون تغییر"
-else
-echo "changed=true" >> $GITHUB_OUTPUT
-echo "📝 تغییرات شناسایی شد"
-fi
+    channels = data.get("channels", [])
+    global_seen = set()
+    total_before = 0
+    total_after = 0
+    global_dupes = 0
 
-# 5. Commit و Push
-- name: 📤 Commit and push
-if: steps.check.outputs.changed == 'true'
-run: |
-git config --local user.name "TeleRank Bot"
-git config --local user.email "telerank-bot@users.noreply.github.com"
+    for channel in channels:
+        items = channel.get("items", [])
+        total_before += len(items)
 
-# فقط فایل‌های خروجی را commit کن
-git add data.json
+        # Step 1: Dedupe within channel
+        unique_items = dedupe_channel_items(items)
 
-# حذف فایل‌های موقت
-rm -f data_raw.json data_deduped.json
+        # Step 2: Mark global duplicates
+        final_items = []
+        for item in unique_items:
+            norm = normalize_url(item.get("url", ""))
+            if norm in global_seen:
+                item["duplicate"] = True
+                global_dupes += 1
+            else:
+                global_seen.add(norm)
+                item["duplicate"] = False
+            final_items.append(item)
 
-TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M UTC")
-git commit -m "🔄 بروزرسانی داده‌ها — ${TIMESTAMP}"
-git push
+        channel["items"] = final_items
+        channel["item_count"] = len([i for i in final_items if not i.get("duplicate")])
+        channel["item_count_with_dupes"] = len(final_items)
+        total_after += channel["item_count"]
 
-# 6. خلاصه
-- name: 📊 Summary
-if: always()
-run: |
-echo "### 📊 TeleRank Update Summary" >> $GITHUB_STEP_SUMMARY
-echo "" >> $GITHUB_STEP_SUMMARY
-if [ -f data.json ]; then
-CHANNELS=$(python3 -c "import json; d=json.load(open('data.json')); print(d.get('stats',{}).get('total_channels',0))")
-ITEMS=$(python3 -c "import json; d=json.load(open('data.json')); print(d.get('stats',{}).get('total_items',0))")
-AVG=$(python3 -c "import json; d=json.load(open('data.json')); print(d.get('stats',{}).get('average_score',0))")
-echo "| متریک | مقدار |" >> $GITHUB_STEP_SUMMARY
-echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
-echo "| کانال‌ها | ${CHANNELS} |" >> $GITHUB_STEP_SUMMARY
-echo "| آیتم‌ها | ${ITEMS} |" >> $GITHUB_STEP_SUMMARY
-echo "| میانگین امتیاز | ${AVG} |" >> $GITHUB_STEP_SUMMARY
-else
-echo "⚠️ فایل data.json ساخته نشد" >> $GITHUB_STEP_SUMMARY
-fi
+        # Update type counts (only unique)
+        type_counts = {}
+        for item in final_items:
+            if not item.get("duplicate"):
+                t = item.get("type", "Other")
+                type_counts[t] = type_counts.get(t, 0) + 1
+        channel["types"] = type_counts
+
+    data["channels"] = channels
+    data["total_unique_items"] = total_after
+    data["dedup_stats"] = {
+        "total_before": total_before,
+        "total_after": total_after,
+        "duplicates_removed": total_before - total_after,
+        "cross_channel_dupes": global_dupes,
+    }
+
+    with open(output_file, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
+    logger.info(
+        f"🧹 تکرارزدایی: {total_before} → {total_after} "
+        f"({total_before - total_after} تکراری حذف شد، "
+        f"{global_dupes} تکراری بین‌کانالی)"
+    )
+
+
+if __name__ == "__main__":
+    dedupe_data()
