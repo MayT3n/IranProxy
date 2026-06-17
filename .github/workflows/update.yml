@@ -2,8 +2,15 @@ name: Update IranProxy
 
 on:
   schedule:
-    - cron: '*/30 * * * *'
+    - cron: '*/3 * * * *'
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'run.py'
+      - 'config.json'
+      - 'scripts/**'
 
 permissions:
   contents: write
@@ -11,7 +18,7 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 10
 
     steps:
       - name: Checkout
@@ -24,6 +31,8 @@ jobs:
 
       - name: Run pipeline
         run: python run.py
+        env:
+          PYTHONUNBUFFERED: "1"
 
       - name: Commit
         run: |
