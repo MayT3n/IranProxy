@@ -9,7 +9,8 @@ import os
 from pathlib import Path
 
 # اضافه کردن ریشه پروژه به مسیر ایمپورت پایتون
-ROOT_DIR = Path(__file__).parent.resolve()
+ROOT_DIR = Path(__file__).resolve().parent
+os.chdir(ROOT_DIR)
 sys.path.insert(0, str(ROOT_DIR))
 
 # تغییر دایرکتوری کاری به ریشه پروژه (برای خواندن config.json)
