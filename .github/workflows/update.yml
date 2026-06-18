@@ -2,11 +2,15 @@ name: Update IranProxy
 
 on:
   schedule:
-    - cron: '*/10 * * * *'
+    - cron: '*/5 * * * *'
   workflow_dispatch:
 
 permissions:
   contents: write
+
+concurrency:
+  group: iranproxy
+  cancel-in-progress: true
 
 jobs:
   update:
@@ -24,30 +28,77 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Show current files
+        run: |
+          echo "=== Current data.json timestamp ==="
+          python3 -c "
+          import json, os
+          if os.path.exists('data.json'):
+              with open('data.json','r') as f:
+                  d=json.load(f)
+              print('OLD generated_at:', d.get('generated_at','MISSING'))
+              print('OLD total_configs:', d.get('stats',{}).get('total_configs',0))
+          else:
+              print('data.json DOES NOT EXIST')
+          " || echo "No data.json yet"
+
       - name: Run pipeline
-        run: python run.py
+        run: |
+          python run.py 2>&1 | tee pipeline.log
+          echo ""
+          echo "=== Pipeline exit code: $? ==="
         env:
           PYTHONUNBUFFERED: "1"
 
-      - name: Debug changes
+      - name: Verify output
         run: |
-          echo "===== GIT STATUS ====="
-          git status
+          echo "=== Files after pipeline ==="
+          ls -la data.json stats.json 2>/dev/null || echo "OUTPUT FILES MISSING"
+          echo ""
+          echo "=== New data.json content ==="
+          python3 -c "
+          import json, os
+          if os.path.exists('data.json'):
+              with open('data.json','r') as f:
+                  d=json.load(f)
+              print('NEW generated_at:', d.get('generated_at','MISSING'))
+              print('NEW total_configs:', d.get('stats',{}).get('total_configs',0))
+              print('NEW online:', d.get('stats',{}).get('online',0))
+              configs = d.get('configs',[])
+              print('NEW configs count:', len(configs))
+              if configs:
+                  print('First config:', configs[0].get('name','?'), configs[0].get('server_score',0))
+          else:
+              print('ERROR: data.json was not created!')
+          "
 
-          echo "===== CHANGED FILES ====="
-          git diff --name-only || true
-
-      - name: Commit changes
+      - name: Force commit
         run: |
           git config user.name "IranProxy Bot"
           git config user.email "bot@users.noreply.github.com"
 
-          git add data.json stats.json
+          # اضافه کردن timestamp به فایل برای اطمینان از تغییر
+          python3 -c "
+          import json, datetime
+          # Update data.json timestamp
+          try:
+              with open('data.json','r') as f:
+                  d=json.load(f)
+              d['pushed_at']=datetime.datetime.utcnow().isoformat()+'Z'
+              with open('data.json','w') as f:
+                  json.dump(d,f,ensure_ascii=False,indent=2)
+              print('Added pushed_at to data.json')
+          except Exception as e:
+              print('Error:', e)
+          "
 
-          if git diff --cached --quiet; then
-            echo "No changes to commit"
-            exit 0
-          fi
+          git add -A
+          git status
 
-          git commit -m "Update $(date -u +'%Y-%m-%d %H:%M UTC')"
+          echo "=== Attempting commit ==="
+          git commit -m "Update $(date -u +'%Y-%m-%d %H:%M UTC')" || echo "Nothing to commit"
+
+          echo "=== Attempting push ==="
           git push origin main
+
+          echo "=== Done ==="
