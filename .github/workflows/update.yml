@@ -14,16 +14,23 @@ jobs:
     timeout-minutes: 20
 
     steps:
-      - name: Checkout
+      - name: Checkout main
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: main
           fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+
+      - name: Show branch
+        run: |
+          git branch
+          git status
+          pwd
+          ls -la
 
       - name: Run pipeline
         run: python run.py
@@ -33,13 +40,15 @@ jobs:
       - name: Write heartbeat
         run: |
           python - << 'PY'
-          import json, datetime, pathlib
+          import json, pathlib, datetime
+
           now = datetime.datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
 
           hb = {
               "last_run": now,
               "source": "github-actions"
           }
+
           pathlib.Path("heartbeat.json").write_text(
               json.dumps(hb, ensure_ascii=False, indent=2),
               encoding="utf-8"
@@ -52,16 +61,23 @@ jobs:
               d = {"stats": {}, "configs": []}
 
           d["pushed_at"] = now
-          p.write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
-          print("heartbeat + pushed_at updated:", now)
+          p.write_text(
+              json.dumps(d, ensure_ascii=False, indent=2),
+              encoding="utf-8"
+          )
+
+          pathlib.Path("stats.json").touch(exist_ok=True)
+
+          print("heartbeat.json + pushed_at updated:", now)
           PY
 
-      - name: Debug output
+      - name: Debug files
         run: |
+          echo "=== files ==="
+          ls -la
           echo "=== heartbeat.json ==="
           cat heartbeat.json || true
-          echo ""
-          echo "=== data.json brief ==="
+          echo "=== data.json summary ==="
           python - << 'PY'
           import json, pathlib
           p = pathlib.Path("data.json")
@@ -70,20 +86,13 @@ jobs:
               print("generated_at =", d.get("generated_at"))
               print("pushed_at    =", d.get("pushed_at"))
               print("total_configs=", d.get("stats", {}).get("total_configs"))
-              print("online       =", d.get("stats", {}).get("online"))
           else:
               print("data.json missing")
           PY
 
-      - name: Commit and push
-        run: |
-          git config user.name "IranProxy Bot"
-          git config user.email "bot@users.noreply.github.com"
-
-          git add data.json stats.json heartbeat.json
-          git status
-
-          git commit -m "Update $(date -u +'%Y-%m-%d %H:%M UTC')" || echo "Nothing new except maybe same content"
-
-          git pull --rebase origin main || true
-          git push origin main
+      - name: Auto commit
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          branch: main
+          commit_message: "Update IranProxy - ${{ github.run_id }}"
+          file_pattern: data.json stats.json heartbeat.json
