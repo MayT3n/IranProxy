@@ -50,4 +50,8 @@ jobs:
           fi
 
           git commit -m "Update $(date -u +'%Y-%m-%d %H:%M UTC')"
-          git push
+
+          echo "===== SYNC WITH REMOTE ====="
+          git pull --rebase --autostash origin main || true
+
+          git push origin main
