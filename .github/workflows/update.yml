@@ -3,8 +3,7 @@ name: Update IranProxy
 on:
   workflow_dispatch:
   schedule:
-    # هر 5 دقیقه، ولی با offset برای فرار از شلوغی سر ساعت
-    - cron: '2,7,12,17,22,27,32,37,42,47,52,57 * * * *'
+    - cron: '*/30 * * * *'
 
 permissions:
   contents: write
@@ -18,6 +17,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
       - name: Setup Python
@@ -30,27 +30,60 @@ jobs:
         env:
           PYTHONUNBUFFERED: "1"
 
-      - name: Force timestamp update
+      - name: Write heartbeat
         run: |
           python - << 'PY'
           import json, datetime, pathlib
+          now = datetime.datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
+
+          hb = {
+              "last_run": now,
+              "source": "github-actions"
+          }
+          pathlib.Path("heartbeat.json").write_text(
+              json.dumps(hb, ensure_ascii=False, indent=2),
+              encoding="utf-8"
+          )
+
           p = pathlib.Path("data.json")
           if p.exists():
               d = json.loads(p.read_text(encoding="utf-8"))
           else:
               d = {"stats": {}, "configs": []}
-          d["pushed_at"] = datetime.datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
+
+          d["pushed_at"] = now
           p.write_text(json.dumps(d, ensure_ascii=False, indent=2), encoding="utf-8")
-          print("pushed_at updated")
+          print("heartbeat + pushed_at updated:", now)
           PY
 
-      - name: Commit changes
+      - name: Debug output
+        run: |
+          echo "=== heartbeat.json ==="
+          cat heartbeat.json || true
+          echo ""
+          echo "=== data.json brief ==="
+          python - << 'PY'
+          import json, pathlib
+          p = pathlib.Path("data.json")
+          if p.exists():
+              d = json.loads(p.read_text(encoding="utf-8"))
+              print("generated_at =", d.get("generated_at"))
+              print("pushed_at    =", d.get("pushed_at"))
+              print("total_configs=", d.get("stats", {}).get("total_configs"))
+              print("online       =", d.get("stats", {}).get("online"))
+          else:
+              print("data.json missing")
+          PY
+
+      - name: Commit and push
         run: |
           git config user.name "IranProxy Bot"
           git config user.email "bot@users.noreply.github.com"
 
-          git add data.json stats.json
+          git add data.json stats.json heartbeat.json
           git status
 
-          git commit -m "Update $(date -u +'%Y-%m-%d %H:%M UTC')" || echo "No changes to commit"
+          git commit -m "Update $(date -u +'%Y-%m-%d %H:%M UTC')" || echo "Nothing new except maybe same content"
+
+          git pull --rebase origin main || true
           git push origin main
