@@ -1,57 +1,22 @@
-name: Update IranProxy
+- name: Commit changes (safe version)
+  run: |
+    set -e
 
-on:
-  schedule:
-    - cron: '*/10 * * * *'
-  workflow_dispatch:
+    git config user.name "IranProxy Bot"
+    git config user.email "bot@users.noreply.github.com"
 
-permissions:
-  contents: write
+    git add data.json stats.json
 
-jobs:
-  update:
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
+    if git diff --cached --quiet; then
+      echo "No changes"
+      exit 0
+    fi
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+    git commit -m "Update $(date -u +'%Y-%m-%d %H:%M UTC')"
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
+    echo "Syncing with remote..."
+    git fetch origin main
 
-      - name: Run pipeline
-        run: python run.py
-        env:
-          PYTHONUNBUFFERED: "1"
+    git rebase origin/main
 
-      - name: Debug changes
-        run: |
-          echo "===== GIT STATUS ====="
-          git status
-
-          echo "===== CHANGED FILES ====="
-          git diff --name-only || true
-
-      - name: Commit changes
-        run: |
-          git config user.name "IranProxy Bot"
-          git config user.email "bot@users.noreply.github.com"
-
-          git add data.json stats.json
-
-          if git diff --cached --quiet; then
-            echo "No changes to commit"
-            exit 0
-          fi
-
-          git commit -m "Update $(date -u +'%Y-%m-%d %H:%M UTC')"
-
-          echo "===== SYNC WITH REMOTE ====="
-          git pull --rebase --autostash origin main || true
-
-          git push origin main
+    git push origin main
