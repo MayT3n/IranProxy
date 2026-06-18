@@ -1,22 +1,21 @@
 import math
 from collections import Counter
-from datetime import datetime, timezone
-
 from scripts.utils import setup_logger, load_json, save_json, now_iso
 from scripts.health_check import score_latency
 
 logger = setup_logger("scorer")
 
-# وزن‌ها برای server_score (مجموع = 60)
+# وزن‌ها (مجموع = 100 برای محاسبه ساده)
 WEIGHTS = {
-    "health": 20,
-    "protocol": 10,
-    "source": 10,
-    "fingerprint": 10,
-    "uniqueness": 5,
-    "freshness": 5,
+    "health": 30,
+    "protocol": 15,
+    "source": 15,
+    "fingerprint": 20,
+    "uniqueness": 10,
+    "freshness": 10,
 }
-MAX_SERVER_SCORE = sum(WEIGHTS.values())  # 60
+
+MAX_SERVER_SCORE = 60
 
 
 def score_protocol(protocol):
@@ -96,6 +95,7 @@ def calculate_scores(configs):
         health_status = health.get("status", "unknown")
         latency = health.get("latency_ms")
 
+        # هر مؤلفه عددی بین 0 تا 100 هست
         s_health = score_latency(latency) if health_status == "online" else 0
         s_protocol = score_protocol(cfg.get("protocol", ""))
         s_source = score_source(cfg.get("source_channel", ""))
@@ -103,21 +103,24 @@ def calculate_scores(configs):
         s_uniqueness = score_uniqueness(cfg, configs)
         s_freshness = 70
 
-        # server_score: 0-60
-        server_score = (
+        # میانگین وزنی → عدد 0 تا 100
+        weighted_sum = (
             s_health * WEIGHTS["health"] +
             s_protocol * WEIGHTS["protocol"] +
             s_source * WEIGHTS["source"] +
             s_fingerprint * WEIGHTS["fingerprint"] +
             s_uniqueness * WEIGHTS["uniqueness"] +
             s_freshness * WEIGHTS["freshness"]
-        ) / (MAX_SERVER_SCORE * 100 / MAX_SERVER_SCORE)
+        )
+        total_weight = sum(WEIGHTS.values())
 
-        # نرمال‌سازی به 0-60
-        server_score = round(min(MAX_SERVER_SCORE, server_score * MAX_SERVER_SCORE / 100), 1)
+        # نتیجه: عدد 0 تا 100
+        raw_score = weighted_sum / total_weight
+
+        # تبدیل به 0 تا 60
+        server_score = round(raw_score * MAX_SERVER_SCORE / 100, 1)
 
         cfg["server_score"] = server_score
-        # score فعلی = server_score (بعداً client score اضافه می‌شود)
         cfg["score"] = server_score
         cfg["max_server_score"] = MAX_SERVER_SCORE
         cfg["score_breakdown"] = {
@@ -130,6 +133,12 @@ def calculate_scores(configs):
         }
         cfg["status"] = determine_status(server_score, health_status)
 
+        logger.debug(
+            f"{cfg.get('name','?')}: "
+            f"h={s_health} p={s_protocol} s={s_source} "
+            f"f={s_fingerprint} u={s_uniqueness} → {server_score}/60"
+        )
+
     configs.sort(key=lambda c: c.get("server_score", 0), reverse=True)
     for i, cfg in enumerate(configs):
         cfg["rank"] = i + 1
@@ -140,7 +149,8 @@ def build_stats(configs):
     by_protocol = Counter(c.get("protocol", "unknown") for c in configs)
     by_status = Counter(c.get("status", "unknown") for c in configs)
     online = [c for c in configs if c.get("health", {}).get("status") == "online"]
-    latencies = [c["health"]["latency_ms"] for c in online if c.get("health", {}).get("latency_ms")]
+    latencies = [c["health"]["latency_ms"] for c in online
+                 if c.get("health", {}).get("latency_ms")]
 
     avg_latency = round(sum(latencies) / len(latencies), 1) if latencies else None
     avg_score = round(
