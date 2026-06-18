@@ -671,59 +671,315 @@ body+='<div class="detail-row"><span class="detail-label">هاست</span><span c
 body+='<div class="detail-row"><span class="detail-label">وضعیت سرور</span><span class="detail-value">'+(h.status==='online'?'🟢 آنلاین':'🔴 آفلاین')+'</span></div>';
 body+='<div class="detail-row"><span class="detail-label">تأخیر سرور</span><span class="detail-value">'+(h.latency_ms!=null?fa(h.latency_ms)+' ms':'—')+'</span></div>';
 
-// client test results
-var hash=c.hash||c.host+':'+c.port;
+// ═══ Client-Side Network Testing (v2 — واقعاً کار می‌کنه) ═══
+
+var TEST_TIMEOUT=6000;
+var BATCH_SIZE=5;
+var userNetworkSpeed=null; // baseline speed
+
+function startClientTests(){
+// اول سرعت پایه اینترنت کاربر رو بسنج
+measureBaseline(function(){
+var configs=data.configs||[];
+var testable=configs.filter(function(c){
+return c.host&&c.health&&c.health.status==='online';
+}).sort(function(a,b){
+return(b.server_score||0)-(a.server_score||0);
+});
+testQueue=testable.slice();
+isTesting=true;
+processTestQueue();
+});
+}
+
+function measureBaseline(callback){
+// تست سرعت پایه با چند سایت معروف
+var targets=[
+'https://www.google.com/favicon.ico',
+'https://www.cloudflare.com/favicon.ico',
+'https://www.microsoft.com/favicon.ico'
+];
+var results=[];
+var done=0;
+
+targets.forEach(function(url){
+var start=performance.now();
+var img=new Image();
+var timer=setTimeout(function(){
+img.onload=img.onerror=null;
+done++;
+if(done>=targets.length)finishBaseline(results,callback);
+},4000);
+
+var handler=function(){
+clearTimeout(timer);
+var elapsed=performance.now()-start;
+results.push(elapsed);
+done++;
+if(done>=targets.length)finishBaseline(results,callback);
+};
+
+img.onload=handler;
+img.onerror=handler; // حتی error هم timing میده
+img.src=url+'?_='+Date.now();
+});
+}
+
+function finishBaseline(results,callback){
+if(results.length>0){
+// میانگین سرعت پایه
+var sum=0;
+for(var i=0;i<results.length;i++)sum+=results[i];
+userNetworkSpeed=sum/results.length;
+}else{
+userNetworkSpeed=500; // default
+}
+callback();
+}
+
+function processTestQueue(){
+if(!isTesting||testQueue.length===0){
+isTesting=false;
+saveCache();
+updateScoresAndSort();
+return;
+}
+
+var batch=testQueue.splice(0,BATCH_SIZE);
+var promises=batch.map(function(cfg){
+return testOneConfig(cfg);
+});
+
+Promise.all(promises).then(function(){
+// update UI after each batch
+updateScoresAndSort();
+setTimeout(processTestQueue,300);
+});
+}
+
+function testOneConfig(cfg){
+var hash=cfg.hash||(cfg.host+':'+cfg.port);
+
+// skip if recently tested (10 min cache)
+if(clientScores[hash]&&Date.now()-clientScores[hash].ts<10*60*1000){
+return Promise.resolve();
+}
+
+return new Promise(function(resolve){
+var host=cfg.host||'';
+var port=cfg.port||443;
+var results=[];
+var testsCompleted=0;
+var totalTests=3;
+
+function onTestDone(){
+testsCompleted++;
+if(testsCompleted>=totalTests){
+processResults(hash,results);
+resolve();
+}
+}
+
+// Test 1: Image probe to host (HTTPS)
+probeImage('https://'+host+':'+port+'/favicon.ico',function(r){
+results.push(r);
+onTestDone();
+});
+
+// Test 2: Image probe to host (HTTP fallback)
+probeImage('http://'+host+':'+port+'/favicon.ico',function(r){
+results.push(r);
+onTestDone();
+});
+
+// Test 3: Fetch with no-cors
+probeFetch('https://'+host+':'+port+'/',function(r){
+results.push(r);
+onTestDone();
+});
+});
+}
+
+function probeImage(url,callback){
+var start=performance.now();
+var img=new Image();
+var timedOut=false;
+
+var timer=setTimeout(function(){
+timedOut=true;
+img.onload=img.onerror=null;
+img.src='';
+callback({latency:TEST_TIMEOUT,reachable:false,method:'image-timeout'});
+},TEST_TIMEOUT);
+
+img.onload=function(){
+if(timedOut)return;
+clearTimeout(timer);
+var lat=performance.now()-start;
+callback({latency:Math.round(lat),reachable:true,method:'image-load'});
+};
+
+img.onerror=function(){
+if(timedOut)return;
+clearTimeout(timer);
+var lat=performance.now()-start;
+// اگه سریع error داد = host قابل دسترسه ولی resource نیست
+// اگه کند error داد = احتمالاً بلاکه
+var reachable=lat<(TEST_TIMEOUT*0.7);
+callback({latency:Math.round(lat),reachable:reachable,method:'image-error'});
+};
+
+try{
+img.src=url+'?_='+Date.now();
+}catch(e){
+clearTimeout(timer);
+callback({latency:TEST_TIMEOUT,reachable:false,method:'image-exception'});
+}
+}
+
+function probeFetch(url,callback){
+var start=performance.now();
+var controller=null;
+var timer=null;
+
+try{
+if(window.AbortController){
+controller=new AbortController();
+}
+}catch(e){}
+
+timer=setTimeout(function(){
+if(controller){
+try{controller.abort();}catch(e){}
+}
+callback({latency:TEST_TIMEOUT,reachable:false,method:'fetch-timeout'});
+},TEST_TIMEOUT);
+
+var opts={
+method:'HEAD',
+mode:'no-cors',
+cache:'no-store'
+};
+if(controller)opts.signal=controller.signal;
+
+fetch(url,opts).then(function(){
+clearTimeout(timer);
+var lat=performance.now()-start;
+callback({latency:Math.round(lat),reachable:true,method:'fetch-ok'});
+}).catch(function(err){
+clearTimeout(timer);
+var lat=performance.now()-start;
+// no-cors fetch: حتی وقتی error میده، اگه سریع باشه یعنی host هست
+var reachable=lat<(TEST_TIMEOUT*0.6);
+callback({latency:Math.round(lat),reachable:reachable,method:'fetch-error'});
+});
+}
+
+function processResults(hash,results){
+if(!results||results.length===0){
+clientScores[hash]={
+score:0,latency:null,reachable:false,tested:true,
+method:'no-results',ts:Date.now()
+};
+return;
+}
+
+// پیدا کردن بهترین نتیجه
+var bestReachable=null;
+var bestLatency=TEST_TIMEOUT;
+var anyReachable=false;
+var methods=[];
+
+for(var i=0;i<results.length;i++){
+var r=results[i];
+methods.push(r.method);
+if(r.reachable){
+anyReachable=true;
+if(r.latency<bestLatency){
+bestLatency=r.latency;
+bestReachable=r;
+}
+}
+}
+
+// اگه هیچ‌کدوم reachable نبود، کمترین latency رو بگیر
+if(!anyReachable){
+for(var j=0;j<results.length;j++){
+if(results[j].latency<bestLatency){
+bestLatency=results[j].latency;
+}
+}
+}
+
+var score=calculateClientScore(bestLatency,anyReachable);
+
+clientScores[hash]={
+score:Math.round(score*10)/10,
+latency:bestLatency<TEST_TIMEOUT?bestLatency:null,
+reachable:anyReachable,
+tested:true,
+method:methods.join(','),
+ts:Date.now()
+};
+}
+
+function calculateClientScore(latencyMs,reachable){
+if(!reachable){
+// حتی اگه reachable نیست، بر اساس latency یه امتیاز کوچک بده
+// چون ممکنه از اینترنت کاربر قابل استفاده باشه ولی probe fail شده
+if(latencyMs<1000)return MAX_CLIENT_SCORE*0.15; // 6 از 40
+if(latencyMs<3000)return MAX_CLIENT_SCORE*0.05; // 2 از 40
+return 0;
+}
+
+// امتیاز نسبی بر اساس baseline اینترنت کاربر
+var baseline=userNetworkSpeed||500;
+var ratio=latencyMs/baseline;
+
+// ratio < 1 = سریع‌تر از baseline → امتیاز بالا
+// ratio = 1 = مثل baseline → امتیاز متوسط
+// ratio > 2 = خیلی کندتر → امتیاز پایین
+
+if(ratio<0.5)return MAX_CLIENT_SCORE;                    // 40
+if(ratio<1.0)return MAX_CLIENT_SCORE*0.85;               // 34
+if(ratio<1.5)return MAX_CLIENT_SCORE*0.7;                // 28
+if(ratio<2.0)return MAX_CLIENT_SCORE*0.5;                // 20
+if(ratio<3.0)return MAX_CLIENT_SCORE*0.3;                // 12
+if(ratio<5.0)return MAX_CLIENT_SCORE*0.15;               // 6
+return MAX_CLIENT_SCORE*0.05;                             // 2
+}
+
+function updateScoresAndSort(){
+var configs=data.configs||[];
+var anyUpdated=false;
+
+configs.forEach(function(c){
+var hash=c.hash||(c.host+':'+c.port);
 var cs=clientScores[hash];
 if(cs&&cs.tested){
-body+='<div class="detail-row"><span class="detail-label">تأخیر شما</span><span class="detail-value">'+(cs.latency!=null?fa(cs.latency)+' ms':'—')+'</span></div>';
-body+='<div class="detail-row"><span class="detail-label">دسترس‌پذیری از شما</span><span class="detail-value">'+(cs.reachable?'✅ بله':'❌ خیر')+'</span></div>';
+var oldScore=c.client_score;
+c.client_score=cs.score;
+c.client_latency=cs.latency;
+c.client_reachable=cs.reachable;
+c.score=(c.server_score||0)+cs.score;
+if(oldScore!==cs.score)anyUpdated=true;
+}else{
+c.client_score=null;
+c.client_latency=null;
+c.client_reachable=null;
+c.score=c.server_score||0;
 }
+});
 
-body+='<div class="detail-row"><span class="detail-label">منبع</span><span class="detail-value">'+esc(c.source_label||'—')+'</span></div>';
-
-// scoring breakdown
-body+='<h4 style="margin:1rem 0 0.5rem;font-size:0.82rem;color:var(--text-2)">امتیازدهی</h4>';
-body+='<div class="detail-row"><span class="detail-label">امتیاز سرور</span><span class="detail-value" style="color:'+scoreClr(serverScore)+'">'+fa(serverScore)+' / ۶۰</span></div>';
-body+='<div class="detail-row"><span class="detail-label">امتیاز شبکه شما</span><span class="detail-value" style="color:'+(typeof clientScoreVal==='number'?scoreClr(clientScoreVal):'var(--text-3)')+'">'+fa(clientScoreVal)+' / ۴۰</span></div>';
-body+='<div class="detail-row" style="border-top:1px solid var(--border-glass);padding-top:0.5rem;margin-top:0.3rem"><span class="detail-label"><b>امتیاز نهایی</b></span><span class="detail-value" style="font-size:1.1rem;color:'+scoreClr(finalScore)+'"><b>'+fa(finalScore)+' / ۱۰۰</b></span></div>';
-
-body+='<h4 style="margin:1rem 0 0.5rem;font-size:0.82rem;color:var(--text-2)">جزئیات سرور</h4>';
-body+='<div class="detail-row"><span class="detail-label">سلامت</span><span class="detail-value">'+fa(b.health||0)+'</span></div>';
-body+='<div class="detail-row"><span class="detail-label">پروتکل</span><span class="detail-value">'+fa(b.protocol||0)+'</span></div>';
-body+='<div class="detail-row"><span class="detail-label">منبع</span><span class="detail-value">'+fa(b.source||0)+'</span></div>';
-body+='<div class="detail-row"><span class="detail-label">امنیت</span><span class="detail-value">'+fa(b.fingerprint||0)+'</span></div>';
-body+='<div class="detail-row"><span class="detail-label">یکتایی</span><span class="detail-value">'+fa(b.uniqueness||0)+'</span></div>';
-
-if(uri){
-body+='<div class="config-uri-box">';
-body+='<h4>📎 لینک کانفیگ</h4>';
-body+='<div class="config-uri">'+esc(uri)+'</div>';
-body+='<button class="copy-full-btn" onclick="IP.copyURI('+idx+')">📋 کپی لینک کانفیگ</button>';
-body+='</div>';
+if(anyUpdated){
+configs.sort(function(a,b){
+return(b.score||0)-(a.score||0);
+});
+for(var i=0;i<configs.length;i++){
+configs[i].rank=i+1;
 }
-
-if(isMTP){
-var tgLink='tg://proxy?server='+c.host+'&port='+c.port+'&secret='+(c.secret||'');
-body+='<a href="'+tgLink+'" class="copy-full-btn" style="display:block;text-align:center;margin-top:0.5rem;background:#0088cc;text-decoration:none;color:white">✈️ اتصال مستقیم به تلگرام</a>';
+applyFilters();
 }
-
-dom.modalBody.innerHTML=body;
-dom.modal.classList.add('active');
-}
-
-function copyURI(idx){
-var c=filtered[idx];
-if(!c)return;
-var uri=c.original_uri||'';
-if(!uri&&c.protocol==='mtproto'){
-uri='tg://proxy?server='+c.host+'&port='+c.port+'&secret='+(c.secret||'');
-}
-if(!uri){showToast('لینک موجود نیست');return}
-copyToClipboard(uri);
-}
-
-function closeModal(){
-dom.modal.classList.remove('active');
 }
 
 // ═══ Toast ═══
