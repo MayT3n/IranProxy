@@ -1,34 +1,114 @@
 {
-  "generated_at": "2026-08-14T12:31:39.548251+00:00",
-  "started_at": "2026-08-14T12:30:25.155613+00:00",
-  "finished_at": "2026-08-14T12:31:39.548257+00:00",
+  "generated_at": "2026-08-14T13:01:47.366679+00:00",
+  "started_at": "2026-08-14T13:00:30.167645+00:00",
+  "finished_at": "2026-08-14T13:01:47.366686+00:00",
   "stats": {
-    "total_configs": 89,
-    "online": 53,
-    "offline": 36,
-    "avg_latency_ms": 188.3,
-    "avg_score": 40.7,
+    "total_configs": 85,
+    "online": 54,
+    "offline": 31,
+    "avg_latency_ms": 97.2,
+    "avg_score": 41.6,
     "max_server_score": 60,
     "by_protocol": {
       "vless": 30,
-      "vmess": 23,
-      "trojan": 6,
-      "shadowsocks": 30
+      "vmess": 22,
+      "shadowsocks": 28,
+      "trojan": 5
     },
     "by_status": {
-      "excellent": 17,
-      "good": 34,
-      "offline": 36,
-      "fair": 2
+      "excellent": 25,
+      "good": 28,
+      "fair": 1,
+      "offline": 31
     }
   },
   "dedup": {
-    "total_input": 137,
-    "unique": 137,
+    "total_input": 144,
+    "unique": 144,
     "duplicates": 0,
     "dedup_rate": 0.0
   },
   "configs": [
+    {
+      "protocol": "vless",
+      "host": "77.110.115.95",
+      "port": 40443,
+      "uuid": "641baa2f-6f74-4ecf-b948-032d19ba0142",
+      "network": "tcp",
+      "security": "reality",
+      "sni": null,
+      "path": null,
+      "name": "VLESS",
+      "original_uri": "vless://641baa2f-6f74-4ecf-b948-032d19ba0142@77.110.115.95:40443?security=reality&amp;sni=deepl.com&amp;fp=firefox&amp;pbk=EbXSjwJKAI1cmU2TK3af62qS2k58x8Rnct1525c0m1I&amp;sid=e5f60718293a4b5c&amp;type=tcp&amp;flow=xtls-rprx-vision&amp;packetEncoding=xudp&amp;encryption=none#",
+      "normalized": true,
+      "source_channel": "V2rayCollector",
+      "source_label": "V2Ray Collector",
+      "tags": [
+        "vmess",
+        "vless",
+        "trojan"
+      ],
+      "hash": "74a9ecd9b6e8fa44",
+      "health": {
+        "status": "online",
+        "latency_ms": 39.3,
+        "ip": "77.110.115.95",
+        "error": null
+      },
+      "server_score": 55.2,
+      "score": 55.2,
+      "max_server_score": 60,
+      "score_breakdown": {
+        "health": 100,
+        "protocol": 95,
+        "source": 85,
+        "fingerprint": 90,
+        "uniqueness": 100,
+        "freshness": 70
+      },
+      "status": "excellent",
+      "rank": 1
+    },
+    {
+      "protocol": "vless",
+      "host": "169.40.42.15",
+      "port": 443,
+      "uuid": "d65cc14c-f53f-4fe2-b262-97856601319c",
+      "network": "tcp",
+      "security": "reality",
+      "sni": null,
+      "path": null,
+      "name": "VLESS",
+      "original_uri": "vless://d65cc14c-f53f-4fe2-b262-97856601319c@169.40.42.15:443?security=reality&amp;encryption=none&amp;pbk=e2RLf57Li_-MDZGE9ss1BWPgP54mqRb5PfXhW2jcVVg&amp;headerType=none&amp;fp=chrome&amp;type=tcp&amp;flow=xtls-rprx-vision&amp;sni=yahoo.com&amp;sid=c39cc7310a#",
+      "normalized": true,
+      "source_channel": "V2rayCollector",
+      "source_label": "V2Ray Collector",
+      "tags": [
+        "vmess",
+        "vless",
+        "trojan"
+      ],
+      "hash": "b4ec46a8cc7c5a15",
+      "health": {
+        "status": "online",
+        "latency_ms": 35.9,
+        "ip": "169.40.42.15",
+        "error": null
+      },
+      "server_score": 55.2,
+      "score": 55.2,
+      "max_server_score": 60,
+      "score_breakdown": {
+        "health": 100,
+        "protocol": 95,
+        "source": 85,
+        "fingerprint": 90,
+        "uniqueness": 100,
+        "freshness": 70
+      },
+      "status": "excellent",
+      "rank": 2
+    },
     {
       "protocol": "vless",
       "host": "172.67.75.217",
@@ -51,7 +131,7 @@
       "hash": "11eb7a06d0b01fdf",
       "health": {
         "status": "online",
-        "latency_ms": 1.6,
+        "latency_ms": 6.3,
         "ip": "172.67.75.217",
         "error": null
       },
@@ -67,19 +147,19 @@
         "freshness": 70
       },
       "status": "excellent",
-      "rank": 1
+      "rank": 3
     },
     {
       "protocol": "vless",
-      "host": "144.31.213.225",
+      "host": "172.64.145.186",
       "port": 443,
-      "uuid": "9e3de7f7-a595-4117-b1b6-dc41eb870ab1",
+      "uuid": "eeb6823c-b926-4ea2-866a-5542edd26e59",
       "network": "tcp",
-      "security": "reality",
+      "security": "tls",
       "sni": null,
       "path": null,
       "name": "VLESS",
-      "original_uri": "vless://9e3de7f7-a595-4117-b1b6-dc41eb870ab1@144.31.213.225:443?security=reality&amp;type=tcp&amp;pbk=ABNRlkjlonYV9TOFYgjWwz0wn1s6sg_yCErsLYkU_Sg&amp;sid=d6ff9019a77e354a&amp;sni=www.cloudflare.com&amp;fp=chrome&amp;flow=xtls-rprx-vision#",
+      "original_uri": "vless://eeb6823c-b926-4ea2-866a-5542edd26e59@172.64.145.186:443?security=tls&amp;type=ws&amp;path=/&amp;host=t1s1.rittbo.kdns.fr&amp;packetEncoding=xudp&amp;sni=t1s1.rittbo.kdns.fr&amp;fp=chrome&amp;encryption=none#",
       "normalized": true,
       "source_channel": "V2rayCollector",
       "source_label": "V2Ray Collector",
@@ -88,67 +168,26 @@
         "vless",
         "trojan"
       ],
-      "hash": "ec0d09d03f934a67",
+      "hash": "0cc67af0c4177181",
       "health": {
         "status": "online",
-        "latency_ms": 95.1,
-        "ip": "144.31.213.225",
+        "latency_ms": 7.7,
+        "ip": "172.64.145.186",
         "error": null
       },
-      "server_score": 54.0,
-      "score": 54.0,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 93.2,
-        "protocol": 95,
-        "source": 85,
-        "fingerprint": 90,
-        "uniqueness": 100,
-        "freshness": 70
-      },
-      "status": "excellent",
-      "rank": 2
-    },
-    {
-      "protocol": "vmess",
-      "host": "172.67.198.187",
-      "port": 443,
-      "uuid": "93ea486a-bada-42a4-ac38-d088b320fa1e",
-      "alter_id": 0,
-      "security": "",
-      "network": "ws",
-      "tls": true,
-      "sni": "xmivideo.cfd",
-      "path": "/linkws",
-      "name": "🇫🇷法国1 | ⬇️ 2.3MB/s",
-      "original_uri": "vmess://eyJ2IjoiMiIsInBzIjoi8J+Hq/Cfh7fms5Xlm70xIHwg4qyH77iPIDIuM01CL3MiLCJhZGQiOiIxNzIuNjcuMTk4LjE4NyIsInBvcnQiOjQ0MywiaWQiOiI5M2VhNDg2YS1iYWRhLTQyYTQtYWMzOC1kMDg4YjMyMGZhMWUiLCJ0eXBlIjoiIiwiYWlkIjowLCJuZXQiOiJ3cyIsInRscyI6InRscyIsInNuaSI6InhtaXZpZGVvLmNmZCIsInBhdGgiOiIvbGlua3dzIiwiaG9zdCI6InhtaXZpZGVvLmNmZCJ9",
-      "normalized": true,
-      "source_channel": "FreeV2rays",
-      "source_label": "V2Ray آزاد",
-      "tags": [
-        "vmess",
-        "vless"
-      ],
-      "hash": "7da05dc6d2c5e89b",
-      "health": {
-        "status": "online",
-        "latency_ms": 2.6,
-        "ip": "172.67.198.187",
-        "error": null
-      },
-      "server_score": 51.8,
-      "score": 51.8,
+      "server_score": 52.8,
+      "score": 52.8,
       "max_server_score": 60,
       "score_breakdown": {
         "health": 100,
-        "protocol": 75,
-        "source": 60,
-        "fingerprint": 95,
-        "uniqueness": 100,
+        "protocol": 95,
+        "source": 85,
+        "fingerprint": 80,
+        "uniqueness": 80,
         "freshness": 70
       },
       "status": "excellent",
-      "rank": 3
+      "rank": 4
     },
     {
       "protocol": "vmess",
@@ -173,49 +212,8 @@
       "hash": "89a0422a2081d6e1",
       "health": {
         "status": "online",
-        "latency_ms": 1.6,
-        "ip": "104.26.12.54",
-        "error": null
-      },
-      "server_score": 51.8,
-      "score": 51.8,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 100,
-        "protocol": 75,
-        "source": 60,
-        "fingerprint": 95,
-        "uniqueness": 100,
-        "freshness": 70
-      },
-      "status": "excellent",
-      "rank": 4
-    },
-    {
-      "protocol": "vmess",
-      "host": "104.19.32.0",
-      "port": 443,
-      "uuid": "93ea486a-bada-42a4-ac38-d088b320fa1e",
-      "alter_id": 0,
-      "security": "",
-      "network": "ws",
-      "tls": true,
-      "sni": "xmivideo.cfd",
-      "path": "/linkws",
-      "name": "🇫🇷法国2 | ⬇️ 4.1MB/s",
-      "original_uri": "vmess://eyJ2IjoiMiIsInBzIjoi8J+Hq/Cfh7fms5Xlm70yIHwg4qyH77iPIDQuMU1CL3MiLCJhZGQiOiIxMDQuMTkuMzIuMCIsInBvcnQiOjQ0MywiaWQiOiI5M2VhNDg2YS1iYWRhLTQyYTQtYWMzOC1kMDg4YjMyMGZhMWUiLCJ0eXBlIjoiIiwiYWlkIjowLCJuZXQiOiJ3cyIsInRscyI6InRscyIsInNuaSI6InhtaXZpZGVvLmNmZCIsInBhdGgiOiIvbGlua3dzIiwiaG9zdCI6InhtaXZpZGVvLmNmZCJ9",
-      "normalized": true,
-      "source_channel": "FreeV2rays",
-      "source_label": "V2Ray آزاد",
-      "tags": [
-        "vmess",
-        "vless"
-      ],
-      "hash": "2528cd969ed8a72b",
-      "health": {
-        "status": "online",
-        "latency_ms": 2.0,
-        "ip": "104.19.32.0",
+        "latency_ms": 15.7,
+        "ip": "172.67.68.157",
         "error": null
       },
       "server_score": 51.8,
@@ -231,6 +229,47 @@
       },
       "status": "excellent",
       "rank": 5
+    },
+    {
+      "protocol": "vmess",
+      "host": "172.67.198.187",
+      "port": 443,
+      "uuid": "93ea486a-bada-42a4-ac38-d088b320fa1e",
+      "alter_id": 0,
+      "security": "",
+      "network": "ws",
+      "tls": true,
+      "sni": "xmivideo.cfd",
+      "path": "/linkws",
+      "name": "🇫🇷法国1 | ⬇️ 2.3MB/s",
+      "original_uri": "vmess://eyJ2IjoiMiIsInBzIjoi8J+Hq/Cfh7fms5Xlm70xIHwg4qyH77iPIDIuM01CL3MiLCJhZGQiOiIxNzIuNjcuMTk4LjE4NyIsInBvcnQiOjQ0MywiaWQiOiI5M2VhNDg2YS1iYWRhLTQyYTQtYWMzOC1kMDg4YjMyMGZhMWUiLCJ0eXBlIjoiIiwiYWlkIjowLCJuZXQiOiJ3cyIsInRscyI6InRscyIsInNuaSI6InhtaXZpZGVvLmNmZCIsInBhdGgiOiIvbGlua3dzIiwiaG9zdCI6InhtaXZpZGVvLmNmZCJ9",
+      "normalized": true,
+      "source_channel": "FreeV2rays",
+      "source_label": "V2Ray آزاد",
+      "tags": [
+        "vmess",
+        "vless"
+      ],
+      "hash": "7da05dc6d2c5e89b",
+      "health": {
+        "status": "online",
+        "latency_ms": 20.1,
+        "ip": "172.67.198.187",
+        "error": null
+      },
+      "server_score": 51.8,
+      "score": 51.8,
+      "max_server_score": 60,
+      "score_breakdown": {
+        "health": 100,
+        "protocol": 75,
+        "source": 60,
+        "fingerprint": 95,
+        "uniqueness": 100,
+        "freshness": 70
+      },
+      "status": "excellent",
+      "rank": 6
     },
     {
       "protocol": "vmess",
@@ -255,7 +294,7 @@
       "hash": "43e2f933ccce403f",
       "health": {
         "status": "online",
-        "latency_ms": 3.2,
+        "latency_ms": 7.6,
         "ip": "104.17.137.127",
         "error": null
       },
@@ -271,7 +310,48 @@
         "freshness": 70
       },
       "status": "excellent",
-      "rank": 6
+      "rank": 7
+    },
+    {
+      "protocol": "vmess",
+      "host": "104.19.32.0",
+      "port": 443,
+      "uuid": "93ea486a-bada-42a4-ac38-d088b320fa1e",
+      "alter_id": 0,
+      "security": "",
+      "network": "ws",
+      "tls": true,
+      "sni": "xmivideo.cfd",
+      "path": "/linkws",
+      "name": "🇫🇷法国2 | ⬇️ 4.1MB/s",
+      "original_uri": "vmess://eyJ2IjoiMiIsInBzIjoi8J+Hq/Cfh7fms5Xlm70yIHwg4qyH77iPIDQuMU1CL3MiLCJhZGQiOiIxMDQuMTkuMzIuMCIsInBvcnQiOjQ0MywiaWQiOiI5M2VhNDg2YS1iYWRhLTQyYTQtYWMzOC1kMDg4YjMyMGZhMWUiLCJ0eXBlIjoiIiwiYWlkIjowLCJuZXQiOiJ3cyIsInRscyI6InRscyIsInNuaSI6InhtaXZpZGVvLmNmZCIsInBhdGgiOiIvbGlua3dzIiwiaG9zdCI6InhtaXZpZGVvLmNmZCJ9",
+      "normalized": true,
+      "source_channel": "FreeV2rays",
+      "source_label": "V2Ray آزاد",
+      "tags": [
+        "vmess",
+        "vless"
+      ],
+      "hash": "2528cd969ed8a72b",
+      "health": {
+        "status": "online",
+        "latency_ms": 8.0,
+        "ip": "104.19.32.0",
+        "error": null
+      },
+      "server_score": 51.8,
+      "score": 51.8,
+      "max_server_score": 60,
+      "score_breakdown": {
+        "health": 100,
+        "protocol": 75,
+        "source": 60,
+        "fingerprint": 95,
+        "uniqueness": 100,
+        "freshness": 70
+      },
+      "status": "excellent",
+      "rank": 8
     },
     {
       "protocol": "vmess",
@@ -296,98 +376,18 @@
       "hash": "78bc15c030377bf7",
       "health": {
         "status": "online",
-        "latency_ms": 62.4,
+        "latency_ms": 51.9,
         "ip": "45.146.82.234",
         "error": null
       },
-      "server_score": 51.4,
-      "score": 51.4,
+      "server_score": 51.7,
+      "score": 51.7,
       "max_server_score": 60,
       "score_breakdown": {
-        "health": 98.1,
+        "health": 99.7,
         "protocol": 75,
         "source": 60,
         "fingerprint": 95,
-        "uniqueness": 100,
-        "freshness": 70
-      },
-      "status": "excellent",
-      "rank": 7
-    },
-    {
-      "protocol": "vless",
-      "host": "13.193.205.133",
-      "port": 27407,
-      "uuid": "cd5cf6e7-7ce5-42c9-9316-68210fa72a32",
-      "network": "tcp",
-      "security": "reality",
-      "sni": null,
-      "path": null,
-      "name": "VLESS",
-      "original_uri": "vless://cd5cf6e7-7ce5-42c9-9316-68210fa72a32@13.193.205.133:27407?security=reality&amp;encryption=none&amp;pbk=SajK6LzHBkkFlEXjIwseyqbpezgPiop5ZnSToou3G04&amp;headerType=none&amp;fp=chrome&amp;type=tcp&amp;sni=bgcpartners.com&amp;sid=e6ac18b63f23#",
-      "normalized": true,
-      "source_channel": "V2rayCollector",
-      "source_label": "V2Ray Collector",
-      "tags": [
-        "vmess",
-        "vless",
-        "trojan"
-      ],
-      "hash": "24538f7b8ba8ccbe",
-      "health": {
-        "status": "online",
-        "latency_ms": 188.8,
-        "ip": "13.193.205.133",
-        "error": null
-      },
-      "server_score": 51.3,
-      "score": 51.3,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 78.5,
-        "protocol": 95,
-        "source": 85,
-        "fingerprint": 90,
-        "uniqueness": 100,
-        "freshness": 70
-      },
-      "status": "excellent",
-      "rank": 8
-    },
-    {
-      "protocol": "vless",
-      "host": "a.samrayan.ir",
-      "port": 443,
-      "uuid": "23d6295f-0337-438f-be52-388bbe321ae4",
-      "network": "tcp",
-      "security": "tls",
-      "sni": null,
-      "path": null,
-      "name": "VLESS",
-      "original_uri": "vless://23d6295f-0337-438f-be52-388bbe321ae4@a.samrayan.ir:443?security=tls&amp;encryption=none&amp;headerType=none&amp;type=tcp&amp;flow=xtls-rprx-vision&amp;sni=a.samrayan.ir#",
-      "normalized": true,
-      "source_channel": "V2rayCollector",
-      "source_label": "V2Ray Collector",
-      "tags": [
-        "vmess",
-        "vless",
-        "trojan"
-      ],
-      "hash": "1a3887b40dbf7733",
-      "health": {
-        "status": "online",
-        "latency_ms": 170.0,
-        "ip": "212.80.24.8",
-        "error": null
-      },
-      "server_score": 50.7,
-      "score": 50.7,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 81.7,
-        "protocol": 95,
-        "source": 85,
-        "fingerprint": 80,
         "uniqueness": 100,
         "freshness": 70
       },
@@ -396,15 +396,15 @@
     },
     {
       "protocol": "vless",
-      "host": "162.159.12.210",
+      "host": "178.128.112.70",
       "port": 443,
-      "uuid": "eeb6823c-b926-4ea2-866a-5542edd26e59",
+      "uuid": "9206ae06-88ee-49b1-a558-531ade80fcaa",
       "network": "tcp",
-      "security": "none",
+      "security": "reality",
       "sni": null,
       "path": null,
       "name": "VLESS",
-      "original_uri": "vless://eeb6823c-b926-4ea2-866a-5542edd26e59@162.159.12.210:443?encryption=none&amp;security=tls&amp;sni=t1s1.rittbo.kdns.fr&amp;fp=chrome&amp;insecure=0&amp;allowInsecure=0&amp;ech=cloudflare-ech.com%2Bhttps%3A%2F%2Fdns.alidns.com%2Fdns-query&amp;type=ws&amp;host=t1s1.rittbo.kdns.fr&amp;path=%2F#",
+      "original_uri": "vless://9206ae06-88ee-49b1-a558-531ade80fcaa@178.128.112.70:443?security=reality&amp;encryption=none&amp;pbk=-O8QFkqeMAc6TzQp6eY1s38my_8jhBd7HDHxNki6QlY&amp;headerType=none&amp;fp=chrome&amp;spx=/&amp;type=tcp&amp;flow=xtls-rprx-vision&amp;sni=www.amazon.com&amp;sid=7f7f#",
       "normalized": true,
       "source_channel": "V2rayCollector",
       "source_label": "V2Ray Collector",
@@ -413,21 +413,21 @@
         "vless",
         "trojan"
       ],
-      "hash": "b8261c78d8841367",
+      "hash": "d0e807d9d75f6e83",
       "health": {
         "status": "online",
-        "latency_ms": 1.7,
-        "ip": "162.159.12.210",
+        "latency_ms": 200.7,
+        "ip": "178.128.112.70",
         "error": null
       },
-      "server_score": 50.4,
-      "score": 50.4,
+      "server_score": 51.0,
+      "score": 51.0,
       "max_server_score": 60,
       "score_breakdown": {
-        "health": 100,
+        "health": 76.5,
         "protocol": 95,
         "source": 85,
-        "fingerprint": 50,
+        "fingerprint": 90,
         "uniqueness": 100,
         "freshness": 70
       },
@@ -456,7 +456,7 @@
       "hash": "6842edef9895a7b2",
       "health": {
         "status": "online",
-        "latency_ms": 2.1,
+        "latency_ms": 6.2,
         "ip": "104.16.72.50",
         "error": null
       },
@@ -473,6 +473,203 @@
       },
       "status": "excellent",
       "rank": 11
+    },
+    {
+      "protocol": "vless",
+      "host": "www.cnae.top",
+      "port": 443,
+      "uuid": "8d90b4b4-1674-45a5-810e-57d939f53fe2",
+      "network": "tcp",
+      "security": "none",
+      "sni": null,
+      "path": "/",
+      "name": "VLESS",
+      "original_uri": "vless://8d90b4b4-1674-45a5-810e-57d939f53fe2@www.cnae.top:443?path=%2F&amp;security=tls&amp;encryption=none&amp;insecure=0&amp;host=hhslb.vavava.kdns.fr&amp;fp=random&amp;type=ws&amp;allowInsecure=0&amp;sni=hhslb.vavava.kdns.fr#",
+      "normalized": true,
+      "source_channel": "V2rayCollector",
+      "source_label": "V2Ray Collector",
+      "tags": [
+        "vmess",
+        "vless",
+        "trojan"
+      ],
+      "hash": "801562dcd5921943",
+      "health": {
+        "status": "online",
+        "latency_ms": 6.4,
+        "ip": "172.66.45.6",
+        "error": null
+      },
+      "server_score": 50.4,
+      "score": 50.4,
+      "max_server_score": 60,
+      "score_breakdown": {
+        "health": 100,
+        "protocol": 95,
+        "source": 85,
+        "fingerprint": 50,
+        "uniqueness": 100,
+        "freshness": 70
+      },
+      "status": "excellent",
+      "rank": 12
+    },
+    {
+      "protocol": "vless",
+      "host": "162.159.14.252",
+      "port": 443,
+      "uuid": "eeb6823c-b926-4ea2-866a-5542edd26e59",
+      "network": "tcp",
+      "security": "none",
+      "sni": null,
+      "path": null,
+      "name": "VLESS",
+      "original_uri": "vless://eeb6823c-b926-4ea2-866a-5542edd26e59@162.159.14.252:443?allowInsecure=0&amp;sni=t1s1.rittbo.kdns.fr&amp;type=ws&amp;host=t1s1.rittbo.kdns.fr&amp;path=/fp=chrome&amp;security=tls#",
+      "normalized": true,
+      "source_channel": "V2rayCollector",
+      "source_label": "V2Ray Collector",
+      "tags": [
+        "vmess",
+        "vless",
+        "trojan"
+      ],
+      "hash": "ec7bb41b968ea31b",
+      "health": {
+        "status": "online",
+        "latency_ms": 7.8,
+        "ip": "162.159.14.252",
+        "error": null
+      },
+      "server_score": 50.4,
+      "score": 50.4,
+      "max_server_score": 60,
+      "score_breakdown": {
+        "health": 100,
+        "protocol": 95,
+        "source": 85,
+        "fingerprint": 50,
+        "uniqueness": 100,
+        "freshness": 70
+      },
+      "status": "excellent",
+      "rank": 13
+    },
+    {
+      "protocol": "vless",
+      "host": "node67.lunes.host",
+      "port": 3087,
+      "uuid": "5efabea4-f6d4-91fd-b8f0-17e004c89c68",
+      "network": "tcp",
+      "security": "none",
+      "sni": null,
+      "path": null,
+      "name": "VLESS",
+      "original_uri": "vless://5efabea4-f6d4-91fd-b8f0-17e004c89c68@node67.lunes.host:3087?encryption=none&amp;security=none&amp;type=ws&amp;host=node67.lunes.host&amp;path=/@s5gydl#",
+      "normalized": true,
+      "source_channel": "V2rayCollector",
+      "source_label": "V2Ray Collector",
+      "tags": [
+        "vmess",
+        "vless",
+        "trojan"
+      ],
+      "hash": "838d37c013f5fd15",
+      "health": {
+        "status": "online",
+        "latency_ms": 68.3,
+        "ip": "38.58.180.136",
+        "error": null
+      },
+      "server_score": 49.9,
+      "score": 49.9,
+      "max_server_score": 60,
+      "score_breakdown": {
+        "health": 97.3,
+        "protocol": 95,
+        "source": 85,
+        "fingerprint": 50,
+        "uniqueness": 100,
+        "freshness": 70
+      },
+      "status": "excellent",
+      "rank": 14
+    },
+    {
+      "protocol": "vless",
+      "host": "172.64.145.186",
+      "port": 443,
+      "uuid": "eeb6823c-b926-4ea2-866a-5542edd26e59",
+      "network": "tcp",
+      "security": "none",
+      "sni": null,
+      "path": "/",
+      "name": "VLESS",
+      "original_uri": "vless://eeb6823c-b926-4ea2-866a-5542edd26e59@172.64.145.186:443?path=%2F&amp;security=tls&amp;encryption=none&amp;host=t1s1.rittbo.kdns.fr&amp;fp=chrome&amp;type=ws&amp;sni=t1s1.rittbo.kdns.fr#",
+      "normalized": true,
+      "source_channel": "V2rayCollector",
+      "source_label": "V2Ray Collector",
+      "tags": [
+        "vmess",
+        "vless",
+        "trojan"
+      ],
+      "hash": "de206b3335f7fdf2",
+      "health": {
+        "status": "online",
+        "latency_ms": 6.8,
+        "ip": "172.64.145.186",
+        "error": null
+      },
+      "server_score": 49.2,
+      "score": 49.2,
+      "max_server_score": 60,
+      "score_breakdown": {
+        "health": 100,
+        "protocol": 95,
+        "source": 85,
+        "fingerprint": 50,
+        "uniqueness": 80,
+        "freshness": 70
+      },
+      "status": "excellent",
+      "rank": 15
+    },
+    {
+      "protocol": "shadowsocks",
+      "host": "37.19.198.244",
+      "port": 443,
+      "method": "aes-128-gcm",
+      "password": "***",
+      "name": "Shadowsocks",
+      "original_uri": "ss://YWVzLTEyOC1nY206c2hhZG93c29ja3M=@37.19.198.244:443#",
+      "normalized": true,
+      "source_channel": "V2rayCollector",
+      "source_label": "V2Ray Collector",
+      "tags": [
+        "vmess",
+        "vless",
+        "trojan"
+      ],
+      "hash": "cb6263ad4600e609",
+      "health": {
+        "status": "online",
+        "latency_ms": 34.2,
+        "ip": "37.19.198.244",
+        "error": null
+      },
+      "server_score": 49.0,
+      "score": 49.0,
+      "max_server_score": 60,
+      "score_breakdown": {
+        "health": 100,
+        "protocol": 80,
+        "source": 85,
+        "fingerprint": 50,
+        "uniqueness": 100,
+        "freshness": 70
+      },
+      "status": "excellent",
+      "rank": 16
     },
     {
       "protocol": "vmess",
@@ -497,15 +694,15 @@
       "hash": "f2d0898cdb99041d",
       "health": {
         "status": "online",
-        "latency_ms": 92.6,
+        "latency_ms": 128.2,
         "ip": "159.89.29.136",
         "error": null
       },
-      "server_score": 49.7,
-      "score": 49.7,
+      "server_score": 48.7,
+      "score": 48.7,
       "max_server_score": 60,
       "score_breakdown": {
-        "health": 93.6,
+        "health": 88.3,
         "protocol": 75,
         "source": 90,
         "fingerprint": 65,
@@ -513,47 +710,7 @@
         "freshness": 70
       },
       "status": "excellent",
-      "rank": 12
-    },
-    {
-      "protocol": "vless",
-      "host": "162.19.10.99",
-      "port": 443,
-      "uuid": "e8b1500b-e9e8-5492-8312-f4eadf7d0767",
-      "network": "tcp",
-      "security": "none",
-      "sni": null,
-      "path": null,
-      "name": "VLESS",
-      "original_uri": "vless://e8b1500b-e9e8-5492-8312-f4eadf7d0767@162.19.10.99:443?&amp;security=tls&amp;flow=xtls-rprx-vision&amp;fp=chrome&amp;sni=nasnet-162191099-direct.mbghalibaf.com&amp;type=tcp&amp;headerType=none&amp;path=%2F#",
-      "normalized": true,
-      "source_channel": "V2rayCollector",
-      "source_label": "V2Ray Collector",
-      "tags": [
-        "vmess",
-        "vless",
-        "trojan"
-      ],
-      "hash": "6d687034517ad247",
-      "health": {
-        "status": "online",
-        "latency_ms": 84.3,
-        "ip": "162.19.10.99",
-        "error": null
-      },
-      "server_score": 49.5,
-      "score": 49.5,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 94.9,
-        "protocol": 95,
-        "source": 85,
-        "fingerprint": 50,
-        "uniqueness": 100,
-        "freshness": 70
-      },
-      "status": "excellent",
-      "rank": 13
+      "rank": 17
     },
     {
       "protocol": "vless",
@@ -577,15 +734,15 @@
       "hash": "6fcf29f9d0a6f816",
       "health": {
         "status": "online",
-        "latency_ms": 99.5,
+        "latency_ms": 121.6,
         "ip": "87.120.126.63",
         "error": null
       },
-      "server_score": 49.1,
-      "score": 49.1,
+      "server_score": 48.5,
+      "score": 48.5,
       "max_server_score": 60,
       "score_breakdown": {
-        "health": 92.6,
+        "health": 89.3,
         "protocol": 95,
         "source": 85,
         "fingerprint": 50,
@@ -593,16 +750,19 @@
         "freshness": 70
       },
       "status": "excellent",
-      "rank": 14
+      "rank": 18
     },
     {
-      "protocol": "trojan",
-      "host": "fleet-bonefish.rooster465.autos",
+      "protocol": "vless",
+      "host": "162.19.10.99",
       "port": 443,
-      "password": "***",
+      "uuid": "e8b1500b-e9e8-5492-8312-f4eadf7d0767",
+      "network": "tcp",
+      "security": "none",
       "sni": null,
-      "name": "Trojan",
-      "original_uri": "trojan://ND91608427@fleet-bonefish.rooster465.autos:443?allowInsecure=1&amp;sni=fleet-bonefish.rooster465.autos#",
+      "path": null,
+      "name": "VLESS",
+      "original_uri": "vless://e8b1500b-e9e8-5492-8312-f4eadf7d0767@162.19.10.99:443?&amp;security=tls&amp;flow=xtls-rprx-vision&amp;fp=chrome&amp;sni=nasnet-162191099-direct.mbghalibaf.com&amp;type=tcp&amp;headerType=none&amp;path=%2F#",
       "normalized": true,
       "source_channel": "V2rayCollector",
       "source_label": "V2Ray Collector",
@@ -611,26 +771,221 @@
         "vless",
         "trojan"
       ],
-      "hash": "8db735568b55a9b2",
+      "hash": "6d687034517ad247",
       "health": {
         "status": "online",
-        "latency_ms": 81.2,
-        "ip": "44.246.163.102",
+        "latency_ms": 126.0,
+        "ip": "162.19.10.99",
         "error": null
       },
-      "server_score": 49.1,
-      "score": 49.1,
+      "server_score": 48.3,
+      "score": 48.3,
       "max_server_score": 60,
       "score_breakdown": {
-        "health": 95.3,
-        "protocol": 90,
+        "health": 88.6,
+        "protocol": 95,
         "source": 85,
         "fingerprint": 50,
         "uniqueness": 100,
         "freshness": 70
       },
       "status": "excellent",
-      "rank": 15
+      "rank": 19
+    },
+    {
+      "protocol": "vless",
+      "host": "172.66.44.97",
+      "port": 443,
+      "uuid": "83afd88f-200f-4d89-bfc7-66eff160c1d8",
+      "network": "tcp",
+      "security": "none",
+      "sni": null,
+      "path": null,
+      "name": "VLESS",
+      "original_uri": "vless://83afd88f-200f-4d89-bfc7-66eff160c1d8@172.66.44.97:443?encryption=none&amp;security=tls&amp;sni=josni.hoyes.cloudns.ch&amp;insecure=0&amp;allowInsecure=0&amp;ech=ip.gs%2Budp%3A%2F%2F8.8.8.8&amp;type=ws&amp;host=josni.hoyes.cloudns.ch&amp;path=%2F#",
+      "normalized": true,
+      "source_channel": "v2ray_configs_pool",
+      "source_label": "استخر کانفیگ V2Ray",
+      "tags": [
+        "vmess",
+        "vless"
+      ],
+      "hash": "96d559b1e3c0a4df",
+      "health": {
+        "status": "online",
+        "latency_ms": 6.6,
+        "ip": "172.66.44.97",
+        "error": null
+      },
+      "server_score": 48.1,
+      "score": 48.1,
+      "max_server_score": 60,
+      "score_breakdown": {
+        "health": 100,
+        "protocol": 95,
+        "source": 60,
+        "fingerprint": 50,
+        "uniqueness": 100,
+        "freshness": 70
+      },
+      "status": "excellent",
+      "rank": 20
+    },
+    {
+      "protocol": "vless",
+      "host": "69.46.46.30",
+      "port": 443,
+      "uuid": "1e3332a1-82d4-3c60-166b-5c54db9ff355",
+      "network": "tcp",
+      "security": "none",
+      "sni": null,
+      "path": null,
+      "name": "M",
+      "original_uri": "vless://1e3332a1-82d4-3c60-166b-5c54db9ff355@69.46.46.30:443?encryption=none&amp;security=tls&amp;sni=rvg-production-01ad.up.railway.app&amp;fp=ios&amp;alpn=http%2F1.1&amp;insecure=0&amp;allowInsecure=0&amp;type=ws&amp;host=rvg-production-01ad.up.railway.app&amp;path=%2Fws%2F1e3332a1-82d4-3c60-166b-5c54db9ff355#M",
+      "normalized": true,
+      "source_channel": "v2ray_configs_pool",
+      "source_label": "استخر کانفیگ V2Ray",
+      "tags": [
+        "vmess",
+        "vless"
+      ],
+      "hash": "c01636319376dbca",
+      "health": {
+        "status": "online",
+        "latency_ms": 24.4,
+        "ip": "69.46.46.30",
+        "error": null
+      },
+      "server_score": 48.1,
+      "score": 48.1,
+      "max_server_score": 60,
+      "score_breakdown": {
+        "health": 100,
+        "protocol": 95,
+        "source": 60,
+        "fingerprint": 50,
+        "uniqueness": 100,
+        "freshness": 70
+      },
+      "status": "excellent",
+      "rank": 21
+    },
+    {
+      "protocol": "vless",
+      "host": "69.46.46.40",
+      "port": 443,
+      "uuid": "bd89f922-50d5-323e-4f6e-7e03e5e5e636",
+      "network": "tcp",
+      "security": "none",
+      "sni": null,
+      "path": null,
+      "name": "M",
+      "original_uri": "vless://bd89f922-50d5-323e-4f6e-7e03e5e5e636@69.46.46.40:443?encryption=none&amp;security=tls&amp;sni=rvg-production-69bf.up.railway.app&amp;fp=ios&amp;alpn=http%2F1.1&amp;insecure=0&amp;allowInsecure=0&amp;type=ws&amp;host=rvg-production-69bf.up.railway.app&amp;path=%2Fws%2Fbd89f922-50d5-323e-4f6e-7e03e5e5e636#M",
+      "normalized": true,
+      "source_channel": "v2ray_configs_pool",
+      "source_label": "استخر کانفیگ V2Ray",
+      "tags": [
+        "vmess",
+        "vless"
+      ],
+      "hash": "a1fc25ae63d8c04b",
+      "health": {
+        "status": "online",
+        "latency_ms": 25.4,
+        "ip": "69.46.46.40",
+        "error": null
+      },
+      "server_score": 48.1,
+      "score": 48.1,
+      "max_server_score": 60,
+      "score_breakdown": {
+        "health": 100,
+        "protocol": 95,
+        "source": 60,
+        "fingerprint": 50,
+        "uniqueness": 100,
+        "freshness": 70
+      },
+      "status": "excellent",
+      "rank": 22
+    },
+    {
+      "protocol": "vless",
+      "host": "69.46.46.10",
+      "port": 443,
+      "uuid": "421ff04b-57c7-7e6b-a44b-f88e8d585e6f",
+      "network": "tcp",
+      "security": "none",
+      "sni": null,
+      "path": null,
+      "name": "VLESS",
+      "original_uri": "vless://421ff04b-57c7-7e6b-a44b-f88e8d585e6f@69.46.46.10:443?encryption=none&amp;security=tls&amp;sni=rvg-production-faa0.up.railway.app&amp;fp=ios&amp;alpn=http%2F1.1&amp;insecure=0&amp;allowInsecure=0&amp;type=ws&amp;host=rvg-production-faa0.up.railway.app&amp;path=%2Fws%2F421ff04b-57c7-7e6b-a44b-f88e8d585e6f#",
+      "normalized": true,
+      "source_channel": "v2ray_configs_pool",
+      "source_label": "استخر کانفیگ V2Ray",
+      "tags": [
+        "vmess",
+        "vless"
+      ],
+      "hash": "a59053c413b28391",
+      "health": {
+        "status": "online",
+        "latency_ms": 23.6,
+        "ip": "69.46.46.10",
+        "error": null
+      },
+      "server_score": 48.1,
+      "score": 48.1,
+      "max_server_score": 60,
+      "score_breakdown": {
+        "health": 100,
+        "protocol": 95,
+        "source": 60,
+        "fingerprint": 50,
+        "uniqueness": 100,
+        "freshness": 70
+      },
+      "status": "excellent",
+      "rank": 23
+    },
+    {
+      "protocol": "vless",
+      "host": "104.18.37.228",
+      "port": 443,
+      "uuid": "83afd88f-200f-4d89-bfc7-66eff160c1d8",
+      "network": "tcp",
+      "security": "none",
+      "sni": null,
+      "path": null,
+      "name": "VLESS",
+      "original_uri": "vless://83afd88f-200f-4d89-bfc7-66eff160c1d8@104.18.37.228:443?encryption=none&amp;security=tls&amp;sni=josni.hoyes.cloudns.ch&amp;insecure=0&amp;allowInsecure=0&amp;ech=ip.gs%2Budp%3A%2F%2F8.8.8.8&amp;type=ws&amp;host=josni.hoyes.cloudns.ch&amp;path=TELEGRAM-MTMVPN---TELEGRAM-MTMVPN---TELEGRAM-MTMVPN---TELEGRAM-MTMVPN---TELEGRAM-MTMVPN%3Fed%3D512#",
+      "normalized": true,
+      "source_channel": "v2ray_configs_pool",
+      "source_label": "استخر کانفیگ V2Ray",
+      "tags": [
+        "vmess",
+        "vless"
+      ],
+      "hash": "c4b02903b9880296",
+      "health": {
+        "status": "online",
+        "latency_ms": 6.5,
+        "ip": "104.18.37.228",
+        "error": null
+      },
+      "server_score": 48.1,
+      "score": 48.1,
+      "max_server_score": 60,
+      "score_breakdown": {
+        "health": 100,
+        "protocol": 95,
+        "source": 60,
+        "fingerprint": 50,
+        "uniqueness": 100,
+        "freshness": 70
+      },
+      "status": "excellent",
+      "rank": 24
     },
     {
       "protocol": "vless",
@@ -654,15 +1009,15 @@
       "hash": "6795bd0b9b60b63b",
       "health": {
         "status": "online",
-        "latency_ms": 118.6,
+        "latency_ms": 137.6,
         "ip": "65.109.191.170",
         "error": null
       },
-      "server_score": 48.5,
-      "score": 48.5,
+      "server_score": 48.0,
+      "score": 48.0,
       "max_server_score": 60,
       "score_breakdown": {
-        "health": 89.7,
+        "health": 86.9,
         "protocol": 95,
         "source": 85,
         "fingerprint": 50,
@@ -670,55 +1025,19 @@
         "freshness": 70
       },
       "status": "excellent",
-      "rank": 16
+      "rank": 25
     },
     {
       "protocol": "vless",
-      "host": "69.46.46.30",
+      "host": "dey.lnmarketplace.net",
       "port": 443,
-      "uuid": "1e3332a1-82d4-3c60-166b-5c54db9ff355",
+      "uuid": "3536e1fa-0850-44d1-b123-925ce12476cf",
       "network": "tcp",
       "security": "none",
       "sni": null,
       "path": null,
-      "name": "M",
-      "original_uri": "vless://1e3332a1-82d4-3c60-166b-5c54db9ff355@69.46.46.30:443?encryption=none&amp;security=tls&amp;sni=rvg-production-01ad.up.railway.app&amp;fp=ios&amp;alpn=http%2F1.1&amp;insecure=0&amp;allowInsecure=0&amp;type=ws&amp;host=rvg-production-01ad.up.railway.app&amp;path=%2Fws%2F1e3332a1-82d4-3c60-166b-5c54db9ff355#M",
-      "normalized": true,
-      "source_channel": "v2ray_configs_pool",
-      "source_label": "استخر کانفیگ V2Ray",
-      "tags": [
-        "vmess",
-        "vless"
-      ],
-      "hash": "c01636319376dbca",
-      "health": {
-        "status": "online",
-        "latency_ms": 1.8,
-        "ip": "69.46.46.30",
-        "error": null
-      },
-      "server_score": 48.1,
-      "score": 48.1,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 100,
-        "protocol": 95,
-        "source": 60,
-        "fingerprint": 50,
-        "uniqueness": 100,
-        "freshness": 70
-      },
-      "status": "excellent",
-      "rank": 17
-    },
-    {
-      "protocol": "shadowsocks",
-      "host": "82.38.31.2",
-      "port": 8080,
-      "method": "chacha20-ietf-poly1305",
-      "password": "***",
-      "name": "Shadowsocks",
-      "original_uri": "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpvWklvQTY5UTh5aGNRVjhrYTNQYTNB@82.38.31.2:8080#",
+      "name": "VLESS",
+      "original_uri": "vless://3536e1fa-0850-44d1-b123-925ce12476cf@dey.lnmarketplace.net:443?mode=stream-one&amp;path=%2Fkavir&amp;security=tls&amp;alpn=h2&amp;encryption=none&amp;insecure=0&amp;host=dey.lnmarketplace.net&amp;fp=firefox&amp;type=xhttp&amp;allowInsecure=0&amp;sni=dey.lnmarketplace.net#",
       "normalized": true,
       "source_channel": "V2rayCollector",
       "source_label": "V2Ray Collector",
@@ -727,26 +1046,26 @@
         "vless",
         "trojan"
       ],
-      "hash": "0b85da01917fb870",
+      "hash": "5957b1a7609392c9",
       "health": {
         "status": "online",
-        "latency_ms": 92.6,
-        "ip": "82.38.31.2",
+        "latency_ms": 148.2,
+        "ip": "206.71.158.124",
         "error": null
       },
-      "server_score": 47.9,
-      "score": 47.9,
+      "server_score": 47.7,
+      "score": 47.7,
       "max_server_score": 60,
       "score_breakdown": {
-        "health": 93.6,
-        "protocol": 80,
+        "health": 85.3,
+        "protocol": 95,
         "source": 85,
         "fingerprint": 50,
         "uniqueness": 100,
         "freshness": 70
       },
       "status": "good",
-      "rank": 18
+      "rank": 26
     },
     {
       "protocol": "trojan",
@@ -765,7 +1084,7 @@
       "hash": "72eb637921f3d9b2",
       "health": {
         "status": "online",
-        "latency_ms": 2.5,
+        "latency_ms": 11.5,
         "ip": "104.16.174.121",
         "error": null
       },
@@ -781,83 +1100,42 @@
         "freshness": 70
       },
       "status": "good",
-      "rank": 19
+      "rank": 27
     },
     {
       "protocol": "shadowsocks",
-      "host": "31.76.30.79",
-      "port": 10808,
+      "host": "23.150.248.20",
+      "port": 8388,
       "method": "chacha20-ietf-poly1305",
       "password": "***",
-      "name": "Shadowsocks",
-      "original_uri": "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpUbVhTcGNSQmJodkhEZzY2Ym8ydzg5YlRveFFzYk1vYQ@31.76.30.79:10808#",
+      "name": "🇺🇸13@shadowsockskeys",
+      "original_uri": "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpxQjJDdjlWSWx1amo@23.150.248.20:8388#%F0%9F%87%BA%F0%9F%87%B813%40shadowsockskeys",
       "normalized": true,
-      "source_channel": "V2rayCollector",
-      "source_label": "V2Ray Collector",
+      "source_channel": "ShadowsocksKeys",
+      "source_label": "Shadowsocks Keys",
       "tags": [
-        "vmess",
-        "vless",
-        "trojan"
+        "shadowsocks"
       ],
-      "hash": "6feb5a9ee92c0656",
+      "hash": "7f4e3b65764baa33",
       "health": {
         "status": "online",
-        "latency_ms": 106.7,
-        "ip": "31.76.30.79",
+        "latency_ms": 21.4,
+        "ip": "23.150.248.20",
         "error": null
       },
-      "server_score": 47.5,
-      "score": 47.5,
+      "server_score": 46.8,
+      "score": 46.8,
       "max_server_score": 60,
       "score_breakdown": {
-        "health": 91.5,
+        "health": 100,
         "protocol": 80,
-        "source": 85,
-        "fingerprint": 50,
-        "uniqueness": 100,
-        "freshness": 70
-      },
-      "status": "good",
-      "rank": 20
-    },
-    {
-      "protocol": "vless",
-      "host": "18.193.240.71",
-      "port": 22222,
-      "uuid": "e4514801-0d5a-42ba-869f-39bd605aef9e",
-      "network": "tcp",
-      "security": "none",
-      "sni": null,
-      "path": null,
-      "name": "M",
-      "original_uri": "vless://e4514801-0d5a-42ba-869f-39bd605aef9e@18.193.240.71:22222?encryption=none&amp;security=none&amp;type=tcp&amp;headerType=none#M",
-      "normalized": true,
-      "source_channel": "v2ray_configs_pool",
-      "source_label": "استخر کانفیگ V2Ray",
-      "tags": [
-        "vmess",
-        "vless"
-      ],
-      "hash": "71f4f22547124f42",
-      "health": {
-        "status": "online",
-        "latency_ms": 90.0,
-        "ip": "18.193.240.71",
-        "error": null
-      },
-      "server_score": 47.1,
-      "score": 47.1,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 94.0,
-        "protocol": 95,
         "source": 60,
         "fingerprint": 50,
         "uniqueness": 100,
         "freshness": 70
       },
       "status": "good",
-      "rank": 21
+      "rank": 28
     },
     {
       "protocol": "vless",
@@ -880,285 +1158,16 @@
       "hash": "428219e2cfcaa33b",
       "health": {
         "status": "online",
-        "latency_ms": 89.9,
+        "latency_ms": 115.5,
         "ip": "52.59.68.6",
         "error": null
       },
-      "server_score": 47.1,
-      "score": 47.1,
+      "server_score": 46.4,
+      "score": 46.4,
       "max_server_score": 60,
       "score_breakdown": {
-        "health": 94.0,
+        "health": 90.2,
         "protocol": 95,
-        "source": 60,
-        "fingerprint": 50,
-        "uniqueness": 100,
-        "freshness": 70
-      },
-      "status": "good",
-      "rank": 22
-    },
-    {
-      "protocol": "vless",
-      "host": "52.59.68.6",
-      "port": 22222,
-      "uuid": "e4514801-0d5a-42ba-869f-39bd605aef9e",
-      "network": "tcp",
-      "security": "none",
-      "sni": null,
-      "path": null,
-      "name": "M",
-      "original_uri": "vless://e4514801-0d5a-42ba-869f-39bd605aef9e@52.59.68.6:22222?encryption=none&amp;security=none&amp;type=tcp&amp;headerType=none#M",
-      "normalized": true,
-      "source_channel": "v2ray_configs_pool",
-      "source_label": "استخر کانفیگ V2Ray",
-      "tags": [
-        "vmess",
-        "vless"
-      ],
-      "hash": "2985c8840b2bae6f",
-      "health": {
-        "status": "online",
-        "latency_ms": 88.6,
-        "ip": "52.59.68.6",
-        "error": null
-      },
-      "server_score": 47.1,
-      "score": 47.1,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 94.2,
-        "protocol": 95,
-        "source": 60,
-        "fingerprint": 50,
-        "uniqueness": 100,
-        "freshness": 70
-      },
-      "status": "good",
-      "rank": 23
-    },
-    {
-      "protocol": "vless",
-      "host": "69.46.46.40",
-      "port": 443,
-      "uuid": "bd89f922-50d5-323e-4f6e-7e03e5e5e636",
-      "network": "tcp",
-      "security": "none",
-      "sni": null,
-      "path": null,
-      "name": "M",
-      "original_uri": "vless://bd89f922-50d5-323e-4f6e-7e03e5e5e636@69.46.46.40:443?encryption=none&amp;security=tls&amp;sni=rvg-production-69bf.up.railway.app&amp;fp=ios&amp;alpn=http%2F1.1&amp;insecure=0&amp;allowInsecure=0&amp;type=ws&amp;host=rvg-production-69bf.up.railway.app&amp;path=%2Fws%2Fbd89f922-50d5-323e-4f6e-7e03e5e5e636#M",
-      "normalized": true,
-      "source_channel": "v2ray_configs_pool",
-      "source_label": "استخر کانفیگ V2Ray",
-      "tags": [
-        "vmess",
-        "vless"
-      ],
-      "hash": "a1fc25ae63d8c04b",
-      "health": {
-        "status": "online",
-        "latency_ms": 2.2,
-        "ip": "69.46.46.40",
-        "error": null
-      },
-      "server_score": 47.0,
-      "score": 47.0,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 100,
-        "protocol": 95,
-        "source": 60,
-        "fingerprint": 50,
-        "uniqueness": 80,
-        "freshness": 70
-      },
-      "status": "good",
-      "rank": 24
-    },
-    {
-      "protocol": "vless",
-      "host": "69.46.46.10",
-      "port": 443,
-      "uuid": "421ff04b-57c7-7e6b-a44b-f88e8d585e6f",
-      "network": "tcp",
-      "security": "none",
-      "sni": null,
-      "path": null,
-      "name": "VLESS",
-      "original_uri": "vless://421ff04b-57c7-7e6b-a44b-f88e8d585e6f@69.46.46.10:443?encryption=none&amp;security=tls&amp;sni=rvg-production-faa0.up.railway.app&amp;fp=ios&amp;alpn=http%2F1.1&amp;insecure=0&amp;allowInsecure=0&amp;type=ws&amp;host=rvg-production-faa0.up.railway.app&amp;path=%2Fws%2F421ff04b-57c7-7e6b-a44b-f88e8d585e6f#",
-      "normalized": true,
-      "source_channel": "v2ray_configs_pool",
-      "source_label": "استخر کانفیگ V2Ray",
-      "tags": [
-        "vmess",
-        "vless"
-      ],
-      "hash": "a59053c413b28391",
-      "health": {
-        "status": "online",
-        "latency_ms": 2.0,
-        "ip": "69.46.46.10",
-        "error": null
-      },
-      "server_score": 47.0,
-      "score": 47.0,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 100,
-        "protocol": 95,
-        "source": 60,
-        "fingerprint": 50,
-        "uniqueness": 80,
-        "freshness": 70
-      },
-      "status": "good",
-      "rank": 25
-    },
-    {
-      "protocol": "vless",
-      "host": "69.46.46.40",
-      "port": 443,
-      "uuid": "bd89f922-50d5-323e-4f6e-7e03e5e5e636",
-      "network": "tcp",
-      "security": "none",
-      "sni": null,
-      "path": null,
-      "name": "VLESS",
-      "original_uri": "vless://bd89f922-50d5-323e-4f6e-7e03e5e5e636@69.46.46.40:443?encryption=none&amp;security=tls&amp;sni=rvg-production-69bf.up.railway.app&amp;fp=ios&amp;alpn=http%2F1.1&amp;insecure=0&amp;allowInsecure=0&amp;type=ws&amp;host=rvg-production-69bf.up.railway.app&amp;path=%2Fws%2Fbd89f922-50d5-323e-4f6e-7e03e5e5e636#",
-      "normalized": true,
-      "source_channel": "v2ray_configs_pool",
-      "source_label": "استخر کانفیگ V2Ray",
-      "tags": [
-        "vmess",
-        "vless"
-      ],
-      "hash": "c1d07c67fd6593b9",
-      "health": {
-        "status": "online",
-        "latency_ms": 1.8,
-        "ip": "69.46.46.40",
-        "error": null
-      },
-      "server_score": 47.0,
-      "score": 47.0,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 100,
-        "protocol": 95,
-        "source": 60,
-        "fingerprint": 50,
-        "uniqueness": 80,
-        "freshness": 70
-      },
-      "status": "good",
-      "rank": 26
-    },
-    {
-      "protocol": "vless",
-      "host": "69.46.46.10",
-      "port": 443,
-      "uuid": "421ff04b-57c7-7e6b-a44b-f88e8d585e6f",
-      "network": "tcp",
-      "security": "none",
-      "sni": null,
-      "path": null,
-      "name": "M",
-      "original_uri": "vless://421ff04b-57c7-7e6b-a44b-f88e8d585e6f@69.46.46.10:443?encryption=none&amp;security=tls&amp;sni=rvg-production-faa0.up.railway.app&amp;fp=ios&amp;alpn=http%2F1.1&amp;insecure=0&amp;allowInsecure=0&amp;type=ws&amp;host=rvg-production-faa0.up.railway.app&amp;path=%2Fws%2F421ff04b-57c7-7e6b-a44b-f88e8d585e6f#M",
-      "normalized": true,
-      "source_channel": "v2ray_configs_pool",
-      "source_label": "استخر کانفیگ V2Ray",
-      "tags": [
-        "vmess",
-        "vless"
-      ],
-      "hash": "6e0b0c25bf20ba7a",
-      "health": {
-        "status": "online",
-        "latency_ms": 2.3,
-        "ip": "69.46.46.10",
-        "error": null
-      },
-      "server_score": 47.0,
-      "score": 47.0,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 100,
-        "protocol": 95,
-        "source": 60,
-        "fingerprint": 50,
-        "uniqueness": 80,
-        "freshness": 70
-      },
-      "status": "good",
-      "rank": 27
-    },
-    {
-      "protocol": "vless",
-      "host": "178.105.255.75",
-      "port": 8588,
-      "uuid": "410843d6-d5cd-4db6-a66f-3a20102d073a",
-      "network": "tcp",
-      "security": "none",
-      "sni": null,
-      "path": null,
-      "name": "M",
-      "original_uri": "vless://410843d6-d5cd-4db6-a66f-3a20102d073a@178.105.255.75:8588?encryption=none&amp;security=reality&amp;sni=play.googleapis.com&amp;fp=firefox&amp;pbk=_SUv0c82LgTdgmL7ZI39Uoq80yQzwwWAX05BkVpde3Y&amp;sid=833014806333a43a&amp;type=xhttp&amp;path=%2F&amp;mode=auto#M",
-      "normalized": true,
-      "source_channel": "v2ray_configs_pool",
-      "source_label": "استخر کانفیگ V2Ray",
-      "tags": [
-        "vmess",
-        "vless"
-      ],
-      "hash": "7f74cc3d6c4c01c2",
-      "health": {
-        "status": "online",
-        "latency_ms": 97.6,
-        "ip": "178.105.255.75",
-        "error": null
-      },
-      "server_score": 46.9,
-      "score": 46.9,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 92.9,
-        "protocol": 95,
-        "source": 60,
-        "fingerprint": 50,
-        "uniqueness": 100,
-        "freshness": 70
-      },
-      "status": "good",
-      "rank": 28
-    },
-    {
-      "protocol": "shadowsocks",
-      "host": "23.150.248.20",
-      "port": 8388,
-      "method": "chacha20-ietf-poly1305",
-      "password": "***",
-      "name": "🇺🇸13@shadowsockskeys",
-      "original_uri": "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpxQjJDdjlWSWx1amo@23.150.248.20:8388#%F0%9F%87%BA%F0%9F%87%B813%40shadowsockskeys",
-      "normalized": true,
-      "source_channel": "ShadowsocksKeys",
-      "source_label": "Shadowsocks Keys",
-      "tags": [
-        "shadowsocks"
-      ],
-      "hash": "7f4e3b65764baa33",
-      "health": {
-        "status": "online",
-        "latency_ms": 32.8,
-        "ip": "23.150.248.20",
-        "error": null
-      },
-      "server_score": 46.8,
-      "score": 46.8,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 100,
-        "protocol": 80,
         "source": 60,
         "fingerprint": 50,
         "uniqueness": 100,
@@ -1168,32 +1177,36 @@
       "rank": 29
     },
     {
-      "protocol": "shadowsocks",
-      "host": "158.173.20.208",
-      "port": 443,
-      "method": "aes-128-gcm",
-      "password": "***",
-      "name": "🇳🇱 12@shadowsockskeys",
-      "original_uri": "ss://YWVzLTEyOC1nY206c2hhZG93c29ja3M@158.173.20.208:443#%F0%9F%87%B3%F0%9F%87%B1%2012%40shadowsockskeys",
+      "protocol": "vless",
+      "host": "15.237.222.37",
+      "port": 22224,
+      "uuid": "e4514801-0d5a-42ba-869f-39bd605aef9e",
+      "network": "tcp",
+      "security": "none",
+      "sni": null,
+      "path": null,
+      "name": "VLESS",
+      "original_uri": "vless://e4514801-0d5a-42ba-869f-39bd605aef9e@15.237.222.37:22224?encryption=none&amp;security=none&amp;type=tcp&amp;headerType=none#",
       "normalized": true,
-      "source_channel": "ShadowsocksKeys",
-      "source_label": "Shadowsocks Keys",
+      "source_channel": "v2ray_configs_pool",
+      "source_label": "استخر کانفیگ V2Ray",
       "tags": [
-        "shadowsocks"
+        "vmess",
+        "vless"
       ],
-      "hash": "6530a449f83d41f4",
+      "hash": "0fbaf7e23678f94c",
       "health": {
         "status": "online",
-        "latency_ms": 87.4,
-        "ip": "158.173.20.208",
+        "latency_ms": 113.3,
+        "ip": "15.237.222.37",
         "error": null
       },
-      "server_score": 45.8,
-      "score": 45.8,
+      "server_score": 46.4,
+      "score": 46.4,
       "max_server_score": 60,
       "score_breakdown": {
-        "health": 94.4,
-        "protocol": 80,
+        "health": 90.5,
+        "protocol": 95,
         "source": 60,
         "fingerprint": 50,
         "uniqueness": 100,
@@ -1203,32 +1216,36 @@
       "rank": 30
     },
     {
-      "protocol": "shadowsocks",
-      "host": "185.226.172.8",
-      "port": 8008,
-      "method": "aes-256-gcm",
-      "password": "***",
-      "name": "🇩🇪 12@shadowsockskeys",
-      "original_uri": "ss://YWVzLTI1Ni1nY206WEtGS2wyclVMaklwNzQ@185.226.172.8:8008#%F0%9F%87%A9%F0%9F%87%AA%2012%40shadowsockskeys",
+      "protocol": "vless",
+      "host": "164.90.191.172",
+      "port": 47260,
+      "uuid": "dbe453d8-112d-4bad-b353-3ccf60044a23",
+      "network": "tcp",
+      "security": "none",
+      "sni": null,
+      "path": null,
+      "name": "VLESS",
+      "original_uri": "vless://dbe453d8-112d-4bad-b353-3ccf60044a23@164.90.191.172:47260?encryption=none&amp;security=none&amp;type=tcp&amp;headerType=none#",
       "normalized": true,
-      "source_channel": "ShadowsocksKeys",
-      "source_label": "Shadowsocks Keys",
+      "source_channel": "v2ray_configs_pool",
+      "source_label": "استخر کانفیگ V2Ray",
       "tags": [
-        "shadowsocks"
+        "vmess",
+        "vless"
       ],
-      "hash": "f36220a006df7255",
+      "hash": "d0658bdd406208cc",
       "health": {
         "status": "online",
-        "latency_ms": 89.3,
-        "ip": "185.226.172.8",
+        "latency_ms": 126.0,
+        "ip": "164.90.191.172",
         "error": null
       },
-      "server_score": 45.7,
-      "score": 45.7,
+      "server_score": 46.1,
+      "score": 46.1,
       "max_server_score": 60,
       "score_breakdown": {
-        "health": 94.1,
-        "protocol": 80,
+        "health": 88.6,
+        "protocol": 95,
         "source": 60,
         "fingerprint": 50,
         "uniqueness": 100,
@@ -1236,154 +1253,6 @@
       },
       "status": "good",
       "rank": 31
-    },
-    {
-      "protocol": "shadowsocks",
-      "host": "51.195.126.38",
-      "port": 8388,
-      "method": "chacha20-ietf-poly1305",
-      "password": "***",
-      "name": "🇩🇪 13@shadowsockskeys",
-      "original_uri": "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNToyWWRFNGxGT2lkNWE@51.195.126.38:8388#%F0%9F%87%A9%F0%9F%87%AA%2013%40shadowsockskeys",
-      "normalized": true,
-      "source_channel": "ShadowsocksKeys",
-      "source_label": "Shadowsocks Keys",
-      "tags": [
-        "shadowsocks"
-      ],
-      "hash": "f285da37284fbe7d",
-      "health": {
-        "status": "online",
-        "latency_ms": 92.0,
-        "ip": "51.195.126.38",
-        "error": null
-      },
-      "server_score": 45.7,
-      "score": 45.7,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 93.7,
-        "protocol": 80,
-        "source": 60,
-        "fingerprint": 50,
-        "uniqueness": 100,
-        "freshness": 70
-      },
-      "status": "good",
-      "rank": 32
-    },
-    {
-      "protocol": "vless",
-      "host": "153.52.92.160",
-      "port": 8588,
-      "uuid": "410843d6-d5cd-4db6-a66f-3a20102d073a",
-      "network": "tcp",
-      "security": "none",
-      "sni": null,
-      "path": null,
-      "name": "M",
-      "original_uri": "vless://410843d6-d5cd-4db6-a66f-3a20102d073a@153.52.92.160:8588?encryption=none&amp;security=reality&amp;sni=play.googleapis.com&amp;fp=firefox&amp;pbk=_SUv0c82LgTdgmL7ZI39Uoq80yQzwwWAX05BkVpde3Y&amp;sid=833014806333a43a&amp;type=xhttp&amp;path=%2F&amp;mode=auto#M",
-      "normalized": true,
-      "source_channel": "v2ray_configs_pool",
-      "source_label": "استخر کانفیگ V2Ray",
-      "tags": [
-        "vmess",
-        "vless"
-      ],
-      "hash": "465db5d499dfc53e",
-      "health": {
-        "status": "online",
-        "latency_ms": 139.4,
-        "ip": "153.52.92.160",
-        "error": null
-      },
-      "server_score": 45.7,
-      "score": 45.7,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 86.6,
-        "protocol": 95,
-        "source": 60,
-        "fingerprint": 50,
-        "uniqueness": 100,
-        "freshness": 70
-      },
-      "status": "good",
-      "rank": 33
-    },
-    {
-      "protocol": "vless",
-      "host": "45.155.68.164",
-      "port": 13868,
-      "uuid": "06d44c57-8e1a-41f4-b9c4-65d35869e078",
-      "network": "tcp",
-      "security": "none",
-      "sni": null,
-      "path": null,
-      "name": "M",
-      "original_uri": "vless://06d44c57-8e1a-41f4-b9c4-65d35869e078@45.155.68.164:13868?encryption=none&amp;flow=xtls-rprx-vision&amp;security=reality&amp;sni=yoox.com&amp;fp=firefox&amp;pbk=xbCFPD2Gk3HP6EwfFT_0W3D_-biFaz10wlPc2h3y6QQ&amp;sid=e852dc&amp;type=tcp&amp;headerType=none#M",
-      "normalized": true,
-      "source_channel": "v2ray_configs_pool",
-      "source_label": "استخر کانفیگ V2Ray",
-      "tags": [
-        "vmess",
-        "vless"
-      ],
-      "hash": "d0db59403fc199dc",
-      "health": {
-        "status": "online",
-        "latency_ms": 95.9,
-        "ip": "45.155.68.164",
-        "error": null
-      },
-      "server_score": 45.7,
-      "score": 45.7,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 93.1,
-        "protocol": 95,
-        "source": 60,
-        "fingerprint": 50,
-        "uniqueness": 80,
-        "freshness": 70
-      },
-      "status": "good",
-      "rank": 34
-    },
-    {
-      "protocol": "shadowsocks",
-      "host": "68.168.114.238",
-      "port": 1080,
-      "method": "chacha20-ietf-poly1305",
-      "password": "***",
-      "name": "🇨🇦 13@shadowsockskeys",
-      "original_uri": "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpYRjBrbHc3ODcwdlhuM3VRSXhlMTlR@68.168.114.238:1080#%F0%9F%87%A8%F0%9F%87%A6%2013%40shadowsockskeys",
-      "normalized": true,
-      "source_channel": "ShadowsocksKeys",
-      "source_label": "Shadowsocks Keys",
-      "tags": [
-        "shadowsocks"
-      ],
-      "hash": "d5eb0abad2b82281",
-      "health": {
-        "status": "online",
-        "latency_ms": 21.2,
-        "ip": "68.168.114.238",
-        "error": null
-      },
-      "server_score": 45.6,
-      "score": 45.6,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 100,
-        "protocol": 80,
-        "source": 60,
-        "fingerprint": 50,
-        "uniqueness": 80,
-        "freshness": 70
-      },
-      "status": "good",
-      "rank": 35
     },
     {
       "protocol": "shadowsocks",
@@ -1402,7 +1271,7 @@
       "hash": "e17d0d41ea8e6be8",
       "health": {
         "status": "online",
-        "latency_ms": 21.0,
+        "latency_ms": 33.7,
         "ip": "68.168.114.238",
         "error": null
       },
@@ -1418,110 +1287,69 @@
         "freshness": 70
       },
       "status": "good",
-      "rank": 36
+      "rank": 32
     },
     {
-      "protocol": "vless",
-      "host": "91.192.81.214",
-      "port": 443,
-      "uuid": "607801ac-dbdd-4938-a167-129015d9978e",
-      "network": "tcp",
-      "security": "none",
-      "sni": null,
-      "path": null,
-      "name": "VLESS",
-      "original_uri": "vless://607801ac-dbdd-4938-a167-129015d9978e@91.192.81.214:443?encryption=none&amp;flow=xtls-rprx-vision&amp;fp=chrome&amp;pbk=bMcyxNueltQhz5Kuxcf8odDStWHowYfLhKNdCbUweDc&amp;security=reality&amp;sid=d1742269&amp;sni=www.cloudflare.com&amp;type=tcp#",
+      "protocol": "shadowsocks",
+      "host": "68.168.114.238",
+      "port": 1080,
+      "method": "chacha20-ietf-poly1305",
+      "password": "***",
+      "name": "🇨🇦 13@shadowsockskeys",
+      "original_uri": "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpYRjBrbHc3ODcwdlhuM3VRSXhlMTlR@68.168.114.238:1080#%F0%9F%87%A8%F0%9F%87%A6%2013%40shadowsockskeys",
       "normalized": true,
-      "source_channel": "V2rayCollector",
-      "source_label": "V2Ray Collector",
+      "source_channel": "ShadowsocksKeys",
+      "source_label": "Shadowsocks Keys",
       "tags": [
-        "vmess",
-        "vless",
-        "trojan"
+        "shadowsocks"
       ],
-      "hash": "1498643e61b345ca",
+      "hash": "d5eb0abad2b82281",
       "health": {
         "status": "online",
-        "latency_ms": 221.6,
-        "ip": "91.192.81.214",
+        "latency_ms": 50.0,
+        "ip": "68.168.114.238",
         "error": null
       },
       "server_score": 45.6,
       "score": 45.6,
       "max_server_score": 60,
       "score_breakdown": {
-        "health": 73.1,
-        "protocol": 95,
-        "source": 85,
-        "fingerprint": 50,
-        "uniqueness": 100,
-        "freshness": 70
-      },
-      "status": "good",
-      "rank": 37
-    },
-    {
-      "protocol": "shadowsocks",
-      "host": "82.38.31.205",
-      "port": 8080,
-      "method": "chacha20-ietf-poly1305",
-      "password": "***",
-      "name": "Netherlands Greenhost",
-      "original_uri": "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTprMWRCT21PQjRvcWk3VW1wMzdhMWJR@82.38.31.205:8080#Netherlands%20Greenhost",
-      "normalized": true,
-      "source_channel": "free4allVPN",
-      "source_label": "VPN برای همه",
-      "tags": [
-        "vmess",
-        "trojan"
-      ],
-      "hash": "25fc90e8b206177e",
-      "health": {
-        "status": "online",
-        "latency_ms": 98.7,
-        "ip": "82.38.31.205",
-        "error": null
-      },
-      "server_score": 45.5,
-      "score": 45.5,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 92.7,
+        "health": 100.0,
         "protocol": 80,
         "source": 60,
         "fingerprint": 50,
-        "uniqueness": 100,
+        "uniqueness": 80,
         "freshness": 70
       },
       "status": "good",
-      "rank": 38
+      "rank": 33
     },
     {
       "protocol": "shadowsocks",
-      "host": "82.38.31.15",
+      "host": "158.173.20.208",
       "port": 443,
-      "method": "chacha20-ietf-poly1305",
+      "method": "aes-128-gcm",
       "password": "***",
       "name": "🇳🇱 12@shadowsockskeys",
-      "original_uri": "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpvWklvQTY5UTh5aGNRVjhrYTNQYTNB@82.38.31.15:443#%F0%9F%87%B3%F0%9F%87%B1%2012%40shadowsockskeys",
+      "original_uri": "ss://YWVzLTEyOC1nY206c2hhZG93c29ja3M@158.173.20.208:443#%F0%9F%87%B3%F0%9F%87%B1%2012%40shadowsockskeys",
       "normalized": true,
       "source_channel": "ShadowsocksKeys",
       "source_label": "Shadowsocks Keys",
       "tags": [
         "shadowsocks"
       ],
-      "hash": "9286d47909f84d7a",
+      "hash": "6530a449f83d41f4",
       "health": {
         "status": "online",
-        "latency_ms": 98.6,
-        "ip": "82.38.31.15",
+        "latency_ms": 112.1,
+        "ip": "158.173.20.208",
         "error": null
       },
-      "server_score": 45.5,
-      "score": 45.5,
+      "server_score": 45.1,
+      "score": 45.1,
       "max_server_score": 60,
       "score_breakdown": {
-        "health": 92.7,
+        "health": 90.7,
         "protocol": 80,
         "source": 60,
         "fingerprint": 50,
@@ -1529,77 +1357,7 @@
         "freshness": 70
       },
       "status": "good",
-      "rank": 39
-    },
-    {
-      "protocol": "shadowsocks",
-      "host": "193.124.203.144",
-      "port": 443,
-      "method": "2022-blake3-aes-256-gcm",
-      "password": "***",
-      "name": "🇩🇪14@shadowsockskeys",
-      "original_uri": "ss://MjAyMi1ibGFrZTMtYWVzLTI1Ni1nY206bWtLZnhuZENaOWMzWUlrQUFtQU5ydGZJL21sR0p3d1Y5L0dkVlRZZ1czTT06SmF6eGlZYzNNYzV0TG4vVGUzVDU5VzZadzRaL0JQdWVwUTBWbFZEL2NaOD0@193.124.203.144:443#%F0%9F%87%A9%F0%9F%87%AA14%40shadowsockskeys",
-      "normalized": true,
-      "source_channel": "ShadowsocksKeys",
-      "source_label": "Shadowsocks Keys",
-      "tags": [
-        "shadowsocks"
-      ],
-      "hash": "716698a5ebfcf744",
-      "health": {
-        "status": "online",
-        "latency_ms": 103.1,
-        "ip": "193.124.203.144",
-        "error": null
-      },
-      "server_score": 45.4,
-      "score": 45.4,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 92.0,
-        "protocol": 80,
-        "source": 60,
-        "fingerprint": 50,
-        "uniqueness": 100,
-        "freshness": 70
-      },
-      "status": "good",
-      "rank": 40
-    },
-    {
-      "protocol": "shadowsocks",
-      "host": "194.61.121.93",
-      "port": 7538,
-      "method": "chacha20-ietf-poly1305",
-      "password": "***",
-      "name": "🇵🇱 13@shadowsockskeys",
-      "original_uri": "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpVOVlBb3FCZ2c1VnlHQmM2dlF2MXNO@194.61.121.93:7538#%F0%9F%87%B5%F0%9F%87%B1%2013%40shadowsockskeys",
-      "normalized": true,
-      "source_channel": "ShadowsocksKeys",
-      "source_label": "Shadowsocks Keys",
-      "tags": [
-        "shadowsocks"
-      ],
-      "hash": "abcef31ed7f5a748",
-      "health": {
-        "status": "online",
-        "latency_ms": 107.0,
-        "ip": "194.61.121.93",
-        "error": null
-      },
-      "server_score": 45.3,
-      "score": 45.3,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 91.5,
-        "protocol": 80,
-        "source": 60,
-        "fingerprint": 50,
-        "uniqueness": 100,
-        "freshness": 70
-      },
-      "status": "good",
-      "rank": 41
+      "rank": 34
     },
     {
       "protocol": "vless",
@@ -1622,15 +1380,15 @@
       "hash": "a4d40f35cd669e1e",
       "health": {
         "status": "online",
-        "latency_ms": 113.4,
+        "latency_ms": 120.7,
         "ip": "45.155.68.164",
         "error": null
       },
-      "server_score": 45.2,
-      "score": 45.2,
+      "server_score": 45.0,
+      "score": 45.0,
       "max_server_score": 60,
       "score_breakdown": {
-        "health": 90.5,
+        "health": 89.4,
         "protocol": 95,
         "source": 60,
         "fingerprint": 50,
@@ -1638,16 +1396,19 @@
         "freshness": 70
       },
       "status": "good",
-      "rank": 42
+      "rank": 35
     },
     {
-      "protocol": "shadowsocks",
-      "host": "103.120.178.193",
-      "port": 31348,
-      "method": "chacha20-ietf-poly1305",
-      "password": "***",
-      "name": "Shadowsocks",
-      "original_uri": "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpFQkRSbzlUSHg0Q3FpRlU3aDVnZm92NzZvTnd6WlVSQWgwWndiV2pCS2RkdFVodno@103.120.178.193:31348#",
+      "protocol": "vless",
+      "host": "185.88.36.71",
+      "port": 8443,
+      "uuid": "dd930365-5f37-4ef4-a809-e285ec6d3ce1",
+      "network": "tcp",
+      "security": "none",
+      "sni": null,
+      "path": null,
+      "name": "VLESS",
+      "original_uri": "vless://dd930365-5f37-4ef4-a809-e285ec6d3ce1@185.88.36.71:8443?encryption=none&amp;flow=xtls-rprx-vision&amp;fp=&amp;pbk=SzjNg0dCOfUkpULDXd_2KnCUeVOQTJsKKtJ_xzQUFVc&amp;security=reality&amp;sid=ae4a&amp;sni=music.yandex.ru&amp;type=tcp#",
       "normalized": true,
       "source_channel": "V2rayCollector",
       "source_label": "V2Ray Collector",
@@ -1656,20 +1417,271 @@
         "vless",
         "trojan"
       ],
-      "hash": "44e207e639fc26a7",
+      "hash": "a3b544ce2afd24c5",
       "health": {
         "status": "online",
-        "latency_ms": 204.0,
-        "ip": "103.120.178.193",
+        "latency_ms": 243.6,
+        "ip": "185.88.36.71",
+        "error": null
+      },
+      "server_score": 44.9,
+      "score": 44.9,
+      "max_server_score": 60,
+      "score_breakdown": {
+        "health": 69.4,
+        "protocol": 95,
+        "source": 85,
+        "fingerprint": 50,
+        "uniqueness": 100,
+        "freshness": 70
+      },
+      "status": "good",
+      "rank": 36
+    },
+    {
+      "protocol": "vless",
+      "host": "45.155.68.164",
+      "port": 13868,
+      "uuid": "06d44c57-8e1a-41f4-b9c4-65d35869e078",
+      "network": "tcp",
+      "security": "none",
+      "sni": null,
+      "path": null,
+      "name": "M",
+      "original_uri": "vless://06d44c57-8e1a-41f4-b9c4-65d35869e078@45.155.68.164:13868?encryption=none&amp;flow=xtls-rprx-vision&amp;security=reality&amp;sni=yoox.com&amp;fp=firefox&amp;pbk=xbCFPD2Gk3HP6EwfFT_0W3D_-biFaz10wlPc2h3y6QQ&amp;sid=e852dc&amp;type=tcp&amp;headerType=none#M",
+      "normalized": true,
+      "source_channel": "v2ray_configs_pool",
+      "source_label": "استخر کانفیگ V2Ray",
+      "tags": [
+        "vmess",
+        "vless"
+      ],
+      "hash": "d0db59403fc199dc",
+      "health": {
+        "status": "online",
+        "latency_ms": 124.8,
+        "ip": "45.155.68.164",
+        "error": null
+      },
+      "server_score": 44.9,
+      "score": 44.9,
+      "max_server_score": 60,
+      "score_breakdown": {
+        "health": 88.8,
+        "protocol": 95,
+        "source": 60,
+        "fingerprint": 50,
+        "uniqueness": 80,
+        "freshness": 70
+      },
+      "status": "good",
+      "rank": 37
+    },
+    {
+      "protocol": "shadowsocks",
+      "host": "185.226.172.8",
+      "port": 8008,
+      "method": "aes-256-gcm",
+      "password": "***",
+      "name": "🇩🇪 12@shadowsockskeys",
+      "original_uri": "ss://YWVzLTI1Ni1nY206WEtGS2wyclVMaklwNzQ@185.226.172.8:8008#%F0%9F%87%A9%F0%9F%87%AA%2012%40shadowsockskeys",
+      "normalized": true,
+      "source_channel": "ShadowsocksKeys",
+      "source_label": "Shadowsocks Keys",
+      "tags": [
+        "shadowsocks"
+      ],
+      "hash": "f36220a006df7255",
+      "health": {
+        "status": "online",
+        "latency_ms": 118.6,
+        "ip": "185.226.172.8",
+        "error": null
+      },
+      "server_score": 44.9,
+      "score": 44.9,
+      "max_server_score": 60,
+      "score_breakdown": {
+        "health": 89.7,
+        "protocol": 80,
+        "source": 60,
+        "fingerprint": 50,
+        "uniqueness": 100,
+        "freshness": 70
+      },
+      "status": "good",
+      "rank": 38
+    },
+    {
+      "protocol": "shadowsocks",
+      "host": "193.124.203.144",
+      "port": 443,
+      "method": "2022-blake3-aes-256-gcm",
+      "password": "***",
+      "name": "🇩🇪14@shadowsockskeys",
+      "original_uri": "ss://MjAyMi1ibGFrZTMtYWVzLTI1Ni1nY206bWtLZnhuZENaOWMzWUlrQUFtQU5ydGZJL21sR0p3d1Y5L0dkVlRZZ1czTT06SmF6eGlZYzNNYzV0TG4vVGUzVDU5VzZadzRaL0JQdWVwUTBWbFZEL2NaOD0@193.124.203.144:443#%F0%9F%87%A9%F0%9F%87%AA14%40shadowsockskeys",
+      "normalized": true,
+      "source_channel": "ShadowsocksKeys",
+      "source_label": "Shadowsocks Keys",
+      "tags": [
+        "shadowsocks"
+      ],
+      "hash": "716698a5ebfcf744",
+      "health": {
+        "status": "online",
+        "latency_ms": 118.6,
+        "ip": "193.124.203.144",
+        "error": null
+      },
+      "server_score": 44.9,
+      "score": 44.9,
+      "max_server_score": 60,
+      "score_breakdown": {
+        "health": 89.7,
+        "protocol": 80,
+        "source": 60,
+        "fingerprint": 50,
+        "uniqueness": 100,
+        "freshness": 70
+      },
+      "status": "good",
+      "rank": 39
+    },
+    {
+      "protocol": "shadowsocks",
+      "host": "82.38.31.205",
+      "port": 8080,
+      "method": "chacha20-ietf-poly1305",
+      "password": "***",
+      "name": "Netherlands Greenhost",
+      "original_uri": "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTprMWRCT21PQjRvcWk3VW1wMzdhMWJR@82.38.31.205:8080#Netherlands%20Greenhost",
+      "normalized": true,
+      "source_channel": "free4allVPN",
+      "source_label": "VPN برای همه",
+      "tags": [
+        "vmess",
+        "trojan"
+      ],
+      "hash": "25fc90e8b206177e",
+      "health": {
+        "status": "online",
+        "latency_ms": 124.7,
+        "ip": "82.38.31.205",
+        "error": null
+      },
+      "server_score": 44.8,
+      "score": 44.8,
+      "max_server_score": 60,
+      "score_breakdown": {
+        "health": 88.8,
+        "protocol": 80,
+        "source": 60,
+        "fingerprint": 50,
+        "uniqueness": 100,
+        "freshness": 70
+      },
+      "status": "good",
+      "rank": 40
+    },
+    {
+      "protocol": "shadowsocks",
+      "host": "82.38.31.15",
+      "port": 443,
+      "method": "chacha20-ietf-poly1305",
+      "password": "***",
+      "name": "🇳🇱 12@shadowsockskeys",
+      "original_uri": "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpvWklvQTY5UTh5aGNRVjhrYTNQYTNB@82.38.31.15:443#%F0%9F%87%B3%F0%9F%87%B1%2012%40shadowsockskeys",
+      "normalized": true,
+      "source_channel": "ShadowsocksKeys",
+      "source_label": "Shadowsocks Keys",
+      "tags": [
+        "shadowsocks"
+      ],
+      "hash": "9286d47909f84d7a",
+      "health": {
+        "status": "online",
+        "latency_ms": 122.4,
+        "ip": "82.38.31.15",
+        "error": null
+      },
+      "server_score": 44.8,
+      "score": 44.8,
+      "max_server_score": 60,
+      "score_breakdown": {
+        "health": 89.1,
+        "protocol": 80,
+        "source": 60,
+        "fingerprint": 50,
+        "uniqueness": 100,
+        "freshness": 70
+      },
+      "status": "good",
+      "rank": 41
+    },
+    {
+      "protocol": "shadowsocks",
+      "host": "51.195.126.38",
+      "port": 8388,
+      "method": "chacha20-ietf-poly1305",
+      "password": "***",
+      "name": "🇩🇪 13@shadowsockskeys",
+      "original_uri": "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNToyWWRFNGxGT2lkNWE@51.195.126.38:8388#%F0%9F%87%A9%F0%9F%87%AA%2013%40shadowsockskeys",
+      "normalized": true,
+      "source_channel": "ShadowsocksKeys",
+      "source_label": "Shadowsocks Keys",
+      "tags": [
+        "shadowsocks"
+      ],
+      "hash": "f285da37284fbe7d",
+      "health": {
+        "status": "online",
+        "latency_ms": 126.2,
+        "ip": "51.195.126.38",
         "error": null
       },
       "server_score": 44.7,
       "score": 44.7,
       "max_server_score": 60,
       "score_breakdown": {
-        "health": 76.0,
+        "health": 88.6,
         "protocol": 80,
-        "source": 85,
+        "source": 60,
+        "fingerprint": 50,
+        "uniqueness": 100,
+        "freshness": 70
+      },
+      "status": "good",
+      "rank": 42
+    },
+    {
+      "protocol": "shadowsocks",
+      "host": "176.97.73.215",
+      "port": 8388,
+      "method": "chacha20-ietf-poly1305",
+      "password": "***",
+      "name": "M",
+      "original_uri": "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTptYTZ6YzRKb0xSSkE@176.97.73.215:8388?#M",
+      "normalized": true,
+      "source_channel": "v2ray_configs_pool",
+      "source_label": "استخر کانفیگ V2Ray",
+      "tags": [
+        "vmess",
+        "vless"
+      ],
+      "hash": "e78ad15835b591e3",
+      "health": {
+        "status": "online",
+        "latency_ms": 142.0,
+        "ip": "176.97.73.215",
+        "error": null
+      },
+      "server_score": 44.3,
+      "score": 44.3,
+      "max_server_score": 60,
+      "score_breakdown": {
+        "health": 86.2,
+        "protocol": 80,
+        "source": 60,
         "fingerprint": 50,
         "uniqueness": 100,
         "freshness": 70
@@ -1679,30 +1691,30 @@
     },
     {
       "protocol": "shadowsocks",
-      "host": "212.87.198.109",
-      "port": 1080,
+      "host": "194.61.121.93",
+      "port": 7538,
       "method": "chacha20-ietf-poly1305",
       "password": "***",
-      "name": "🇹🇷 14@shadowsockskeys",
-      "original_uri": "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpTdFp3TDd5dUdKTDcwbTM5RDFVcXV2cnFmMzJwRkF2dw@212.87.198.109:1080#%F0%9F%87%B9%F0%9F%87%B7%2014%40shadowsockskeys",
+      "name": "🇵🇱 13@shadowsockskeys",
+      "original_uri": "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpVOVlBb3FCZ2c1VnlHQmM2dlF2MXNO@194.61.121.93:7538#%F0%9F%87%B5%F0%9F%87%B1%2013%40shadowsockskeys",
       "normalized": true,
       "source_channel": "ShadowsocksKeys",
       "source_label": "Shadowsocks Keys",
       "tags": [
         "shadowsocks"
       ],
-      "hash": "4ed5af4193baa8bd",
+      "hash": "abcef31ed7f5a748",
       "health": {
         "status": "online",
-        "latency_ms": 131.8,
-        "ip": "212.87.198.109",
+        "latency_ms": 149.2,
+        "ip": "194.61.121.93",
         "error": null
       },
-      "server_score": 44.6,
-      "score": 44.6,
+      "server_score": 44.1,
+      "score": 44.1,
       "max_server_score": 60,
       "score_breakdown": {
-        "health": 87.7,
+        "health": 85.1,
         "protocol": 80,
         "source": 60,
         "fingerprint": 50,
@@ -1714,38 +1726,75 @@
     },
     {
       "protocol": "shadowsocks",
-      "host": "91.228.186.37",
-      "port": 1080,
+      "host": "51.77.225.200",
+      "port": 8388,
       "method": "chacha20-ietf-poly1305",
       "password": "***",
-      "name": "🇹🇷11@shadowsockskeys",
-      "original_uri": "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpMSFp6ZjR5MGoyV1FsWnNUaDBOelB4Vm1UWXVmUi1UQQ@91.228.186.37:1080#%F0%9F%87%B9%F0%9F%87%B711%40shadowsockskeys",
+      "name": "Shadowsocks",
+      "original_uri": "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTp6UlpOQnN6WXlXbzU@51.77.225.200:8388?#",
       "normalized": true,
-      "source_channel": "ShadowsocksKeys",
-      "source_label": "Shadowsocks Keys",
+      "source_channel": "v2ray_configs_pool",
+      "source_label": "استخر کانفیگ V2Ray",
       "tags": [
-        "shadowsocks"
+        "vmess",
+        "vless"
       ],
-      "hash": "9ff1a0f8a9bb7420",
+      "hash": "eb8dec316a1b4716",
       "health": {
         "status": "online",
-        "latency_ms": 146.4,
-        "ip": "91.228.186.37",
+        "latency_ms": 108.6,
+        "ip": "51.77.225.200",
         "error": null
       },
-      "server_score": 44.2,
-      "score": 44.2,
+      "server_score": 44.0,
+      "score": 44.0,
       "max_server_score": 60,
       "score_breakdown": {
-        "health": 85.5,
+        "health": 91.2,
         "protocol": 80,
         "source": 60,
         "fingerprint": 50,
-        "uniqueness": 100,
+        "uniqueness": 80,
         "freshness": 70
       },
       "status": "good",
       "rank": 45
+    },
+    {
+      "protocol": "shadowsocks",
+      "host": "51.77.225.200",
+      "port": 8388,
+      "method": "chacha20-ietf-poly1305",
+      "password": "***",
+      "name": "M",
+      "original_uri": "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTp6UlpOQnN6WXlXbzU@51.77.225.200:8388?#M",
+      "normalized": true,
+      "source_channel": "v2ray_configs_pool",
+      "source_label": "استخر کانفیگ V2Ray",
+      "tags": [
+        "vmess",
+        "vless"
+      ],
+      "hash": "004052227655f23c",
+      "health": {
+        "status": "online",
+        "latency_ms": 115.1,
+        "ip": "51.77.225.200",
+        "error": null
+      },
+      "server_score": 43.8,
+      "score": 43.8,
+      "max_server_score": 60,
+      "score_breakdown": {
+        "health": 90.2,
+        "protocol": 80,
+        "source": 60,
+        "fingerprint": 50,
+        "uniqueness": 80,
+        "freshness": 70
+      },
+      "status": "good",
+      "rank": 46
     },
     {
       "protocol": "shadowsocks",
@@ -1764,15 +1813,50 @@
       "hash": "218ceb4192b4dbe4",
       "health": {
         "status": "online",
-        "latency_ms": 156.5,
+        "latency_ms": 117.4,
         "ip": "173.212.251.231",
         "error": null
       },
-      "server_score": 43.9,
-      "score": 43.9,
+      "server_score": 43.8,
+      "score": 43.8,
       "max_server_score": 60,
       "score_breakdown": {
-        "health": 83.9,
+        "health": 89.9,
+        "protocol": 80,
+        "source": 60,
+        "fingerprint": 50,
+        "uniqueness": 80,
+        "freshness": 70
+      },
+      "status": "good",
+      "rank": 47
+    },
+    {
+      "protocol": "shadowsocks",
+      "host": "212.87.198.109",
+      "port": 1080,
+      "method": "chacha20-ietf-poly1305",
+      "password": "***",
+      "name": "🇹🇷 14@shadowsockskeys",
+      "original_uri": "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpTdFp3TDd5dUdKTDcwbTM5RDFVcXV2cnFmMzJwRkF2dw@212.87.198.109:1080#%F0%9F%87%B9%F0%9F%87%B7%2014%40shadowsockskeys",
+      "normalized": true,
+      "source_channel": "ShadowsocksKeys",
+      "source_label": "Shadowsocks Keys",
+      "tags": [
+        "shadowsocks"
+      ],
+      "hash": "4ed5af4193baa8bd",
+      "health": {
+        "status": "online",
+        "latency_ms": 159.7,
+        "ip": "212.87.198.109",
+        "error": null
+      },
+      "server_score": 43.8,
+      "score": 43.8,
+      "max_server_score": 60,
+      "score_breakdown": {
+        "health": 83.4,
         "protocol": 80,
         "source": 60,
         "fingerprint": 50,
@@ -1780,7 +1864,77 @@
         "freshness": 70
       },
       "status": "good",
-      "rank": 46
+      "rank": 48
+    },
+    {
+      "protocol": "shadowsocks",
+      "host": "173.212.251.231",
+      "port": 51058,
+      "method": "aes-128-gcm",
+      "password": "***",
+      "name": "🇫🇷 10@shadowsockskeys",
+      "original_uri": "ss://YWVzLTEyOC1nY206U3lTV0RhUDhybTFORUswd2RMZG9hVjVDbGtTakZEZnc@173.212.251.231:51058#%F0%9F%87%AB%F0%9F%87%B7%2010%40shadowsockskeys",
+      "normalized": true,
+      "source_channel": "ShadowsocksKeys",
+      "source_label": "Shadowsocks Keys",
+      "tags": [
+        "shadowsocks"
+      ],
+      "hash": "87a7a70b0f2b34f4",
+      "health": {
+        "status": "online",
+        "latency_ms": 124.3,
+        "ip": "173.212.251.231",
+        "error": null
+      },
+      "server_score": 43.6,
+      "score": 43.6,
+      "max_server_score": 60,
+      "score_breakdown": {
+        "health": 88.9,
+        "protocol": 80,
+        "source": 60,
+        "fingerprint": 50,
+        "uniqueness": 80,
+        "freshness": 70
+      },
+      "status": "good",
+      "rank": 49
+    },
+    {
+      "protocol": "shadowsocks",
+      "host": "91.228.186.37",
+      "port": 1080,
+      "method": "chacha20-ietf-poly1305",
+      "password": "***",
+      "name": "🇹🇷11@shadowsockskeys",
+      "original_uri": "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpMSFp6ZjR5MGoyV1FsWnNUaDBOelB4Vm1UWXVmUi1UQQ@91.228.186.37:1080#%F0%9F%87%B9%F0%9F%87%B711%40shadowsockskeys",
+      "normalized": true,
+      "source_channel": "ShadowsocksKeys",
+      "source_label": "Shadowsocks Keys",
+      "tags": [
+        "shadowsocks"
+      ],
+      "hash": "9ff1a0f8a9bb7420",
+      "health": {
+        "status": "online",
+        "latency_ms": 170.4,
+        "ip": "91.228.186.37",
+        "error": null
+      },
+      "server_score": 43.5,
+      "score": 43.5,
+      "max_server_score": 60,
+      "score_breakdown": {
+        "health": 81.6,
+        "protocol": 80,
+        "source": 60,
+        "fingerprint": 50,
+        "uniqueness": 100,
+        "freshness": 70
+      },
+      "status": "good",
+      "rank": 50
     },
     {
       "protocol": "shadowsocks",
@@ -1799,15 +1953,15 @@
       "hash": "e2aaca722a37f7d0",
       "health": {
         "status": "online",
-        "latency_ms": 156.1,
+        "latency_ms": 182.4,
         "ip": "217.28.129.81",
         "error": null
       },
-      "server_score": 43.9,
-      "score": 43.9,
+      "server_score": 43.1,
+      "score": 43.1,
       "max_server_score": 60,
       "score_breakdown": {
-        "health": 84.0,
+        "health": 79.6,
         "protocol": 80,
         "source": 60,
         "fingerprint": 50,
@@ -1815,7 +1969,7 @@
         "freshness": 70
       },
       "status": "good",
-      "rank": 47
+      "rank": 51
     },
     {
       "protocol": "shadowsocks",
@@ -1834,15 +1988,15 @@
       "hash": "8c0929a5ed729252",
       "health": {
         "status": "online",
-        "latency_ms": 167.9,
+        "latency_ms": 189.0,
         "ip": "77.240.38.27",
         "error": null
       },
-      "server_score": 43.6,
-      "score": 43.6,
+      "server_score": 42.9,
+      "score": 42.9,
       "max_server_score": 60,
       "score_breakdown": {
-        "health": 82.0,
+        "health": 78.5,
         "protocol": 80,
         "source": 60,
         "fingerprint": 50,
@@ -1850,7 +2004,7 @@
         "freshness": 70
       },
       "status": "good",
-      "rank": 48
+      "rank": 52
     },
     {
       "protocol": "shadowsocks",
@@ -1869,15 +2023,15 @@
       "hash": "9480ef189dd61a15",
       "health": {
         "status": "online",
-        "latency_ms": 276.6,
+        "latency_ms": 259.6,
         "ip": "102.129.229.85",
         "error": null
       },
-      "server_score": 40.3,
-      "score": 40.3,
+      "server_score": 40.8,
+      "score": 40.8,
       "max_server_score": 60,
       "score_breakdown": {
-        "health": 63.9,
+        "health": 66.7,
         "protocol": 80,
         "source": 60,
         "fingerprint": 50,
@@ -1885,7 +2039,7 @@
         "freshness": 70
       },
       "status": "good",
-      "rank": 49
+      "rank": 53
     },
     {
       "protocol": "shadowsocks",
@@ -1904,144 +2058,63 @@
       "hash": "8cd2f31d025be12d",
       "health": {
         "status": "online",
-        "latency_ms": 282.0,
+        "latency_ms": 577.5,
         "ip": "94.198.220.183",
-        "error": null
-      },
-      "server_score": 40.1,
-      "score": 40.1,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 63.0,
-        "protocol": 80,
-        "source": 60,
-        "fingerprint": 50,
-        "uniqueness": 100,
-        "freshness": 70
-      },
-      "status": "good",
-      "rank": 50
-    },
-    {
-      "protocol": "vmess",
-      "host": "zudssgtmrqg9lpvi.v.3dns.vip",
-      "port": 443,
-      "uuid": "f23bb427c1f94373876c2f43e9f790f3",
-      "alter_id": 0,
-      "security": "none",
-      "network": "ws",
-      "tls": true,
-      "sni": "zUDssgTMRqg9LpvI.v.3dns.vip",
-      "path": "/ws-vmess",
-      "name": "🇭🇰 Join+Telegram:@Farah_VPN 🇭🇰",
-      "original_uri": "vmess://eyJ2IjoiMiIsInBzIjoiXHVkODNjXHVkZGVkXHVkODNjXHVkZGYwIEpvaW4rVGVsZWdyYW06QEZhcmFoX1ZQTiBcdWQ4M2NcdWRkZWRcdWQ4M2NcdWRkZjAiLCJhZGQiOiJ6dWRzc2d0bXJxZzlscHZpLnYuM2Rucy52aXAiLCJwb3J0IjoiNDQzIiwidHlwZSI6Im5vbmUiLCJpZCI6ImYyM2JiNDI3YzFmOTQzNzM4NzZjMmY0M2U5Zjc5MGYzIiwiYWlkIjoiMCIsIm5ldCI6IndzIiwicGF0aCI6Ii93cy12bWVzcyIsImhvc3QiOiJ6VURzc2dUTVJxZzlMcHZJLnYuM2Rucy52aXAiLCJ0bHMiOiJ0bHMiLCJza2lwLWNlcnQtdmVyaWZ5Ijp0cnVlfQ==#",
-      "normalized": true,
-      "source_channel": "V2rayCollector",
-      "source_label": "V2Ray Collector",
-      "tags": [
-        "vmess",
-        "vless",
-        "trojan"
-      ],
-      "hash": "5fd3186ddba9a125",
-      "health": {
-        "status": "online",
-        "latency_ms": 1237.8,
-        "ip": "47.243.10.180",
-        "error": null
-      },
-      "server_score": 37.6,
-      "score": 37.6,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 8.7,
-        "protocol": 75,
-        "source": 85,
-        "fingerprint": 95,
-        "uniqueness": 100,
-        "freshness": 70
-      },
-      "status": "good",
-      "rank": 51
-    },
-    {
-      "protocol": "vless",
-      "host": "EN1.ZAG-FA.SOLVETA.IR",
-      "port": 9982,
-      "uuid": "b2a21714-fd64-461f-9364-49ea2ddc8b59",
-      "network": "tcp",
-      "security": "reality",
-      "sni": null,
-      "path": null,
-      "name": "VLESS",
-      "original_uri": "vless://b2a21714-fd64-461f-9364-49ea2ddc8b59@EN1.ZAG-FA.SOLVETA.IR:9982?security=reality&amp;encryption=none&amp;pbk=mPYP_E1bJqvNXD-uKRU4QFyXk6B9lweXX5cqgbq3l3M&amp;headerType=none&amp;fp=edge&amp;type=tcp&amp;flow=xtls-rprx-vision&amp;sni=play.google.com&amp;sid=16b3713dce93ee0c#",
-      "normalized": true,
-      "source_channel": "V2rayCollector",
-      "source_label": "V2Ray Collector",
-      "tags": [
-        "vmess",
-        "vless",
-        "trojan"
-      ],
-      "hash": "39bcef513ea974ce",
-      "health": {
-        "status": "dns_fail",
-        "latency_ms": null,
-        "error": "DNS ناموفق"
-      },
-      "server_score": 37.2,
-      "score": 37.2,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 0,
-        "protocol": 95,
-        "source": 85,
-        "fingerprint": 90,
-        "uniqueness": 100,
-        "freshness": 70
-      },
-      "status": "offline",
-      "rank": 52
-    },
-    {
-      "protocol": "vless",
-      "host": "188.225.33.206",
-      "port": 8443,
-      "uuid": "c124a209-d949-4951-8234-e2d918b3e6c0",
-      "network": "tcp",
-      "security": "none",
-      "sni": null,
-      "path": null,
-      "name": "VLESS",
-      "original_uri": "vless://c124a209-d949-4951-8234-e2d918b3e6c0@188.225.33.206:8443?type=tcp&amp;security=reality&amp;encryption=none&amp;flow=xtls-rprx-vision&amp;fp=firefox&amp;pbk=C819rM4M_c473A8glp-eBFh8Fm9O1cmEeXmivDhM1Fc&amp;sni=max.ru#",
-      "normalized": true,
-      "source_channel": "V2rayCollector",
-      "source_label": "V2Ray Collector",
-      "tags": [
-        "vmess",
-        "vless",
-        "trojan"
-      ],
-      "hash": "ce8cb9b9bd63a894",
-      "health": {
-        "status": "online",
-        "latency_ms": 1136.4,
-        "ip": "188.225.33.206",
         "error": null
       },
       "server_score": 34.6,
       "score": 34.6,
       "max_server_score": 60,
       "score_breakdown": {
-        "health": 12.1,
-        "protocol": 95,
-        "source": 85,
+        "health": 32.2,
+        "protocol": 80,
+        "source": 60,
         "fingerprint": 50,
         "uniqueness": 100,
         "freshness": 70
       },
       "status": "fair",
-      "rank": 53
+      "rank": 54
+    },
+    {
+      "protocol": "vmess",
+      "host": "tk.hzlt.tkddns.xyz",
+      "port": 22643,
+      "uuid": "98e96c9f-4bb3-39d4-9a2c-fac04257f7c7",
+      "alter_id": 2,
+      "security": "",
+      "network": "ws",
+      "tls": true,
+      "sni": "zxjp-c.tkong.cc",
+      "path": "/",
+      "name": "🇺🇸美国23 | ⬇️ 1.4MB/s",
+      "original_uri": "vmess://eyJ2IjoiMiIsInBzIjoi8J+HuvCfh7jnvo7lm70yMyB8IOKsh++4jyAxLjRNQi9zIiwiYWRkIjoidGsuaHpsdC50a2RkbnMueHl6IiwicG9ydCI6MjI2NDMsImlkIjoiOThlOTZjOWYtNGJiMy0zOWQ0LTlhMmMtZmFjMDQyNTdmN2M3IiwidHlwZSI6IiIsImFpZCI6MiwibmV0Ijoid3MiLCJ0bHMiOiJ0bHMiLCJzbmkiOiJ6eGpwLWMudGtvbmcuY2MiLCJwYXRoIjoiLyIsImhvc3QiOiJ6eGpwLWMudGtvbmcuY2MifQ==",
+      "normalized": true,
+      "source_channel": "FreeV2rays",
+      "source_label": "V2Ray آزاد",
+      "tags": [
+        "vmess",
+        "vless"
+      ],
+      "hash": "cb4076bb2d4fae46",
+      "health": {
+        "status": "dns_fail",
+        "latency_ms": null,
+        "error": "DNS ناموفق"
+      },
+      "server_score": 33.8,
+      "score": 33.8,
+      "max_server_score": 60,
+      "score_breakdown": {
+        "health": 0,
+        "protocol": 75,
+        "source": 60,
+        "fingerprint": 95,
+        "uniqueness": 100,
+        "freshness": 70
+      },
+      "status": "offline",
+      "rank": 55
     },
     {
       "protocol": "vmess",
@@ -2081,7 +2154,47 @@
         "freshness": 70
       },
       "status": "offline",
-      "rank": 54
+      "rank": 56
+    },
+    {
+      "protocol": "vmess",
+      "host": "xcf029.facai2024.com",
+      "port": 443,
+      "uuid": "9ce4526a-c500-4c66-99b0-048e4b6b5663",
+      "alter_id": 0,
+      "security": "",
+      "network": "ws",
+      "tls": true,
+      "sni": "xcf029.facai2024.com",
+      "path": "/9ce4526a",
+      "name": "🇺🇸美国12 | ⬇️ 3.4MB/s",
+      "original_uri": "vmess://eyJ2IjoiMiIsInBzIjoi8J+HuvCfh7jnvo7lm70xMiB8IOKsh++4jyAzLjRNQi9zIiwiYWRkIjoieGNmMDI5LmZhY2FpMjAyNC5jb20iLCJwb3J0Ijo0NDMsImlkIjoiOWNlNDUyNmEtYzUwMC00YzY2LTk5YjAtMDQ4ZTRiNmI1NjYzIiwidHlwZSI6IiIsImFpZCI6MCwibmV0Ijoid3MiLCJ0bHMiOiJ0bHMiLCJzbmkiOiJ4Y2YwMjkuZmFjYWkyMDI0LmNvbSIsInBhdGgiOiIvOWNlNDUyNmEiLCJob3N0IjoieGNmMDI5LmZhY2FpMjAyNC5jb20ifQ==",
+      "normalized": true,
+      "source_channel": "FreeV2rays",
+      "source_label": "V2Ray آزاد",
+      "tags": [
+        "vmess",
+        "vless"
+      ],
+      "hash": "32adea1f8ac2bbc0",
+      "health": {
+        "status": "timeout",
+        "latency_ms": null,
+        "error": "timeout"
+      },
+      "server_score": 33.8,
+      "score": 33.8,
+      "max_server_score": 60,
+      "score_breakdown": {
+        "health": 0,
+        "protocol": 75,
+        "source": 60,
+        "fingerprint": 95,
+        "uniqueness": 100,
+        "freshness": 70
+      },
+      "status": "offline",
+      "rank": 57
     },
     {
       "protocol": "vmess",
@@ -2121,141 +2234,21 @@
         "freshness": 70
       },
       "status": "offline",
-      "rank": 55
-    },
-    {
-      "protocol": "vmess",
-      "host": "gs03-1.guoshi1520.com",
-      "port": 443,
-      "uuid": "82ff6d30-2920-4ebd-b95c-b016ede1a841",
-      "alter_id": 0,
-      "security": "",
-      "network": "ws",
-      "tls": true,
-      "sni": "gs03-1.guoshi1520.com",
-      "path": "/82ff6d30",
-      "name": "🇺🇸美国26 | ⬇️ 3.2MB/s",
-      "original_uri": "vmess://eyJ2IjoiMiIsInBzIjoi8J+HuvCfh7jnvo7lm70yNiB8IOKsh++4jyAzLjJNQi9zIiwiYWRkIjoiZ3MwMy0xLmd1b3NoaTE1MjAuY29tIiwicG9ydCI6NDQzLCJpZCI6IjgyZmY2ZDMwLTI5MjAtNGViZC1iOTVjLWIwMTZlZGUxYTg0MSIsInR5cGUiOiIiLCJhaWQiOjAsIm5ldCI6IndzIiwidGxzIjoidGxzIiwic25pIjoiZ3MwMy0xLmd1b3NoaTE1MjAuY29tIiwicGF0aCI6Ii84MmZmNmQzMCIsImhvc3QiOiJnczAzLTEuZ3Vvc2hpMTUyMC5jb20ifQ==",
-      "normalized": true,
-      "source_channel": "FreeV2rays",
-      "source_label": "V2Ray آزاد",
-      "tags": [
-        "vmess",
-        "vless"
-      ],
-      "hash": "8a155bb7d167826a",
-      "health": {
-        "status": "dns_fail",
-        "latency_ms": null,
-        "error": "DNS ناموفق"
-      },
-      "server_score": 33.8,
-      "score": 33.8,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 0,
-        "protocol": 75,
-        "source": 60,
-        "fingerprint": 95,
-        "uniqueness": 100,
-        "freshness": 70
-      },
-      "status": "offline",
-      "rank": 56
-    },
-    {
-      "protocol": "vmess",
-      "host": "u8.huvicloud.com",
-      "port": 443,
-      "uuid": "6796611b-260e-4d63-9016-20c27b12e420",
-      "alter_id": 0,
-      "security": "",
-      "network": "ws",
-      "tls": true,
-      "sni": "u8.huvicloud.com",
-      "path": "/6796611b-260e-4d63-9016-20c27b12e420",
-      "name": "🇺🇸美国11 | ⬇️ 2.8MB/s",
-      "original_uri": "vmess://eyJ2IjoiMiIsInBzIjoi8J+HuvCfh7jnvo7lm70xMSB8IOKsh++4jyAyLjhNQi9zIiwiYWRkIjoidTguaHV2aWNsb3VkLmNvbSIsInBvcnQiOjQ0MywiaWQiOiI2Nzk2NjExYi0yNjBlLTRkNjMtOTAxNi0yMGMyN2IxMmU0MjAiLCJ0eXBlIjoiIiwiYWlkIjowLCJuZXQiOiJ3cyIsInRscyI6InRscyIsInNuaSI6InU4Lmh1dmljbG91ZC5jb20iLCJwYXRoIjoiLzY3OTY2MTFiLTI2MGUtNGQ2My05MDE2LTIwYzI3YjEyZTQyMCIsImhvc3QiOiJ1OC5odXZpY2xvdWQuY29tIn0=",
-      "normalized": true,
-      "source_channel": "FreeV2rays",
-      "source_label": "V2Ray آزاد",
-      "tags": [
-        "vmess",
-        "vless"
-      ],
-      "hash": "9b69c26091d7a3aa",
-      "health": {
-        "status": "dns_fail",
-        "latency_ms": null,
-        "error": "DNS ناموفق"
-      },
-      "server_score": 33.8,
-      "score": 33.8,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 0,
-        "protocol": 75,
-        "source": 60,
-        "fingerprint": 95,
-        "uniqueness": 100,
-        "freshness": 70
-      },
-      "status": "offline",
-      "rank": 57
-    },
-    {
-      "protocol": "vmess",
-      "host": "xc011-2.meiziba5566.com",
-      "port": 443,
-      "uuid": "42576a04-5a4d-4c7e-fcb4-a8582ab46031",
-      "alter_id": 0,
-      "security": "",
-      "network": "ws",
-      "tls": true,
-      "sni": "xc011-2.meiziba5566.com",
-      "path": "/xc1234",
-      "name": "🇺🇸美国17 | ⬇️ 4.4MB/s",
-      "original_uri": "vmess://eyJ2IjoiMiIsInBzIjoi8J+HuvCfh7jnvo7lm70xNyB8IOKsh++4jyA0LjRNQi9zIiwiYWRkIjoieGMwMTEtMi5tZWl6aWJhNTU2Ni5jb20iLCJwb3J0Ijo0NDMsImlkIjoiNDI1NzZhMDQtNWE0ZC00YzdlLWZjYjQtYTg1ODJhYjQ2MDMxIiwidHlwZSI6IiIsImFpZCI6MCwibmV0Ijoid3MiLCJ0bHMiOiJ0bHMiLCJzbmkiOiJ4YzAxMS0yLm1laXppYmE1NTY2LmNvbSIsInBhdGgiOiIveGMxMjM0IiwiaG9zdCI6InhjMDExLTIubWVpemliYTU1NjYuY29tIn0=",
-      "normalized": true,
-      "source_channel": "FreeV2rays",
-      "source_label": "V2Ray آزاد",
-      "tags": [
-        "vmess",
-        "vless"
-      ],
-      "hash": "43eac0ee37e8ab99",
-      "health": {
-        "status": "dns_fail",
-        "latency_ms": null,
-        "error": "DNS ناموفق"
-      },
-      "server_score": 33.8,
-      "score": 33.8,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 0,
-        "protocol": 75,
-        "source": 60,
-        "fingerprint": 95,
-        "uniqueness": 100,
-        "freshness": 70
-      },
-      "status": "offline",
       "rank": 58
     },
     {
       "protocol": "vmess",
-      "host": "3sdfgvcxxx.938.pp.ua",
+      "host": "cloudgetservice.mcloudservice.site",
       "port": 443,
-      "uuid": "0212fab5-e93c-4904-b7a8-187fd535f354",
+      "uuid": "5428dcc2-9950-4404-b8a5-9dac82acb210",
       "alter_id": 0,
       "security": "",
       "network": "ws",
       "tls": true,
-      "sni": "3sdfgvcxxx.938.pp.ua",
-      "path": "/P879mtCoHQqaWO67qEaMINZ1",
-      "name": "🇺🇸美国14 | ⬇️ 2.2MB/s",
-      "original_uri": "vmess://eyJ2IjoiMiIsInBzIjoi8J+HuvCfh7jnvo7lm70xNCB8IOKsh++4jyAyLjJNQi9zIiwiYWRkIjoiM3NkZmd2Y3h4eC45MzgucHAudWEiLCJwb3J0Ijo0NDMsImlkIjoiMDIxMmZhYjUtZTkzYy00OTA0LWI3YTgtMTg3ZmQ1MzVmMzU0IiwidHlwZSI6IiIsImFpZCI6MCwibmV0Ijoid3MiLCJ0bHMiOiJ0bHMiLCJzbmkiOiIzc2RmZ3ZjeHh4LjkzOC5wcC51YSIsInBhdGgiOiIvUDg3OW10Q29IUXFhV082N3FFYU1JTloxIiwiaG9zdCI6IjNzZGZndmN4eHguOTM4LnBwLnVhIn0=",
+      "sni": "cloudgetservice.mcloudservice.site",
+      "path": "/linkws",
+      "name": "🇺🇸美国104 | ⬇️ 3.3MB/s",
+      "original_uri": "vmess://eyJ2IjoiMiIsInBzIjoi8J+HuvCfh7jnvo7lm70xMDQgfCDirIfvuI8gMy4zTUIvcyIsImFkZCI6ImNsb3VkZ2V0c2VydmljZS5tY2xvdWRzZXJ2aWNlLnNpdGUiLCJwb3J0Ijo0NDMsImlkIjoiNTQyOGRjYzItOTk1MC00NDA0LWI4YTUtOWRhYzgyYWNiMjEwIiwidHlwZSI6IiIsImFpZCI6IjAiLCJuZXQiOiJ3cyIsInRscyI6InRscyIsInNuaSI6ImNsb3VkZ2V0c2VydmljZS5tY2xvdWRzZXJ2aWNlLnNpdGUiLCJwYXRoIjoiL2xpbmt3cyIsImhvc3QiOiJtYVhORXRWSVAtdXNBLVZQMy5uRVRLSDMuU2lURSJ9",
       "normalized": true,
       "source_channel": "FreeV2rays",
       "source_label": "V2Ray آزاد",
@@ -2263,7 +2256,7 @@
         "vmess",
         "vless"
       ],
-      "hash": "7a32e27836892ec1",
+      "hash": "5897d6c4dd112b07",
       "health": {
         "status": "dns_fail",
         "latency_ms": null,
@@ -2325,17 +2318,17 @@
     },
     {
       "protocol": "vmess",
-      "host": "tk.hzlt.tkddns.xyz",
-      "port": 22643,
-      "uuid": "98e96c9f-4bb3-39d4-9a2c-fac04257f7c7",
-      "alter_id": 2,
+      "host": "3sdfgvcxxx.938.pp.ua",
+      "port": 443,
+      "uuid": "0212fab5-e93c-4904-b7a8-187fd535f354",
+      "alter_id": 0,
       "security": "",
       "network": "ws",
       "tls": true,
-      "sni": "zxjp-c.tkong.cc",
-      "path": "/",
-      "name": "🇺🇸美国23 | ⬇️ 1.4MB/s",
-      "original_uri": "vmess://eyJ2IjoiMiIsInBzIjoi8J+HuvCfh7jnvo7lm70yMyB8IOKsh++4jyAxLjRNQi9zIiwiYWRkIjoidGsuaHpsdC50a2RkbnMueHl6IiwicG9ydCI6MjI2NDMsImlkIjoiOThlOTZjOWYtNGJiMy0zOWQ0LTlhMmMtZmFjMDQyNTdmN2M3IiwidHlwZSI6IiIsImFpZCI6MiwibmV0Ijoid3MiLCJ0bHMiOiJ0bHMiLCJzbmkiOiJ6eGpwLWMudGtvbmcuY2MiLCJwYXRoIjoiLyIsImhvc3QiOiJ6eGpwLWMudGtvbmcuY2MifQ==",
+      "sni": "3sdfgvcxxx.938.pp.ua",
+      "path": "/P879mtCoHQqaWO67qEaMINZ1",
+      "name": "🇺🇸美国14 | ⬇️ 2.2MB/s",
+      "original_uri": "vmess://eyJ2IjoiMiIsInBzIjoi8J+HuvCfh7jnvo7lm70xNCB8IOKsh++4jyAyLjJNQi9zIiwiYWRkIjoiM3NkZmd2Y3h4eC45MzgucHAudWEiLCJwb3J0Ijo0NDMsImlkIjoiMDIxMmZhYjUtZTkzYy00OTA0LWI3YTgtMTg3ZmQ1MzVmMzU0IiwidHlwZSI6IiIsImFpZCI6MCwibmV0Ijoid3MiLCJ0bHMiOiJ0bHMiLCJzbmkiOiIzc2RmZ3ZjeHh4LjkzOC5wcC51YSIsInBhdGgiOiIvUDg3OW10Q29IUXFhV082N3FFYU1JTloxIiwiaG9zdCI6IjNzZGZndmN4eHguOTM4LnBwLnVhIn0=",
       "normalized": true,
       "source_channel": "FreeV2rays",
       "source_label": "V2Ray آزاد",
@@ -2343,7 +2336,7 @@
         "vmess",
         "vless"
       ],
-      "hash": "cb4076bb2d4fae46",
+      "hash": "7a32e27836892ec1",
       "health": {
         "status": "dns_fail",
         "latency_ms": null,
@@ -2362,86 +2355,6 @@
       },
       "status": "offline",
       "rank": 61
-    },
-    {
-      "protocol": "vmess",
-      "host": "cloudgetservice.mcloudservice.site",
-      "port": 443,
-      "uuid": "5428dcc2-9950-4404-b8a5-9dac82acb210",
-      "alter_id": 0,
-      "security": "",
-      "network": "ws",
-      "tls": true,
-      "sni": "cloudgetservice.mcloudservice.site",
-      "path": "/linkws",
-      "name": "🇺🇸美国104 | ⬇️ 3.3MB/s",
-      "original_uri": "vmess://eyJ2IjoiMiIsInBzIjoi8J+HuvCfh7jnvo7lm70xMDQgfCDirIfvuI8gMy4zTUIvcyIsImFkZCI6ImNsb3VkZ2V0c2VydmljZS5tY2xvdWRzZXJ2aWNlLnNpdGUiLCJwb3J0Ijo0NDMsImlkIjoiNTQyOGRjYzItOTk1MC00NDA0LWI4YTUtOWRhYzgyYWNiMjEwIiwidHlwZSI6IiIsImFpZCI6IjAiLCJuZXQiOiJ3cyIsInRscyI6InRscyIsInNuaSI6ImNsb3VkZ2V0c2VydmljZS5tY2xvdWRzZXJ2aWNlLnNpdGUiLCJwYXRoIjoiL2xpbmt3cyIsImhvc3QiOiJtYVhORXRWSVAtdXNBLVZQMy5uRVRLSDMuU2lURSJ9",
-      "normalized": true,
-      "source_channel": "FreeV2rays",
-      "source_label": "V2Ray آزاد",
-      "tags": [
-        "vmess",
-        "vless"
-      ],
-      "hash": "5897d6c4dd112b07",
-      "health": {
-        "status": "dns_fail",
-        "latency_ms": null,
-        "error": "DNS ناموفق"
-      },
-      "server_score": 33.8,
-      "score": 33.8,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 0,
-        "protocol": 75,
-        "source": 60,
-        "fingerprint": 95,
-        "uniqueness": 100,
-        "freshness": 70
-      },
-      "status": "offline",
-      "rank": 62
-    },
-    {
-      "protocol": "vmess",
-      "host": "a.886968.xyz",
-      "port": 21369,
-      "uuid": "151187b1-c8f3-4c32-ac72-3679e264a7a3",
-      "alter_id": 0,
-      "security": "",
-      "network": "ws",
-      "tls": true,
-      "sni": "a.886968.xyz",
-      "path": "/wfdef",
-      "name": "🇸🇬新加坡2 | ⬇️ 1.7MB/s",
-      "original_uri": "vmess://eyJ2IjoiMiIsInBzIjoi8J+HuPCfh6zmlrDliqDlnaEyIHwg4qyH77iPIDEuN01CL3MiLCJhZGQiOiJhLjg4Njk2OC54eXoiLCJwb3J0IjoyMTM2OSwiaWQiOiIxNTExODdiMS1jOGYzLTRjMzItYWM3Mi0zNjc5ZTI2NGE3YTMiLCJ0eXBlIjoiIiwiYWlkIjowLCJuZXQiOiJ3cyIsInRscyI6InRscyIsInNuaSI6ImEuODg2OTY4Lnh5eiIsInBhdGgiOiIvd2ZkZWYiLCJob3N0IjoiYS44ODY5NjgueHl6In0=",
-      "normalized": true,
-      "source_channel": "FreeV2rays",
-      "source_label": "V2Ray آزاد",
-      "tags": [
-        "vmess",
-        "vless"
-      ],
-      "hash": "181d848869b0693a",
-      "health": {
-        "status": "dns_fail",
-        "latency_ms": null,
-        "error": "DNS ناموفق"
-      },
-      "server_score": 33.8,
-      "score": 33.8,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 0,
-        "protocol": 75,
-        "source": 60,
-        "fingerprint": 95,
-        "uniqueness": 100,
-        "freshness": 70
-      },
-      "status": "offline",
-      "rank": 63
     },
     {
       "protocol": "vmess",
@@ -2464,6 +2377,86 @@
         "vless"
       ],
       "hash": "89a30723a0a24a82",
+      "health": {
+        "status": "dns_fail",
+        "latency_ms": null,
+        "error": "DNS ناموفق"
+      },
+      "server_score": 33.8,
+      "score": 33.8,
+      "max_server_score": 60,
+      "score_breakdown": {
+        "health": 0,
+        "protocol": 75,
+        "source": 60,
+        "fingerprint": 95,
+        "uniqueness": 100,
+        "freshness": 70
+      },
+      "status": "offline",
+      "rank": 62
+    },
+    {
+      "protocol": "vmess",
+      "host": "u8.huvicloud.com",
+      "port": 443,
+      "uuid": "6796611b-260e-4d63-9016-20c27b12e420",
+      "alter_id": 0,
+      "security": "",
+      "network": "ws",
+      "tls": true,
+      "sni": "u8.huvicloud.com",
+      "path": "/6796611b-260e-4d63-9016-20c27b12e420",
+      "name": "🇺🇸美国11 | ⬇️ 2.8MB/s",
+      "original_uri": "vmess://eyJ2IjoiMiIsInBzIjoi8J+HuvCfh7jnvo7lm70xMSB8IOKsh++4jyAyLjhNQi9zIiwiYWRkIjoidTguaHV2aWNsb3VkLmNvbSIsInBvcnQiOjQ0MywiaWQiOiI2Nzk2NjExYi0yNjBlLTRkNjMtOTAxNi0yMGMyN2IxMmU0MjAiLCJ0eXBlIjoiIiwiYWlkIjowLCJuZXQiOiJ3cyIsInRscyI6InRscyIsInNuaSI6InU4Lmh1dmljbG91ZC5jb20iLCJwYXRoIjoiLzY3OTY2MTFiLTI2MGUtNGQ2My05MDE2LTIwYzI3YjEyZTQyMCIsImhvc3QiOiJ1OC5odXZpY2xvdWQuY29tIn0=",
+      "normalized": true,
+      "source_channel": "FreeV2rays",
+      "source_label": "V2Ray آزاد",
+      "tags": [
+        "vmess",
+        "vless"
+      ],
+      "hash": "9b69c26091d7a3aa",
+      "health": {
+        "status": "dns_fail",
+        "latency_ms": null,
+        "error": "DNS ناموفق"
+      },
+      "server_score": 33.8,
+      "score": 33.8,
+      "max_server_score": 60,
+      "score_breakdown": {
+        "health": 0,
+        "protocol": 75,
+        "source": 60,
+        "fingerprint": 95,
+        "uniqueness": 100,
+        "freshness": 70
+      },
+      "status": "offline",
+      "rank": 63
+    },
+    {
+      "protocol": "vmess",
+      "host": "gs03-1.guoshi1520.com",
+      "port": 443,
+      "uuid": "82ff6d30-2920-4ebd-b95c-b016ede1a841",
+      "alter_id": 0,
+      "security": "",
+      "network": "ws",
+      "tls": true,
+      "sni": "gs03-1.guoshi1520.com",
+      "path": "/82ff6d30",
+      "name": "🇺🇸美国26 | ⬇️ 3.2MB/s",
+      "original_uri": "vmess://eyJ2IjoiMiIsInBzIjoi8J+HuvCfh7jnvo7lm70yNiB8IOKsh++4jyAzLjJNQi9zIiwiYWRkIjoiZ3MwMy0xLmd1b3NoaTE1MjAuY29tIiwicG9ydCI6NDQzLCJpZCI6IjgyZmY2ZDMwLTI5MjAtNGViZC1iOTVjLWIwMTZlZGUxYTg0MSIsInR5cGUiOiIiLCJhaWQiOjAsIm5ldCI6IndzIiwidGxzIjoidGxzIiwic25pIjoiZ3MwMy0xLmd1b3NoaTE1MjAuY29tIiwicGF0aCI6Ii84MmZmNmQzMCIsImhvc3QiOiJnczAzLTEuZ3Vvc2hpMTUyMC5jb20ifQ==",
+      "normalized": true,
+      "source_channel": "FreeV2rays",
+      "source_label": "V2Ray آزاد",
+      "tags": [
+        "vmess",
+        "vless"
+      ],
+      "hash": "8a155bb7d167826a",
       "health": {
         "status": "dns_fail",
         "latency_ms": null,
@@ -2525,17 +2518,17 @@
     },
     {
       "protocol": "vmess",
-      "host": "xcf029.facai2024.com",
+      "host": "xc011-2.meiziba5566.com",
       "port": 443,
-      "uuid": "9ce4526a-c500-4c66-99b0-048e4b6b5663",
+      "uuid": "42576a04-5a4d-4c7e-fcb4-a8582ab46031",
       "alter_id": 0,
       "security": "",
       "network": "ws",
       "tls": true,
-      "sni": "xcf029.facai2024.com",
-      "path": "/9ce4526a",
-      "name": "🇺🇸美国12 | ⬇️ 3.4MB/s",
-      "original_uri": "vmess://eyJ2IjoiMiIsInBzIjoi8J+HuvCfh7jnvo7lm70xMiB8IOKsh++4jyAzLjRNQi9zIiwiYWRkIjoieGNmMDI5LmZhY2FpMjAyNC5jb20iLCJwb3J0Ijo0NDMsImlkIjoiOWNlNDUyNmEtYzUwMC00YzY2LTk5YjAtMDQ4ZTRiNmI1NjYzIiwidHlwZSI6IiIsImFpZCI6MCwibmV0Ijoid3MiLCJ0bHMiOiJ0bHMiLCJzbmkiOiJ4Y2YwMjkuZmFjYWkyMDI0LmNvbSIsInBhdGgiOiIvOWNlNDUyNmEiLCJob3N0IjoieGNmMDI5LmZhY2FpMjAyNC5jb20ifQ==",
+      "sni": "xc011-2.meiziba5566.com",
+      "path": "/xc1234",
+      "name": "🇺🇸美国17 | ⬇️ 4.4MB/s",
+      "original_uri": "vmess://eyJ2IjoiMiIsInBzIjoi8J+HuvCfh7jnvo7lm70xNyB8IOKsh++4jyA0LjRNQi9zIiwiYWRkIjoieGMwMTEtMi5tZWl6aWJhNTU2Ni5jb20iLCJwb3J0Ijo0NDMsImlkIjoiNDI1NzZhMDQtNWE0ZC00YzdlLWZjYjQtYTg1ODJhYjQ2MDMxIiwidHlwZSI6IiIsImFpZCI6MCwibmV0Ijoid3MiLCJ0bHMiOiJ0bHMiLCJzbmkiOiJ4YzAxMS0yLm1laXppYmE1NTY2LmNvbSIsInBhdGgiOiIveGMxMjM0IiwiaG9zdCI6InhjMDExLTIubWVpemliYTU1NjYuY29tIn0=",
       "normalized": true,
       "source_channel": "FreeV2rays",
       "source_label": "V2Ray آزاد",
@@ -2543,11 +2536,11 @@
         "vmess",
         "vless"
       ],
-      "hash": "32adea1f8ac2bbc0",
+      "hash": "43eac0ee37e8ab99",
       "health": {
-        "status": "timeout",
+        "status": "dns_fail",
         "latency_ms": null,
-        "error": "timeout"
+        "error": "DNS ناموفق"
       },
       "server_score": 33.8,
       "score": 33.8,
@@ -2562,6 +2555,46 @@
       },
       "status": "offline",
       "rank": 66
+    },
+    {
+      "protocol": "vmess",
+      "host": "a.886968.xyz",
+      "port": 21369,
+      "uuid": "151187b1-c8f3-4c32-ac72-3679e264a7a3",
+      "alter_id": 0,
+      "security": "",
+      "network": "ws",
+      "tls": true,
+      "sni": "a.886968.xyz",
+      "path": "/wfdef",
+      "name": "🇸🇬新加坡2 | ⬇️ 1.7MB/s",
+      "original_uri": "vmess://eyJ2IjoiMiIsInBzIjoi8J+HuPCfh6zmlrDliqDlnaEyIHwg4qyH77iPIDEuN01CL3MiLCJhZGQiOiJhLjg4Njk2OC54eXoiLCJwb3J0IjoyMTM2OSwiaWQiOiIxNTExODdiMS1jOGYzLTRjMzItYWM3Mi0zNjc5ZTI2NGE3YTMiLCJ0eXBlIjoiIiwiYWlkIjowLCJuZXQiOiJ3cyIsInRscyI6InRscyIsInNuaSI6ImEuODg2OTY4Lnh5eiIsInBhdGgiOiIvd2ZkZWYiLCJob3N0IjoiYS44ODY5NjgueHl6In0=",
+      "normalized": true,
+      "source_channel": "FreeV2rays",
+      "source_label": "V2Ray آزاد",
+      "tags": [
+        "vmess",
+        "vless"
+      ],
+      "hash": "181d848869b0693a",
+      "health": {
+        "status": "dns_fail",
+        "latency_ms": null,
+        "error": "DNS ناموفق"
+      },
+      "server_score": 33.8,
+      "score": 33.8,
+      "max_server_score": 60,
+      "score_breakdown": {
+        "health": 0,
+        "protocol": 75,
+        "source": 60,
+        "fingerprint": 95,
+        "uniqueness": 100,
+        "freshness": 70
+      },
+      "status": "offline",
+      "rank": 67
     },
     {
       "protocol": "vmess",
@@ -2601,7 +2634,7 @@
         "freshness": 70
       },
       "status": "offline",
-      "rank": 67
+      "rank": 68
     },
     {
       "protocol": "vmess",
@@ -2641,59 +2674,19 @@
         "freshness": 70
       },
       "status": "offline",
-      "rank": 68
-    },
-    {
-      "protocol": "vless",
-      "host": "dey.lnmarketplace.net",
-      "port": 443,
-      "uuid": "3536e1fa-0850-44d1-b123-925ce12476cf",
-      "network": "tcp",
-      "security": "none",
-      "sni": null,
-      "path": null,
-      "name": "VLESS",
-      "original_uri": "vless://3536e1fa-0850-44d1-b123-925ce12476cf@dey.lnmarketplace.net:443?mode=stream-one&amp;path=%2Fkavir&amp;security=tls&amp;alpn=h2&amp;encryption=none&amp;insecure=0&amp;host=dey.lnmarketplace.net&amp;fp=firefox&amp;type=xhttp&amp;allowInsecure=0&amp;sni=dey.lnmarketplace.net#",
-      "normalized": true,
-      "source_channel": "V2rayCollector",
-      "source_label": "V2Ray Collector",
-      "tags": [
-        "vmess",
-        "vless",
-        "trojan"
-      ],
-      "hash": "5957b1a7609392c9",
-      "health": {
-        "status": "online",
-        "latency_ms": 3176.2,
-        "ip": "206.71.158.124",
-        "error": null
-      },
-      "server_score": 32.4,
-      "score": 32.4,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 0,
-        "protocol": 95,
-        "source": 85,
-        "fingerprint": 50,
-        "uniqueness": 100,
-        "freshness": 70
-      },
-      "status": "fair",
       "rank": 69
     },
     {
       "protocol": "vless",
-      "host": "3.124.132.221",
-      "port": 22224,
-      "uuid": "e4514801-0d5a-42ba-869f-39bd605aef9e",
+      "host": "b4y7t2p9j6f1m8x3q5kd.th3team.ir",
+      "port": 20071,
+      "uuid": "f4146152-f622-4466-a233-cc01ca908bcb",
       "network": "tcp",
       "security": "none",
       "sni": null,
       "path": null,
       "name": "VLESS",
-      "original_uri": "vless://e4514801-0d5a-42ba-869f-39bd605aef9e@3.124.132.221:22224?security=none&amp;encryption=none&amp;headerType=none&amp;type=tcp#",
+      "original_uri": "vless://f4146152-f622-4466-a233-cc01ca908bcb@b4y7t2p9j6f1m8x3q5kd.th3team.ir:20071?security=none&amp;encryption=mlkem768x25519plus.native.0rtt.igWc0m9QOE9vfCe3gmuUJUPeFp-tjXiwQlBm8srQX04&amp;host=play.google.com&amp;headerType=http&amp;type=tcp#",
       "normalized": true,
       "source_channel": "V2rayCollector",
       "source_label": "V2Ray Collector",
@@ -2702,11 +2695,11 @@
         "vless",
         "trojan"
       ],
-      "hash": "1a12436c9c60ce85",
+      "hash": "75a2a6b842b1bd58",
       "health": {
-        "status": "timeout",
+        "status": "dns_fail",
         "latency_ms": null,
-        "error": "timeout"
+        "error": "DNS ناموفق"
       },
       "server_score": 32.4,
       "score": 32.4,
@@ -2724,15 +2717,15 @@
     },
     {
       "protocol": "vless",
-      "host": "46.225.220.111",
-      "port": 1234,
-      "uuid": "9b2c31f4-dc67-4e5a-88d9-79d0a04cc2bd",
+      "host": "3.124.132.221",
+      "port": 22222,
+      "uuid": "e4514801-0d5a-42ba-869f-39bd605aef9e",
       "network": "tcp",
       "security": "none",
       "sni": null,
       "path": null,
       "name": "VLESS",
-      "original_uri": "vless://9b2c31f4-dc67-4e5a-88d9-79d0a04cc2bd@46.225.220.111:1234?security=none&amp;encryption=none&amp;host=play.google.com&amp;headerType=http&amp;type=tcp#",
+      "original_uri": "vless://e4514801-0d5a-42ba-869f-39bd605aef9e@3.124.132.221:22222?security=none&amp;encryption=none&amp;headerType=none&amp;type=tcp#",
       "normalized": true,
       "source_channel": "V2rayCollector",
       "source_label": "V2Ray Collector",
@@ -2741,11 +2734,11 @@
         "vless",
         "trojan"
       ],
-      "hash": "3a5050df85664321",
+      "hash": "71f2d6693c0b9c0e",
       "health": {
-        "status": "offline",
+        "status": "timeout",
         "latency_ms": null,
-        "error": "[Errno 111] Connection refused"
+        "error": "timeout"
       },
       "server_score": 32.4,
       "score": 32.4,
@@ -2763,15 +2756,15 @@
     },
     {
       "protocol": "vless",
-      "host": "static.lotussec.com",
-      "port": 443,
-      "uuid": "14b48651-3738-4926-bc09-4c04e87ff80b",
+      "host": "149.130.172.133",
+      "port": 62145,
+      "uuid": "8fb65472-5957-4f64-ba2d-b5812b2f155a",
       "network": "tcp",
       "security": "none",
       "sni": null,
       "path": null,
       "name": "VLESS",
-      "original_uri": "vless://14b48651-3738-4926-bc09-4c04e87ff80b@static.lotussec.com:443?mode=stream-one&amp;path=%2FJoin-JavidnamanIran-on-Telegram&amp;security=tls&amp;alpn=h2&amp;encryption=none&amp;insecure=0&amp;host=static.lotussec.com&amp;fp=firefox&amp;type=xhttp&amp;allowInsecure=0&amp;sni=static.lotussec.com#",
+      "original_uri": "vless://8fb65472-5957-4f64-ba2d-b5812b2f155a@149.130.172.133:62145?&amp;type=tcp&amp;headerType=none&amp;path=%2F#",
       "normalized": true,
       "source_channel": "V2rayCollector",
       "source_label": "V2Ray Collector",
@@ -2780,11 +2773,11 @@
         "vless",
         "trojan"
       ],
-      "hash": "340e1141c1cbf3fb",
+      "hash": "a5f25d4bc4635d40",
       "health": {
-        "status": "offline",
+        "status": "timeout",
         "latency_ms": null,
-        "error": "[Errno 111] Connection refused"
+        "error": "timeout"
       },
       "server_score": 32.4,
       "score": 32.4,
@@ -2799,45 +2792,6 @@
       },
       "status": "offline",
       "rank": 72
-    },
-    {
-      "protocol": "vless",
-      "host": "82.40.62.103",
-      "port": 1234,
-      "uuid": "f3a21b24-5963-495a-a82f-1f62cb459335",
-      "network": "tcp",
-      "security": "none",
-      "sni": null,
-      "path": null,
-      "name": "VLESS",
-      "original_uri": "vless://f3a21b24-5963-495a-a82f-1f62cb459335@82.40.62.103:1234?security=none&amp;encryption=none&amp;host=play.google.com&amp;headerType=http&amp;type=tcp#",
-      "normalized": true,
-      "source_channel": "V2rayCollector",
-      "source_label": "V2Ray Collector",
-      "tags": [
-        "vmess",
-        "vless",
-        "trojan"
-      ],
-      "hash": "e7e35fb05ca8ed8d",
-      "health": {
-        "status": "offline",
-        "latency_ms": null,
-        "error": "[Errno 111] Connection refused"
-      },
-      "server_score": 32.4,
-      "score": 32.4,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 0,
-        "protocol": 95,
-        "source": 85,
-        "fingerprint": 50,
-        "uniqueness": 100,
-        "freshness": 70
-      },
-      "status": "offline",
-      "rank": 73
     },
     {
       "protocol": "vless",
@@ -2876,151 +2830,46 @@
         "freshness": 70
       },
       "status": "offline",
+      "rank": 73
+    },
+    {
+      "protocol": "vless",
+      "host": "3.124.132.221",
+      "port": 22223,
+      "uuid": "e4514801-0d5a-42ba-869f-39bd605aef9e",
+      "network": "tcp",
+      "security": "none",
+      "sni": null,
+      "path": null,
+      "name": "VLESS",
+      "original_uri": "vless://e4514801-0d5a-42ba-869f-39bd605aef9e@3.124.132.221:22223?security=none&amp;encryption=none&amp;headerType=none&amp;type=tcp#",
+      "normalized": true,
+      "source_channel": "V2rayCollector",
+      "source_label": "V2Ray Collector",
+      "tags": [
+        "vmess",
+        "vless",
+        "trojan"
+      ],
+      "hash": "9744a0672778245e",
+      "health": {
+        "status": "timeout",
+        "latency_ms": null,
+        "error": "timeout"
+      },
+      "server_score": 32.4,
+      "score": 32.4,
+      "max_server_score": 60,
+      "score_breakdown": {
+        "health": 0,
+        "protocol": 95,
+        "source": 85,
+        "fingerprint": 50,
+        "uniqueness": 100,
+        "freshness": 70
+      },
+      "status": "offline",
       "rank": 74
-    },
-    {
-      "protocol": "shadowsocks",
-      "host": "hg1.levikogjgfdd.ir",
-      "port": 40028,
-      "method": "chacha20-ietf-poly1305",
-      "password": "***",
-      "name": "Shadowsocks",
-      "original_uri": "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNToyODc4OTk4OC04ODdlLTRlNDEtODNjZC0yN2JiZmI3OTk5YWQ@hg1.levikogjgfdd.ir:40028#",
-      "normalized": true,
-      "source_channel": "V2rayCollector",
-      "source_label": "V2Ray Collector",
-      "tags": [
-        "vmess",
-        "vless",
-        "trojan"
-      ],
-      "hash": "5cb1fb140425cb6b",
-      "health": {
-        "status": "dns_fail",
-        "latency_ms": null,
-        "error": "DNS ناموفق"
-      },
-      "server_score": 31.1,
-      "score": 31.1,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 0,
-        "protocol": 80,
-        "source": 85,
-        "fingerprint": 50,
-        "uniqueness": 100,
-        "freshness": 70
-      },
-      "status": "offline",
-      "rank": 75
-    },
-    {
-      "protocol": "shadowsocks",
-      "host": "92.5.129.216",
-      "port": 59924,
-      "method": "chacha20-ietf-poly1305",
-      "password": "***",
-      "name": "Shadowsocks",
-      "original_uri": "ss://Y2hhY2hhMjAtaWV0Zi1wb2x5MTMwNTpPV1ZoWVdNNE9URmxOR0ZoTlRGaU5qWTVORE5sT0RJM1pERTVOamMwWm1FPQ@92.5.129.216:59924#",
-      "normalized": true,
-      "source_channel": "V2rayCollector",
-      "source_label": "V2Ray Collector",
-      "tags": [
-        "vmess",
-        "vless",
-        "trojan"
-      ],
-      "hash": "33f62333b6f77e79",
-      "health": {
-        "status": "timeout",
-        "latency_ms": null,
-        "error": "timeout"
-      },
-      "server_score": 31.1,
-      "score": 31.1,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 0,
-        "protocol": 80,
-        "source": 85,
-        "fingerprint": 50,
-        "uniqueness": 100,
-        "freshness": 70
-      },
-      "status": "offline",
-      "rank": 76
-    },
-    {
-      "protocol": "shadowsocks",
-      "host": "38.244.132.14",
-      "port": 5499,
-      "method": "aes-256-gcm",
-      "password": "***",
-      "name": "Shadowsocks",
-      "original_uri": "ss://YWVzLTI1Ni1nY206bEdxczk1UWtGSG8yTlY@38.244.132.14:5499#",
-      "normalized": true,
-      "source_channel": "V2rayCollector",
-      "source_label": "V2Ray Collector",
-      "tags": [
-        "vmess",
-        "vless",
-        "trojan"
-      ],
-      "hash": "8e6a2879073e0809",
-      "health": {
-        "status": "timeout",
-        "latency_ms": null,
-        "error": "timeout"
-      },
-      "server_score": 31.1,
-      "score": 31.1,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 0,
-        "protocol": 80,
-        "source": 85,
-        "fingerprint": 50,
-        "uniqueness": 100,
-        "freshness": 70
-      },
-      "status": "offline",
-      "rank": 77
-    },
-    {
-      "protocol": "shadowsocks",
-      "host": "192.220.32.7",
-      "port": 54804,
-      "method": "aes-128-gcm",
-      "password": "***",
-      "name": "Shadowsocks",
-      "original_uri": "ss://YWVzLTEyOC1nY206d3JEQ3Y4TzB3b28zdzVoeE14eFl3cW5EZ0YxRFRsSkVFUUREaWtjOHc1UENzMFFBd3BnVndxOHp3N2Nw@192.220.32.7:54804#",
-      "normalized": true,
-      "source_channel": "V2rayCollector",
-      "source_label": "V2Ray Collector",
-      "tags": [
-        "vmess",
-        "vless",
-        "trojan"
-      ],
-      "hash": "9ccaff347379e978",
-      "health": {
-        "status": "timeout",
-        "latency_ms": null,
-        "error": "timeout"
-      },
-      "server_score": 31.1,
-      "score": 31.1,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 0,
-        "protocol": 80,
-        "source": 85,
-        "fingerprint": 50,
-        "uniqueness": 100,
-        "freshness": 70
-      },
-      "status": "offline",
-      "rank": 78
     },
     {
       "protocol": "vmess",
@@ -3061,77 +2910,7 @@
         "freshness": 70
       },
       "status": "offline",
-      "rank": 79
-    },
-    {
-      "protocol": "trojan",
-      "host": "219.79.214.159",
-      "port": 443,
-      "password": "***",
-      "sni": null,
-      "name": "Hong Kong Netvigator",
-      "original_uri": "trojan://BxceQaOe@219.79.214.159:443?security=tls&amp;headerType=none&amp;type=tcp&amp;sni=t.me%252Fripaojiedian#Hong%20Kong%20Netvigator",
-      "normalized": true,
-      "source_channel": "free4allVPN",
-      "source_label": "VPN برای همه",
-      "tags": [
-        "vmess",
-        "trojan"
-      ],
-      "hash": "cc04238faed65107",
-      "health": {
-        "status": "timeout",
-        "latency_ms": null,
-        "error": "timeout"
-      },
-      "server_score": 29.7,
-      "score": 29.7,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 0,
-        "protocol": 90,
-        "source": 60,
-        "fingerprint": 50,
-        "uniqueness": 100,
-        "freshness": 70
-      },
-      "status": "offline",
-      "rank": 80
-    },
-    {
-      "protocol": "trojan",
-      "host": "160.16.107.37",
-      "port": 3169,
-      "password": "***",
-      "sni": null,
-      "name": "Japan NTT Pc",
-      "original_uri": "trojan://44e660b0ee21cf3ac66aee2c08af85d2@160.16.107.37:3169?security=tls&amp;headerType=none&amp;type=tcp&amp;sni=www.nintendogames.net#Japan%20NTT%20Pc",
-      "normalized": true,
-      "source_channel": "free4allVPN",
-      "source_label": "VPN برای همه",
-      "tags": [
-        "vmess",
-        "trojan"
-      ],
-      "hash": "da93e57fd3569602",
-      "health": {
-        "status": "timeout",
-        "latency_ms": null,
-        "error": "timeout"
-      },
-      "server_score": 29.7,
-      "score": 29.7,
-      "max_server_score": 60,
-      "score_breakdown": {
-        "health": 0,
-        "protocol": 90,
-        "source": 60,
-        "fingerprint": 50,
-        "uniqueness": 100,
-        "freshness": 70
-      },
-      "status": "offline",
-      "rank": 81
+      "rank": 75
     },
     {
       "protocol": "trojan",
@@ -3166,7 +2945,7 @@
         "freshness": 70
       },
       "status": "offline",
-      "rank": 82
+      "rank": 76
     },
     {
       "protocol": "trojan",
@@ -3201,7 +2980,77 @@
         "freshness": 70
       },
       "status": "offline",
-      "rank": 83
+      "rank": 77
+    },
+    {
+      "protocol": "trojan",
+      "host": "160.16.107.37",
+      "port": 3169,
+      "password": "***",
+      "sni": null,
+      "name": "Japan NTT Pc",
+      "original_uri": "trojan://44e660b0ee21cf3ac66aee2c08af85d2@160.16.107.37:3169?security=tls&amp;headerType=none&amp;type=tcp&amp;sni=www.nintendogames.net#Japan%20NTT%20Pc",
+      "normalized": true,
+      "source_channel": "free4allVPN",
+      "source_label": "VPN برای همه",
+      "tags": [
+        "vmess",
+        "trojan"
+      ],
+      "hash": "da93e57fd3569602",
+      "health": {
+        "status": "timeout",
+        "latency_ms": null,
+        "error": "timeout"
+      },
+      "server_score": 29.7,
+      "score": 29.7,
+      "max_server_score": 60,
+      "score_breakdown": {
+        "health": 0,
+        "protocol": 90,
+        "source": 60,
+        "fingerprint": 50,
+        "uniqueness": 100,
+        "freshness": 70
+      },
+      "status": "offline",
+      "rank": 78
+    },
+    {
+      "protocol": "trojan",
+      "host": "219.79.214.159",
+      "port": 443,
+      "password": "***",
+      "sni": null,
+      "name": "Hong Kong Netvigator",
+      "original_uri": "trojan://BxceQaOe@219.79.214.159:443?security=tls&amp;headerType=none&amp;type=tcp&amp;sni=t.me%252Fripaojiedian#Hong%20Kong%20Netvigator",
+      "normalized": true,
+      "source_channel": "free4allVPN",
+      "source_label": "VPN برای همه",
+      "tags": [
+        "vmess",
+        "trojan"
+      ],
+      "hash": "cc04238faed65107",
+      "health": {
+        "status": "timeout",
+        "latency_ms": null,
+        "error": "timeout"
+      },
+      "server_score": 29.7,
+      "score": 29.7,
+      "max_server_score": 60,
+      "score_breakdown": {
+        "health": 0,
+        "protocol": 90,
+        "source": 60,
+        "fingerprint": 50,
+        "uniqueness": 100,
+        "freshness": 70
+      },
+      "status": "offline",
+      "rank": 79
     },
     {
       "protocol": "shadowsocks",
@@ -3236,7 +3085,7 @@
         "freshness": 70
       },
       "status": "offline",
-      "rank": 84
+      "rank": 80
     },
     {
       "protocol": "shadowsocks",
@@ -3271,7 +3120,7 @@
         "freshness": 70
       },
       "status": "offline",
-      "rank": 85
+      "rank": 81
     },
     {
       "protocol": "shadowsocks",
@@ -3306,7 +3155,7 @@
         "freshness": 70
       },
       "status": "offline",
-      "rank": 86
+      "rank": 82
     },
     {
       "protocol": "shadowsocks",
@@ -3340,7 +3189,7 @@
         "freshness": 70
       },
       "status": "offline",
-      "rank": 87
+      "rank": 83
     },
     {
       "protocol": "shadowsocks",
@@ -3374,7 +3223,7 @@
         "freshness": 70
       },
       "status": "offline",
-      "rank": 88
+      "rank": 84
     },
     {
       "protocol": "shadowsocks",
@@ -3392,9 +3241,9 @@
       ],
       "hash": "b5e9da28cfa5abab",
       "health": {
-        "status": "timeout",
+        "status": "offline",
         "latency_ms": null,
-        "error": "timeout"
+        "error": "[Errno 111] Connection refused"
       },
       "server_score": 28.8,
       "score": 28.8,
@@ -3408,8 +3257,8 @@
         "freshness": 70
       },
       "status": "offline",
-      "rank": 89
+      "rank": 85
     }
   ],
-  "pushed_at": "2026-08-14T12:31:39Z"
+  "pushed_at": "2026-08-14T13:01:47Z"
 }
